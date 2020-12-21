@@ -79,11 +79,7 @@ export default class App extends React.Component {
           </div>
           
         </Header>
-        <Content style={
-          {
-            height: "475px"
-          }
-        }>
+        <Content>
           <Switch>
             { this.state.tags.map((item, index) => {
               return <Route key={index} path={"/" + item.to}

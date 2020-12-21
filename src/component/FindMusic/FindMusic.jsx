@@ -23,10 +23,20 @@ export default class FindMusic extends React.Component{
         {value: "歌手", to: "/discover/artist", component: Artist},
         {value: "新碟上架", to: "/discover/album", component: Album}
       ],
-      active: "推荐"
+      active: "/discover"
     };
   }
   componentDidMount() {
+    this.hashChange();
+    window.onhashchange = this.hashChange;
+  }
+
+  hashChange = () => {
+    let hash = window.location.hash.substr(1);
+    hash= hash.indexOf("?") != -1 ? hash.substr(0, hash.indexOf("?")) : hash;
+    this.setState({
+      active: hash
+    })
   }
 
   changeActive = (val) => {
@@ -42,9 +52,9 @@ export default class FindMusic extends React.Component{
             return <li key={index}>
               <Link 
               to={item.to} 
-              onClick={this.changeActive.bind(this, item.value)} 
+              onClick={this.changeActive.bind(this, item.to)} 
               className={
-                [this.state.active == item.value ? "cur" : null] + " " +
+                [this.state.active == item.to ? "cur" : null] + " " +
                 item.className
                 }>
                 {item.value}

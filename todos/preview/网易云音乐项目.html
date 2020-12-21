@@ -85,12 +85,19 @@
 <p>使用webpack\@3.8.1构建项目</p>
 <h1 id="todos">Todos</h1>
 <ul>
-<li>首页<ul>
+<li><p>首页</p>
+<ul>
 <li><del>首页页面搭建</del></li>
 <li><del>首页路由管理与相应组件的展示</del></li>
 <li><del>首页发现音乐路由导航部分</del></li>
-<li><del>推荐部分banner图</del></li>
+<li><del>推荐部分banner图</del><ul>
+<li><del>展示 antd-design Carousel组件</del></li>
+<li><del>点击小图标切换</del></li>
+<li><del>点击左右箭头切换</del></li>
+</ul>
+</li>
 <li>热门推荐<ul>
+<li><del>展示</del></li>
 <li>歌单详情</li>
 <li>更多</li>
 </ul>
@@ -117,9 +124,31 @@
 <li>详情</li>
 </ul>
 </li>
+<li>榜单<ul>
+<li>展示</li>
+<li>榜单详情</li>
+<li>查看榜单全部歌曲(查看更多)</li>
+<li>更多(榜单)</li>
 </ul>
 </li>
 </ul>
+</li>
+<li><p>css优化</p>
+</li>
+<li>js优化</li>
+</ul>
+<h1 id="-">疑难</h1>
+<ol>
+<li>切换时背景图片与当前图片不同步问题 antd-design<pre><code>// 第一个参数是当前图片的索引,第二个参数是下一张图片的索引,使用第二个参数可以实现同步切换
+beforeChange: function(currentSlide, nextSlide) {
+ console.log(&quot;before change&quot;, currentSlide, nextSlide);
+}
+// 参数是当前的索引,在切换过之后才会触发
+afterChange: function(currentSlide) {
+ console.log(&quot;after change&quot;, currentSlide);
+}
+</code></pre></li>
+</ol>
 
           	</article>
         </div>
