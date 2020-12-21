@@ -1,0 +1,103 @@
+/* 公共的样式 ui框架的样式 */
+body{
+  font-size: 14px;
+}
+.header{
+  height: 70px;
+  line-height: 70px;
+  background-color: #242424;
+  padding: 0;
+  position: relative;
+}
+.container{
+  width: 1100px;
+  margin: 0 auto;
+}
+.ant-menu.ant-menu-dark{
+  background-color: transparent;
+}
+.ant-menu.ant-menu-dark .ant-menu-item-selected{
+  color: #fff;
+  background-color: #000;
+}
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover{
+  color: #fff;
+  background-color: #000;
+}
+.logo{
+  margin: 0;
+  padding: 0;
+  height: 69px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url("../images/topbar.png") no-repeat 0 -3px;
+}
+.logo a{
+  display: block;
+  width: 176px;
+  height: 100%;
+}
+.ant-menu-dark.ant-menu-horizontal{
+  
+  display: inline-block;
+}
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item{
+  padding: 0 18px;
+  font-size: 14px;
+}
+input{
+  outline: none;
+  border: 0;
+}
+a{
+  text-decoration: none;
+  color: #333;
+}
+ul,p,h3{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+input:focus, button:focus{
+  outline: none;
+}
+.cur{
+  background-color: #9B0909;
+  border-radius: 20px;
+}
+.slick-list,.slick-track,.slick-track div,.slick-track div img{
+  height: 100%;
+}
+.ant-carousel .slick-dots{
+  position: absolute;
+  width: 200px;
+  transform: translateX(-50%);
+  left: 50%;
+  margin: 0;
+}
+.ant-carousel .slick-dots li{
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 10px;
+}
+.ant-carousel .slick-dots li button{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+}
+.ant-carousel .slick-dots li.slick-active button{
+  background-color: #AE0C0E;
+}
+.ant-carousel .slick-dots li button:hover{
+  background-color: #AE0C0E;
+}
+.ant-carousel .slick-dots li.slick-active{
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+}
