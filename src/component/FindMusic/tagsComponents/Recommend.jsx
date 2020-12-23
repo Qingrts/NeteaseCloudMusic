@@ -181,7 +181,6 @@ export default class Recommmend extends React.Component {
         this.setState({
           topList: toplist,
         });
-        console.log(this.state.topList);
       }).catch(error => {
         console.log(error);
       })
@@ -283,7 +282,7 @@ export default class Recommmend extends React.Component {
                 this.state.tags.map((item, index) => {
                   return <li key={index}>
                     <Link to={
-                      "/discover/playlist?cat=" + item.name
+                      {pathname: "/discover/playlist",state: {cat: item.name}}
                     }>
                       {
                       item.name
@@ -301,71 +300,30 @@ export default class Recommmend extends React.Component {
               {
               this.state.recommendList.map((item, index) => {
                 return <li key={index}>
-                  <div style={
-                    {
-                      paddingTop: "10px",
-                      marginTop: "10px",
-                      position: "relative"
-                    }
-                  }>
-                    <img src={
-                        item.picUrl
-                      }
-                      alt=""
-                      style={
-                        {
-                          width: 140,
-                          height: 140
-                        }
-                      }/>
-                    <a onClick={
-                        this.getPlaylist.bind(this, item.id)
-                      }
-                      className={
-                        styles.cloak
-                    }></a>
-                    <div className={
-                      styles.bottom
+                    <Link to={
+                      {pathname: "/discover/playlist", query: item.id}
                     }>
-                      <span className={
-                        styles.listenIcon
-                      }></span>
-                      {
-                      item.type == 1 ? <span>{
-                        this.numberFormat(item.program.adjustedPlayCount)
-                      }</span> : <span>{
-                        this.numberFormat(item.playCount)
-                      }</span>
-                    }
-                      <a href=""
-                        className={
-                          styles.playIcon
-                      }></a>
-                    </div>
-                  </div>
-                  <div style={
-                    {
-                      margin: "5px 0 30px",
-                      lineHeight: "1.2"
-                    }
-                  }>
-                    {
-                    item.type == 1 ? <i className={
-                      styles.djprogram
-                    }></i> : null
-                  }
-                    <a href="#"
-                      className={
-                        styles.link
-                      }
-                      style={
-                        {color: "#000"}
-                    }>
-                      {
-                      item.name
-                    }</a>
-                  </div>
-                </li>
+                      <div style={{ paddingTop: "10px",marginTop: "10px", position: "relative"}}>
+                        <img src={item.picUrl} alt="" style={{width: 140,height: 140}}/>
+                        <span onClick={this.getPlaylist.bind(this, item.id)} className={styles.cloak}></span>
+                        <div className={styles.bottom}>
+                          <span className={styles.listenIcon}></span>
+                          {
+                          item.type == 1 
+                          ? 
+                          <span>{this.numberFormat(item.program.adjustedPlayCount)}</span> 
+                          : 
+                          <span>{this.numberFormat(item.playCount)}</span>
+                          }
+                          <span className={ styles.playIcon}></span>
+                        </div>
+                      </div>
+                      <div style={{margin: "5px 0 30px", lineHeight: "1.2"}}>
+                        {item.type == 1 ? <i className={styles.djprogram}></i> : null}
+                        <span className={styles.link} style={{color: "#000"}}>{item.name}</span>
+                      </div>
+                    </Link>
+                  </li>
             })
             } </ul>
           </div>
@@ -477,7 +435,7 @@ export default class Recommmend extends React.Component {
                     </dd>;
                   }) : null}
                   <dd className="musicItem">
-                    <a style={{float: "right"}} className={styles.musicName} href="#">查看全部&gt;</a>
+                    <a style={{float: "right", textAlign: "right"}} className={styles.musicName} href="#">查看全部&gt;</a>
                   </dd>
                 </dl>
               })}

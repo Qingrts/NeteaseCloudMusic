@@ -474,8 +474,14 @@
         color: #666;
       }
       .musicName{
+        vertical-align: top;
+        display: inline-block;
         font-size: 13px;
         color: #000;
+        width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         &:hover{
           text-decoration: underline;
         }

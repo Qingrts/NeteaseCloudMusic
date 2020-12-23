@@ -1,0 +1,472 @@
+.container{
+  width: 982px;
+  margin: 0 auto;
+  border: 1px solid #d3d3d3;
+  border-top: 0;
+  border-bottom: 0;
+  display: flex;
+  background-color: #fff;
+  .container_left{
+    width: 709px;
+    padding: 42px 30px 40px 40px;
+  }
+  .container_right{
+    flex: 1;
+    border-left: 1px solid #d3d3d3;
+  }
+}
+.playlistInfo{
+  display: flex;
+  margin-bottom: 40px;
+  .playlistCoverimg{
+    width: 208px;
+    height: 208px;
+    padding: 3px;
+    border: 0.5px solid #d3d3d3;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .playlistInfo_content{
+    flex: 1;
+    margin-left: 25px;
+    position: relative;
+    .playlistTitle{
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 500;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      i{
+        display: inline-block;
+        width: 54px;
+        height: 24px;
+        background: url(../../images/icon.png) no-repeat 0 -243px;
+        vertical-align: top;
+        position: relative;
+        margin-right: 10px;
+        span{
+          width: 8px;
+          height: 8px;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+    }
+    .nickname{
+      color: #0c73c2; 
+      font-size: 12px;
+      margin-left: 12px;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+    .iconGroup{
+      overflow: hidden;
+      margin-top: 20px;
+      .play{
+        width: 66px;
+        height: 31px;
+        float: left;
+        i{
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: url(../../images/button2.png) no-repeat 0 -387px;
+          z-index: 999;
+          line-height: 31px;
+          color: #fff;
+          font-size: 12px;
+          font-style: normal;
+          padding-left: 10px;
+          &:hover{
+            background-position: 0 -469px;
+            em{
+              background-position: -28px -1622px;
+            }
+          }
+          em{
+            display: inline-block;
+            width: 20px;
+            height: 18px;
+            background-color: #f00;
+            position: relative;
+            top: 4px;
+            background: url(../../images/button2.png) no-repeat 0 -1622px;
+          }
+        }
+      }
+      .addPlaylist{
+        float: left;
+        width: 31px;
+        height: 31px;
+        background: url(../../images/button2.png) no-repeat 0 -1588px;
+        &:hover{
+          background-position: -40px -1588px;
+        }
+      }
+      .collect, .transmit, .download, .comment{
+        float: left;
+        margin-left: 5px;
+        width: 65px;
+        height: 31px;
+        background: url(../../images/button2.png) no-repeat right -1020px;
+        padding-right: 2px;
+        color: #333;
+        &:hover{
+          background-position: right -1106px;
+          i{
+            background-position: 0 -1063px;
+          }
+        }
+        i{
+          display: inline-block;
+          width: 100%;
+          height: 31px;
+          background: url(../../images/button2.png) no-repeat 0 -977px;
+          font-size: 12px;
+          padding-right: 2px;
+          line-height: 31px;
+          text-indent: 2.4em;
+          font-style: normal;
+        }
+      }
+      .transmit{
+        width: 60px;
+        i{
+          background-position: 0 -1225px;
+        }
+        &:hover{
+          i{
+            background-position: 0 -1268px;
+          }
+        }
+      }
+      .download{
+        width: 60px;
+        i{
+          background-position: 0 -2761px;
+        }
+        &:hover{
+          i{
+            background-position: 0 -2805px;
+          }
+        }
+      }
+      .comment{
+        width: 60px;
+        i{
+          background-position: 0 -1465px;
+        }
+        &:hover{
+          i{
+            background-position: 0 -1508px;
+          }
+        }
+      }
+    }
+    .tags{
+      margin-top: 10px;
+      line-height: 22px;
+      margin-bottom: 15px;
+      span{
+        margin-right: 10px;
+        font-size: 13px;
+      }
+      a{
+        font-size: 12px;
+        padding: 2px 10px;
+        border: 1px solid #E7E7E7;
+        border-radius: 15px;
+        text-shadow: 0 1px #fdfdfd;
+        color: #777;
+        background-color: #F5F5F5;
+        margin-right: 10px;
+        &:hover{
+          background-color: #FCFCFC;
+        }
+      }
+    }
+    .description{
+      font-size: 12px;
+      line-height: 16px;
+      color: #777;
+      position: relative;
+    }
+    .toggle{
+      width: 35px;
+      height: 16px;
+      position: absolute;
+      bottom: -20px;
+      right: 10px;
+      color: #0c73c2;
+      font-size: 12px;
+      &:hover{
+        text-decoration: underline;
+      }
+      i{
+        width: 11px;
+        height: 8px;
+        float: right;
+        margin-top: 5px;
+        background: url(../../images/icon.png) no-repeat -65px -520px;
+      }
+    }
+  }
+}
+.playList{
+  
+}
+.title{
+  width: 100%;
+  height: 37px;
+  border-bottom: 2px solid #c20c0c;
+  line-height: 40px;
+  font-size: 12px;
+  display: flex;
+  color: #666;
+  h3{
+    font-size: 20px;
+    line-height: 35px;
+  }
+  span{
+    flex: 1;
+    margin-left: 25px;
+  }
+  .moreWayPlay{
+    a{
+      color: #0c73c2;
+      text-decoration: underline;
+      i{
+        float: left;
+        margin-top: 12px;
+        width: 16px;
+        height: 16px;
+        background: url(../../images/icon.png) no-repeat -34px -863px;
+      }
+    }
+    span{
+      strong{
+        color: #c20c0c;
+      }
+    }
+  }
+}
+.songlist{
+  table{
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-right: 0;
+    thead {
+      tr{
+        height: 38px;
+        line-height: 38px;
+        background-image: linear-gradient(#fdfdfd, #f0f0f0);
+        td{
+          border-right: 1px solid #d9d9d9;
+          border-bottom: 1px solid #d9d9d9;
+        }
+      }
+    }
+    tr{
+      height: 30px;
+      line-height: 30px;
+      display: flex;
+      font-size: 12px;
+      &:nth-child(2n-1){
+        background-color: #f7f7f7;
+      }
+      td{
+        padding-left: 8px;
+      }
+      td:nth-child(1){
+        width: 74px;
+        
+      }
+      td:nth-child(2){
+        flex: 1;
+        max-width: 238px;
+      }
+      td:nth-child(3){
+        width: 110px;
+      }
+      td:nth-child(4){
+        width: 89px;
+      }
+      td:nth-child(5){
+        width: 127px;
+        border-right: 1px solid #d9d9d9;
+      }
+    }
+    tbody tr{
+      td{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        &:first-child{
+          color: #999;
+          text-indent: 0.5em;
+        }
+        i{
+          float: right;
+          display: block;
+          margin-top: 6px;
+          margin-right: 11px;
+          width: 17px;
+          height: 17px;
+          background: url(../../images/table.png) no-repeat 0 -103px;
+          cursor: pointer;
+          &:hover{
+            background-position: 0 -128px;
+          }
+        }
+        a:hover{
+          color: #333;
+          text-decoration: underline;
+        }
+      }
+      .songlistIcon{
+        display: none;
+        span{
+          float: left;
+          margin-top: 8px;
+          cursor: pointer;
+          margin-right: 5px;
+        }
+        span:nth-child(1){
+          width: 13px;
+          height: 13px;
+          background: url(../../images/icon.png) no-repeat 0 -700px;
+          &:hover{
+            background-position: -22px -700px;
+          }
+        }
+        span:nth-child(2){
+          width: 18px;
+          height: 16px;
+          background: url(../../images/table.png) no-repeat 0 -174px;
+          &:hover{
+            background-position: -20px -174px;
+          }
+        }
+        span:nth-child(3){
+          width: 18px;
+          height: 16px;
+          background: url(../../images/table.png) no-repeat 0 -195px;
+          &:hover{
+            background-position: -20px -195px;
+          }
+        }
+        span:nth-child(4){
+          width: 18px;
+          height: 16px;
+          background: url(../../images/table.png) no-repeat -81px -174px;
+          &:hover{
+            background-position: -104px -174px;
+          }
+        }
+      }
+    }
+  }
+  .clientDownload{
+    margin-top: 30px;
+    width: 100%;
+    height: 66px;
+    text-align: center;
+    font-size: 13px;
+    position: relative;
+    a{
+      display: block;
+      width: 120px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 20px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      background-image: linear-gradient(90deg,#ff5a4c 0%,#ff1d12 100%);
+    }
+  }
+}
+:global(.songLine:hover .songlistIcon){
+  display: block;
+  
+}
+:global(.songLine:hover .duration){
+  display: none;
+}
+
+
+.postComment{
+  margin-top: 20px;
+  display: flex;
+  img{
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+  }
+  textarea{
+    width: 100%;
+    border: 1px solid #cdcdcd;
+    resize: none;
+    height: 63px;
+    padding: 5px 6px 6px;
+    line-height: 19px;
+    font-size: 12px;
+  }
+  textarea:focus{
+    outline: none;
+  }
+  .trigon{
+    position: absolute;
+    top: 12px;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    border: 1px solid #cdcdcd;
+    background-color: #fff;
+    border-left: 0;
+    border-top: 0;
+    transform: rotate(135deg);
+  }
+  .commentButton{
+    height: 35px;
+    overflow: hidden;
+    margin-top: 10px;
+    i{
+      float: left;
+      width: 18px;
+      height: 18px;
+      background: url(../../images/icon.png) no-repeat -40px -490px;
+      margin-right: 10px;
+      &:nth-child(2){
+        background-position: -60px -490px;
+      }
+    }
+    div{
+      float: right;
+      a{
+        display: inline-block;
+        width: 46px;
+        height: 25px;
+        line-height: 25px;
+        color: #fff;
+        font-size: 12px;
+        background: url(../../images/button.png) no-repeat -84px -64px;
+        text-align: center;
+      }
+      span{
+        margin-right: 15px;
+        font-size: 12px;
+        color: #999;
+      }
+    }
+  }
+}
