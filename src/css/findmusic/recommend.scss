@@ -53,16 +53,14 @@
   .container_left {
     overflow: hidden;
     width: 729px;
-    height: 1400px;
     border: 1px solid #d3d3d3;
     border-bottom: 0;
     border-right: 0;
     background-color: #fff;
-    padding: 20px 20px 20px;
+    padding: 20px 20px 40px;
   }
   .container_right {
     flex: 1;
-    height: 1400px;
     border: 1px solid #d3d3d3;
     border-bottom: 0;
     background-color: #fff;
@@ -271,6 +269,8 @@
     background: url('../../images/button2.png') no-repeat 0 -59px;
     position: relative;
     border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
     &:hover {
       color: #333;
       background-position: 0 -141px;
@@ -509,4 +509,13 @@
       }
     }
   }
+}
+.router{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 140px;
+  cursor: pointer;
+  z-index: 999;
 }

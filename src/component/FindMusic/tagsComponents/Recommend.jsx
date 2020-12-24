@@ -112,16 +112,6 @@ export default class Recommmend extends React.Component {
   next() {
     this.carousel.next();
   }
-  // 切换时背景图随之改变
-  getPlaylist = (id, e) => {
-    e.preventDefault();
-    this.props.history.push({
-      pathname: "/discover/playlist",
-      query: {
-        id: id
-      }
-    });
-  }
 
   // 新碟上架部分,上一页,下一页
   listprev() {
@@ -282,7 +272,7 @@ export default class Recommmend extends React.Component {
                 this.state.tags.map((item, index) => {
                   return <li key={index}>
                     <Link to={
-                      {pathname: "/discover/playlist",state: {cat: item.name}}
+                      {pathname: "/discover/playlist",query: {cat: item.name}}
                     }>
                       {
                       item.name
@@ -299,13 +289,16 @@ export default class Recommmend extends React.Component {
             }>
               {
               this.state.recommendList.map((item, index) => {
-                return <li key={index}>
-                    <Link to={
-                      {pathname: "/discover/playlist", query: item.id}
-                    }>
+                return <li key={index} style={{position: "relative"}}>
+                      { 
+                      item.type != 1 ? 
+                      <Link className={styles.router} to={{pathname: "/discover/playlist", state: {id: item.id}}}/> 
+                      : 
+                      <Link className={styles.router} to={{pathname: "/discover/djradio", state: {id: item.id}}}/>
+                      }
                       <div style={{ paddingTop: "10px",marginTop: "10px", position: "relative"}}>
                         <img src={item.picUrl} alt="" style={{width: 140,height: 140}}/>
-                        <span onClick={this.getPlaylist.bind(this, item.id)} className={styles.cloak}></span>
+                        <span className={styles.cloak}></span>
                         <div className={styles.bottom}>
                           <span className={styles.listenIcon}></span>
                           {
@@ -322,7 +315,6 @@ export default class Recommmend extends React.Component {
                         {item.type == 1 ? <i className={styles.djprogram}></i> : null}
                         <span className={styles.link} style={{color: "#000"}}>{item.name}</span>
                       </div>
-                    </Link>
                   </li>
             })
             } </ul>
