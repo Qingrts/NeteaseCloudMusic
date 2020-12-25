@@ -109,7 +109,6 @@
       .collect, .transmit, .download, .comment{
         float: left;
         margin-left: 5px;
-        width: 65px;
         height: 31px;
         background: url(../../images/button2.png) no-repeat right -1020px;
         padding-right: 2px;
@@ -215,8 +214,10 @@
     }
   }
 }
+/*
 .playList{
 }
+*/
 .title{
   width: 100%;
   height: 37px;
@@ -285,7 +286,14 @@
       }
       td:nth-child(2){
         flex: 1;
-        max-width: 238px;
+        display: flex;
+        a{
+          display: inline-block;
+          max-width: 190px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
       }
       td:nth-child(3){
         width: 110px;
@@ -367,8 +375,27 @@
           }
         }
       }
+      .alia{
+        flex: 1;
+        color: #aeaeae;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .mv{
+        display: inline-block;
+        width: 23px;
+        height: 17px;
+        margin: 6px 0 0;
+        background: url(../../images/table.png) no-repeat 0 -151px;
+        cursor: pointer;
+        &:hover{
+          background-position: -30px -151px;
+        }
+      }
     }
   }
+  
   .clientDownload{
     margin-top: 30px;
     width: 100%;
@@ -570,8 +597,36 @@
 .nickname{
   color: #0c73c2; 
   font-size: 12px;
-  margin-left: 12px;
   &:hover{
     text-decoration: underline;
   }
+}
+.relatedPlaylist{
+  display: flex;
+  margin-top: 15px;
+  .coverImgUrl{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+  .relatedInfo{
+    flex: 1;
+    padding-left: 10px;
+    .relatedTitle{
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .userInfo{
+      font-size: 12px; 
+      margin-top: 6px;
+    }
+  }
+}
+.moreClientDownload{
+  width: 100%;
+  flex: 1;
+  height: 200px;
+  background: #000;
 }

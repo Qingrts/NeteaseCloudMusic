@@ -18,7 +18,7 @@ export default class FindMusic extends React.Component{
       tags: [
         {value: "推荐", to: "/discover", component: Recommend},
         {value: "排行榜", to: "/discover/toplist", component: Toplist},
-        {value: "歌单", to: "/discover/playlist", component: Playlist, className: styles.copyright},
+        {value: "歌单", to: "/discover/playlist", component: Playlist, className: styles.copyright, onClick: () => {window.sessionStorage.removeItem("playlist_id")}},
         {value: "主播电台", to: "/discover/djradio", component: Djradio},
         {value: "歌手", to: "/discover/artist", component: Artist},
         {value: "新碟上架", to: "/discover/album", component: Album}
@@ -52,7 +52,8 @@ export default class FindMusic extends React.Component{
             return <li key={index}>
               <Link 
               to={item.to} 
-              onClick={this.changeActive.bind(this, item.to)} 
+              onClick={this.changeActive.bind(this, item.to)}
+              onClick={item.onClick || null}
               className={
                 [this.state.active == item.to ? "cur" : null] + " " +
                 item.className

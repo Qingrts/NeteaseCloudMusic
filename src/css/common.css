@@ -152,3 +152,11 @@ input:focus, button:focus{
   font-size: 12px;
   font-weight: 400;
 }
+.ant-pagination-item-active:focus a{
+  background-image: linear-gradient(#be0a0d, #e1151d);
+  border-radius: 3px;
+}
+.ant-pagination-item-active{
+  background-image: linear-gradient(#be0a0d, #e1151d);
+  border-radius: 3px;
+}
