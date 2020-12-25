@@ -193,16 +193,7 @@ export default class Recommmend extends React.Component {
 
     return <div>
       <div ref="bg_img">
-        <div className={
-            styles.container
-          }
-          style={
-            {
-              height: "285px",
-              display: "flex",
-              position: "relative"
-            }
-        }>
+        <div className={styles.container} style={{height: "285px",display: "flex",position: "relative"}}>
           <Carousel effect="fade" autoplay dotPosition="bottom"
             beforeChange={
               (function (current, nextSlide) {
@@ -254,7 +245,7 @@ export default class Recommmend extends React.Component {
                 this.state.tags.map((item, index) => {
                   return <li key={index}>
                     <Link to={
-                      {pathname: "/discover/playlist",query: {cat: item.name}}
+                      {pathname: "/discover/playlistdetail",query: {cat: item.name}}
                     }>
                       {
                       item.name
@@ -262,9 +253,9 @@ export default class Recommmend extends React.Component {
                   </li>
               })
               } </ul>
-              <span className={
+              <Link to={{pathname: "/discover/playlist"}} className={
                 styles.more
-              }>更多</span>
+              }>更多</Link>
             </div>
             <ul className={
               styles.recommendList
@@ -274,7 +265,7 @@ export default class Recommmend extends React.Component {
                 return <li key={index} style={{position: "relative"}}>
                       { 
                       item.type != 1 ? 
-                      <Link className={styles.router} to={{pathname: "/discover/playlist", state: {id: item.id}}}/> 
+                      <Link className={styles.router} to={{pathname: "/discover/playlistdetail", state: {id: item.id}}}/> 
                       : 
                       <Link className={styles.router} to={{pathname: "/discover/djradio", state: {id: item.id}}}/>
                       }
@@ -301,9 +292,7 @@ export default class Recommmend extends React.Component {
             })
             } </ul>
           </div>
-          <div className={
-            styles.outbox
-          }>
+          <div className={styles.outbox}>
             <div className={
               styles.recommend
             }>
@@ -341,28 +330,12 @@ export default class Recommmend extends React.Component {
               }>
                 {
                 this.state.albumList.map((item, index) => {
-                  return <div key={index}
-                    className={
-                      styles.albumItem
-                  }>
-                    <p className={
-                      styles.picUrl
-                    }><img src={
-                          item.picUrl
-                        }
-                        alt=""/></p>
-                    <p className={
-                      styles.albumName
-                    }>
-                      {
-                      item.name
-                    }</p>
-                    <p className={
-                      styles.albumArtists
-                    }>
-                      {
-                      item.artists.map(item => item.name).join(" / ")
-                    }</p>
+                  return <div key={index} className={styles.albumItem}>
+                    <Link to={{pathname: "/discover/albumdetail", state: {id: item.id}}}>
+                      <p className={styles.picUrl}><img src={item.picUrl}alt=""/></p>
+                      <p className={styles.albumName}>{item.name}</p>
+                    </Link>
+                    <p className={styles.albumArtists}>{item.artists.map(item => item.name).join(" / ")}</p>
                   </div>
               })
               } </Carousel>

@@ -1,0 +1,75 @@
+.detail{
+  width: 982px;
+  margin: 0 auto;
+  padding: 40px;
+  display: block;
+  background-color: #fff;
+  border-left: 1px solid #d3d3d3;
+  border-right: 1px solid #d3d3d3;
+  .detailTitle{
+    width: 100%;
+    font-size: 24px;
+    border-bottom: 2px solid #c20c0c;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .getRecommend{
+    display: block;
+    width: 46px;
+    height: 29px;
+    line-height: 29px;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 3px;
+    background: url(../../images/button.png) no-repeat 0 0;
+  }
+  .allPlaylist{
+    width: 100%;
+    .allList{
+      width: 100%;
+      overflow: hidden;
+      li{
+        float: left;
+        width: 140px;
+        height: 188px;
+        margin: 20px 50px 0 0;
+        position: relative;
+        &:nth-child(5n){
+          margin-right: 0;
+        }
+        .coverImg{
+          display: block;
+          width: 140px;
+          img{
+            width: 100%;
+            height: 140px;
+          }
+        }
+        .songTitle{
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          margin: 8px 0 3px 0;
+          span{
+            font-size: 14px;
+            color: #000;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+        .nickname{
+          font-size: 12px;
+          color: #999;
+          span:hover{
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

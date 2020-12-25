@@ -8,6 +8,9 @@ import Djradio from "./tagsComponents/Djradio.jsx";
 import Artist from "./tagsComponents/Toplist.jsx";
 import Album from "./tagsComponents/Album.jsx";
 
+import PlaylistDetail from "./tagsComponents/PlaylistDetail.jsx";
+import AlbumDetail from "./tagsComponents/AlbumDetail.jsx";
+
 import styles from "../../css/findmusic.scss";
 
 export default class FindMusic extends React.Component{
@@ -18,7 +21,12 @@ export default class FindMusic extends React.Component{
       tags: [
         {value: "推荐", to: "/discover", component: Recommend},
         {value: "排行榜", to: "/discover/toplist", component: Toplist},
-        {value: "歌单", to: "/discover/playlist", component: Playlist, className: styles.copyright, onClick: () => {window.sessionStorage.removeItem("playlist_id")}},
+        {
+          value: "歌单", 
+          to: "/discover/playlist", 
+          component: Playlist, 
+          className: styles.copyright
+        },
         {value: "主播电台", to: "/discover/djradio", component: Djradio},
         {value: "歌手", to: "/discover/artist", component: Artist},
         {value: "新碟上架", to: "/discover/album", component: Album}
@@ -50,14 +58,7 @@ export default class FindMusic extends React.Component{
         <ul className="container">
           { this.state.tags.map((item, index) => {
             return <li key={index}>
-              <Link 
-              to={item.to} 
-              onClick={this.changeActive.bind(this, item.to)}
-              onClick={item.onClick || null}
-              className={
-                [this.state.active == item.to ? "cur" : null] + " " +
-                item.className
-                }>
+              <Link to={item.to} onClick={this.changeActive.bind(this, item.to)} className={[this.state.active == item.to ? "cur" : null] + " " +item.className}>
                 {item.value}
               </Link>
             </li>
@@ -68,6 +69,9 @@ export default class FindMusic extends React.Component{
         {this.state.tags.map((item, index) => {
           return <Route exact key={index} path={item.to} component={item.component}></Route>
         })}
+
+        <Route exact path="/discover/playlistdetail" component={PlaylistDetail}></Route>
+        <Route exact path="/discover/albumdetail" component={AlbumDetail}></Route>
       </Switch>
     </div>
   }

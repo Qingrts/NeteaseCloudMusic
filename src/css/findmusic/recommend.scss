@@ -184,9 +184,9 @@
 }
 .listenIcon {
   float: left;
-  width: 24px;
+  width: 20px;
   height: 11px;
-  margin: 10px 0 0 15px;
+  margin: 10px 0 0 7px;
   background: url('../../images/iconall.png') no-repeat 0 -24px;
 }
 .playIcon {
@@ -196,6 +196,7 @@
   width: 16px;
   height: 17px;
   background: url('../../images/iconall.png') no-repeat 0 0;
+  cursor: pointer;
   &:hover {
     background-position: 0 -60px;
   }
