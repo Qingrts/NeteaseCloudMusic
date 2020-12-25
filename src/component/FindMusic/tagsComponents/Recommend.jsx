@@ -208,32 +208,14 @@ export default class Recommmend extends React.Component {
               (function (current, nextSlide) {
                 this.refs.bg_img.style = "background: url(" + this.state.banners[nextSlide].pic + ") no-repeat center center;background-size: 6000px;";
               }).bind(this)
-            }
-            ref={
-              carousel => {
-                this.carousel = carousel;
-              }
-            }
-            style={
+            } ref={carousel => {this.carousel = carousel;}} style={{width: "730px",height: "285px",cursor: "pointer"}}>
               {
-                width: "730px",
-                height: "285px",
-                cursor: "pointer"
-              }
-          }>
-            {
-            this.state.banners.map((item, index) => {
-              return <h3 key={index}
-                className={
-                  styles.contentStyle
-              }>
-                <img src={
-                    item.pic
-                  }
-                  alt="Image"/>
-              </h3>
-          })
-          } </Carousel>
+              this.state.banners.map((item, index) => {
+                return <h3 key={index}className={styles.contentStyle}>
+                  <img src={item.pic}alt="Image"/>
+                </h3>
+              })} 
+            </Carousel>
           <div className={
             styles.download
           }>

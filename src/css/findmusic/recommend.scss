@@ -293,6 +293,11 @@
   height: 62px;
   margin: 15px 0;
   display: flex;
+  background-color: #fafafa;
+  cursor: pointer;
+  &:hover{
+    background-color: #f4f4f4;
+  }
   img {
     width: 62px;
     height: 62px;
@@ -322,6 +327,7 @@
     height: 40px;
     line-height: 40px;
     margin: 10px 0;
+    background-color: #fff;
     img {
       display: block;
       width: 40px;
@@ -337,7 +343,7 @@
         color: #000;
       }
       p {
-        font-size: 12px;
+        font-size: 11px;
       }
     }
   }
@@ -476,7 +482,7 @@
       .musicName{
         vertical-align: top;
         display: inline-block;
-        font-size: 13px;
+        font-size: 12px;
         color: #000;
         width: 150px;
         overflow: hidden;

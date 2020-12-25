@@ -153,7 +153,7 @@ export default class Playlist extends React.Component{
               <div className={playlistStyles.playlistTitle}><i><span></span></i>{this.state.detail['name']}</div>
               <div>
                 <img src={this.state.detail.creator.avatarUrl} style={{width: 35, height: 35}} alt=""/>
-                <a href="" className={playlistStyles.nickname} >{this.state.detail.creator.nickname}</a>
+                <a href="" style={{marginLeft: 15}} className={playlistStyles.nickname} >{this.state.detail.creator.nickname}</a>
                 <img style={{width: 13, height: 13, display: "inline-block"}} src={this.state.detail.creator.avatarDetail && this.state.detail.creator.avatarDetail.identityIconUrl} alt=""/>
                 <span style={{fontSize: 12,marginLeft: "15px", color: "#999"}}>{moment(this.state.detail.createTime).format("YYYY-MM-DD")} 创建</span>
               </div>
@@ -305,7 +305,14 @@ export default class Playlist extends React.Component{
                   </li>
                 })}
               </ul>
-              {this.state.total > 20 ? <Pagination style={{textAlign: "center"}} current={this.state.current} onChange={this.onChange} showSizeChanger={false} total={this.state.total * 10 / 20} /> : null}
+              {this.state.total > 20 
+              ? 
+              <Pagination 
+              style={{textAlign: "center"}} 
+              current={this.state.current} 
+              onChange={this.onChange} 
+              showSizeChanger={false} 
+              total={(this.state.total + 1) * 10 / 20} /> : null}
             </div>
           </div>
         </div>
@@ -339,20 +346,22 @@ export default class Playlist extends React.Component{
             </ul>
           </div>
           <h4 className={playlistStyles.subtitle}>网易云音乐多端下载</h4>
-          <div style={{marginTop: 15}}>
-            <ul className={playlistStyles.moreClientDownload}>
-              <li></li>
-              <li></li>
-              <li></li>
+          <div className={playlistStyles.moreClientDownload}>
+            <ul>
+              <li><a href="#">iphone</a></li>
+              <li><a href="#">window</a></li>
+              <li><a href="#">android</a></li>
             </ul>
+            <p>同步歌单，随时畅听320k好音乐</p>
           </div>
         </div>
       </div>
     }
     
     
+    // 全部歌单
     return <div className={playlistStyles.container}>
-      <div className="container_left">歌单详情</div>
+      <div className="container_left">全部歌单</div>
       <div className="container_right"></div>
     </div>
   }
