@@ -267,7 +267,7 @@ export default class Recommmend extends React.Component {
                       item.type != 1 ? 
                       <Link className={styles.router} to={{pathname: "/discover/playlistdetail", state: {id: item.id}}}/> 
                       : 
-                      <Link className={styles.router} to={{pathname: "/discover/djradio", state: {id: item.id}}}/>
+                      <Link className={styles.router} to={{pathname: "/discover/djradiodetail", state: {id: item.id}}}/>
                       }
                       <div style={{ paddingTop: "10px",marginTop: "10px", position: "relative"}}>
                         <img src={item.picUrl} alt="" style={{width: 140,height: 140}}/>

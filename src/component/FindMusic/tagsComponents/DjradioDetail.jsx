@@ -17,7 +17,7 @@ let defaultDetail = {
   subscribers: []
 };
 
-export default class Playlist extends React.Component{
+export default class DjradioDetail extends React.Component{
   constructor(props)　{
     super(props);
     
@@ -69,7 +69,7 @@ export default class Playlist extends React.Component{
           </div>
         </div>
         <div className={playlistStyles.container_right}>
-          <h4 className={playlistStyles.subtitle}>喜欢这个专辑的人</h4>
+          <h4 className={playlistStyles.subtitle}>更多节目</h4>
           <div className={playlistStyles.likePlaylist} style={{marginBottom: 30}}>
             
           </div>
