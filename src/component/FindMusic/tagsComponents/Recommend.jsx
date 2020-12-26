@@ -3,15 +3,17 @@ import {Link} from "react-router-dom";
 
 import styles from "../../../css/findmusic/recommend.scss";
 
-import {Carousel} from "antd";
+import Banners from "../../commonComponent/Banners.jsx";
+import PlayListItem from "../../commonComponent/PlayListItem.jsx";
+import NewAlbumList from "../../commonComponent/NewAlbumList.jsx";
+
+import { Spin } from "antd";
 
 export default class Recommmend extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // banners图列表
-      banners: [],
       // 标签列表
       tags: [],
       // 热门推荐部分 歌单列表
@@ -27,25 +29,11 @@ export default class Recommmend extends React.Component {
   }
 
   componentDidMount() {
-    this.getBanners();        // 获取首页banner图
     this.getTags();           // 获取热门歌曲标签
     this.getRecommendList();  // 获取推荐歌曲和电台
     this.getSingerlist();     // 获取入驻歌手
     this.getanchorList();     // 获取热门主播 
-    this.getAlbumlist();      // 获取最新专辑
     this.getToplist();        // 获取榜单
-  }
-
-  // 获取 banners 图
-  getBanners = () => {
-    fetch("http://localhost:3000/banner?type=2").then(function (response) {
-      return response.json();
-    }).then((data) => {
-      this.setState({banners: data.banners})
-      this.refs.bg_img.style = "background: url(" + this.state.banners[0].pic + ") no-repeat center center;background-size: 6000px";
-    }).catch((err) => {
-      console.log("Oops, error");
-    });
   }
 
   // 获取热门歌曲标签
@@ -105,35 +93,6 @@ export default class Recommmend extends React.Component {
     })
   }
 
-  // banner图 部分 点击上一页,下一页
-  prev() {
-    this.carousel.prev();
-  }
-  next() {
-    this.carousel.next();
-  }
-
-  // 新碟上架部分,上一页,下一页
-  listprev() {
-    this.newList.prev();
-  }
-  listnext() {
-    this.newList.next();
-  }
-
-
-  getAlbumlist = () => {
-    fetch("http://localhost:3000/album/newest").then(response => {
-      return response.json();
-    }).then(data => {
-      this.setState({
-        albumList: data.albums.splice(0, 10)
-      })
-    }).catch(err => {
-      console.log(err);
-    })
-  }
-
   // 人数格式化 n/n万/n亿
   numberFormat = (num) => {
     if (num > 10000) {
@@ -143,6 +102,7 @@ export default class Recommmend extends React.Component {
     }
   }
 
+  // 获取榜单
   getToplist = () => {
     fetch("http://localhost:3000/toplist").then(response => {
       return response.json();
@@ -180,69 +140,21 @@ export default class Recommmend extends React.Component {
     })
   }
 
-  render() { // 新碟上架部分 跑马灯 配置
-    const settings = {
-      dots: false,
-      infinite: true,
-      speed: 1000,
-      slidesToShow: 5,
-      slidesToScroll: 5,
-      initialSlide: 0
-    };
-
-
+  render() { 
     return <div>
-      <div ref="bg_img">
-        <div className={styles.container} style={{height: "285px",display: "flex",position: "relative"}}>
-          <Carousel effect="fade" autoplay dotPosition="bottom"
-            beforeChange={
-              (function (current, nextSlide) {
-                this.refs.bg_img.style = "background: url(" + this.state.banners[nextSlide].pic + ") no-repeat center center;background-size: 6000px;";
-              }).bind(this)
-            } ref={carousel => {this.carousel = carousel;}} style={{width: "730px",height: "285px",cursor: "pointer"}}>
-              {
-              this.state.banners.map((item, index) => {
-                return <h3 key={index}className={styles.contentStyle}>
-                  <img src={item.pic}alt="Image"/>
-                </h3>
-              })} 
-            </Carousel>
-          <div className={
-            styles.download
-          }>
-            <p className={
-              styles.terminal
-            }>PC 安卓 iPhone WP iPad Mac 六大客户端</p>
-          </div>
-          <button className={
-              styles.arrow + " " + styles.arrow_left
-            }
-            onClick={
-              this.prev.bind(this)
-          }></button>
-          <button className={
-              styles.arrow + " " + styles.arrow_right
-            }
-            onClick={
-              this.next.bind(this)
-          }></button>
-        </div>
-      </div>
+      <Banners/>
       <div className={
         styles.container
       }>
         <div className={styles.container_left}>
-          <div className={styles.outbox}
+          <div className="outbox"
             style={{marginBottom: "40px"}}>
             <div className={
               styles.recommend
             }>
               <a href="#">热门推荐</a>
-              <ul className={
-                styles.tags
-              }>
-                {
-                this.state.tags.map((item, index) => {
+              <ul className={styles.tags}>
+                {this.state.tags.map((item, index) => {
                   return <li key={index}>
                     <Link to={
                       {pathname: "/discover/playlistdetail",query: {cat: item.name}}
@@ -251,48 +163,25 @@ export default class Recommmend extends React.Component {
                       item.name
                     }</Link>
                   </li>
-              })
-              } </ul>
+                })
+                } 
+              </ul>
               <Link to={{pathname: "/discover/playlist"}} className={
                 styles.more
               }>更多</Link>
             </div>
-            <ul className={
-              styles.recommendList
-            }>
-              {
-              this.state.recommendList.map((item, index) => {
-                return <li key={index} style={{position: "relative"}}>
-                      { 
-                      item.type != 1 ? 
-                      <Link className={styles.router} to={{pathname: "/discover/playlistdetail", state: {id: item.id}}}/> 
-                      : 
-                      <Link className={styles.router} to={{pathname: "/discover/djradiodetail", state: {id: item.id}}}/>
-                      }
-                      <div style={{ paddingTop: "10px",marginTop: "10px", position: "relative"}}>
-                        <img src={item.picUrl} alt="" style={{width: 140,height: 140}}/>
-                        <span className={styles.cloak}></span>
-                        <div className={styles.bottom}>
-                          <span className={styles.listenIcon}></span>
-                          {
-                          item.type == 1 
-                          ? 
-                          <span>{this.numberFormat(item.program.adjustedPlayCount)}</span> 
-                          : 
-                          <span>{this.numberFormat(item.playCount)}</span>
-                          }
-                          <span className={ styles.playIcon}></span>
-                        </div>
-                      </div>
-                      <div style={{margin: "5px 0 30px", lineHeight: "1.2"}}>
-                        {item.type == 1 ? <i className={styles.djprogram}></i> : null}
-                        <span className={styles.link} style={{color: "#000"}}>{item.name}</span>
-                      </div>
-                  </li>
-            })
-            } </ul>
+            {this.state.recommendList.length == 0 ? <Spin tip="加载中..."/> :
+            <ul className={styles.recommendList}>
+              {this.state.recommendList.map((item, index) => {
+                return <Link key={index} to={{pathname: "/discover/playlistdetail", state: {id: item.id}}}>
+                    <PlayListItem {...item} />
+                  </Link>
+                })
+              } 
+            </ul>
+            }
           </div>
-          <div className={styles.outbox}>
+          <div className="outbox">
             <div className={
               styles.recommend
             }>
@@ -304,46 +193,9 @@ export default class Recommmend extends React.Component {
                 styles.more
               }>更多</span>
             </div>
-            <div className={
-              styles.newalbum
-            }>
-              <button className={
-                  styles.leftArrow
-                }
-                onClick={
-                  this.listprev.bind(this)
-              }></button>
-              <button className={
-                  styles.rightArrow
-                }
-                onClick={
-                  this.listnext.bind(this)
-              }></button>
-              <Carousel className={
-                  styles.carouselBox
-                }
-                {...settings}
-                ref={
-                  newList => {
-                    this.newList = newList;
-                  }
-              }>
-                {
-                this.state.albumList.map((item, index) => {
-                  return <div key={index} className={styles.albumItem}>
-                    <Link to={{pathname: "/discover/albumdetail", state: {id: item.id}}}>
-                      <p className={styles.picUrl}><img src={item.picUrl}alt=""/></p>
-                      <p className={styles.albumName}>{item.name}</p>
-                    </Link>
-                    <p className={styles.albumArtists}>{item.artists.map(item => item.name).join(" / ")}</p>
-                  </div>
-              })
-              } </Carousel>
-            </div>
+            {this.state.recommendList.length == 0 ? <Spin tip="加载中..."/> : <NewAlbumList /> }
           </div>
-          <div className={
-            styles.outbox
-          }>
+          <div className="outbox">
             <div className={
               styles.recommend
             }>
@@ -355,6 +207,7 @@ export default class Recommmend extends React.Component {
                 styles.more
               }>更多</span>
             </div>
+            {this.state.topList.length == 0 ? <Spin tip="加载中..."/> : 
             <div className={
               styles.toplist
             }>
@@ -387,6 +240,7 @@ export default class Recommmend extends React.Component {
                 </dl>
               })}
             </div>
+            }
           </div>
         </div>
         <div className={

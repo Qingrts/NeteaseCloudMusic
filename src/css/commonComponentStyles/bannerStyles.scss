@@ -1,0 +1,94 @@
+.container {
+  width: 982px;
+  margin: 0 auto;
+  height: 285px;
+  display: flex;
+  position: relative;
+}
+.contentStyle{
+  height: 100%;
+  position: relative;
+  div{
+    height: 100%;
+  }
+  img{
+    width: 100%;
+  }
+}
+.download{
+  background: url(../../images/download.png) no-repeat 0 0;
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+}
+.terminal{
+  color: #8d8d8d;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  font-size: 12px;
+  text-align: center;
+  width: 100%;
+}
+.arrow{
+  background: url(../../images/banner.png) no-repeat 0 -360px;
+  width: 37px;
+  height: 63px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  cursor: pointer;
+}
+.arrow_left{
+  left: -77px;
+  &:hover{
+    background-position: 0 -430px;
+  }
+}
+.arrow_right{
+  right: -77px;
+  background-position: 0 -508px;
+  &:hover{
+    background-position: 0 -578px;
+  }
+}
+:global(button:focus){
+  outline: none;
+}
+:global(.slick-list,.slick-track,.slick-track div,.slick-track div img){
+  height: 100%;
+}
+:global(.ant-carousel .slick-dots){
+  position: absolute;
+  width: 200px;
+  transform: translateX(-50%);
+  left: 50%;
+  margin: 0;
+}
+:global(.ant-carousel .slick-dots li){
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 10px;
+}
+:global(.ant-carousel .slick-dots li button){
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+}
+:global(.ant-carousel .slick-dots li.slick-active button){
+  background-color: #AE0C0E;
+}
+:global(.ant-carousel .slick-dots li button:hover){
+  background-color: #AE0C0E;
+}
+:global(.ant-carousel .slick-dots li.slick-active){
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+}

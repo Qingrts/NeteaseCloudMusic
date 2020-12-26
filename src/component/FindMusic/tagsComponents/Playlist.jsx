@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { Pagination } from "antd";
+import { Pagination, Spin } from "antd";
 
 import playlistStyles from "../../../css/findmusic/playlist.scss";
-import format from "../../../utils/format.js";
-import recommendStyles from "../../../css/findmusic/recommend.scss";
+import PlayListItem from "../../commonComponent/PlayListItem.jsx";
 
 export default class PlaylistCategory extends React.Component{
   constructor(props)　{
@@ -21,7 +20,7 @@ export default class PlaylistCategory extends React.Component{
   componentDidMount() {
     this.getHotPlaylist({
       order: "hot",
-      limit: 40
+      limit: 35
     });
   }
 
@@ -38,6 +37,7 @@ export default class PlaylistCategory extends React.Component{
         hotPlaylist: data.playlists,
         playlistTotal: data.total
       })
+      console.log(playlistTotal);
     })
     .catch(err => {
       console.log(err);
@@ -45,10 +45,11 @@ export default class PlaylistCategory extends React.Component{
   }
 
   pageChange = (page) => {
+    this.state.hotPlaylist = [];
     this.getHotPlaylist({
       order: "hot",
-      limit: 40,
-      offset: (page - 1) * 20
+      limit: 35,
+      offset: (page - 1) * 35
     });
     this.setState({
       currentPage: page
@@ -58,42 +59,34 @@ export default class PlaylistCategory extends React.Component{
   render() {
     return <div className={playlistStyles.detail}>
       <h3 className={playlistStyles.detailTitle}>全部<a href="#" className={playlistStyles.getRecommend}>热门</a></h3>
+      {
+      this.state.hotPlaylist.length == 0 ? <Spin tip="加载中..."/> : 
       <div className={playlistStyles.allPlaylist}>
-        <ul className={playlistStyles.allList}>
+        <div className={playlistStyles.allList}>
           {this.state.hotPlaylist.map((item) => {
-            return <li key={item.id}>
-                <div style={{position: "relative"}}>
-                  <img src={item.coverImgUrl} alt="" style={{width: 140,height: 140}}/>
-                  <Link to={{pathname: "/discover/playlistdetail", state: {id: item.id}}}>
-                    <span className={recommendStyles.cloak} style={{top: 0}}></span>
-                  </Link>
-                  <div className={recommendStyles.bottom}>
-                    <span className={recommendStyles.listenIcon}></span>
-                    {
-                    item.type == 1 
-                    ? 
-                    <span>{format.numberFormat(item.program.adjustedPlayCount)}</span> 
-                    : 
-                    <span>{format.numberFormat(item.playCount)}</span>
-                    }
-                    <span className={recommendStyles.playIcon}></span>
-                  </div>
-                </div>
-                <p className={playlistStyles.songTitle}><a href="#">{item.name}</a></p>
-                <p className={playlistStyles.nickname}>by&nbsp;
-                  <span style={{color: "#666"}}><a href="">{item.creator.nickname}</a></span>&nbsp;
-                  {item.creator.avatarDetail && <img style={{wdith: 13, height: 13, position: "relative", top: -2}} src={item.creator.avatarDetail.identityIconUrl} alt=""/>}
-                </p>
-            </li>
-          })}
-        </ul>
+            return <div key={item.id}>
+              <PlayListItem {...item} />
+              <p className={playlistStyles.userInfo}>by &nbsp;
+                <a href="#">{item.creator.nickname}</a>&nbsp;
+                {
+                  item.creator.avatarDetail
+                  ?
+                  <img src={item.creator.avatarDetail.identityIconUrl} alt=""/>
+                  : 
+                  null
+                }
+              </p>
+            </div>
+            })}
+        </div>
         <Pagination 
-        style={{textAlign: "center", marginTop: "30px"}} 
+        style={{textAlign: "center", marginTop: "60px"}} 
         current={this.state.currentPage}
         onChange={this.pageChange}
         showSizeChanger={false} 
-        total={this.state.playlistTotal * 20 / 10} />
+        total={(this.state.playlistTotal + 1) * 10 / 35} />
       </div>
+      }
     </div>
   }
 }

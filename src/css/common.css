@@ -55,6 +55,7 @@ a{
 }
 a:hover{
   color: #333;
+  text-decoration: underline;
 }
 ul,p,h3,dl, dt,dd, h4{
   list-style: none;
@@ -165,4 +166,15 @@ input:focus, button:focus{
 }
 .ant-pagination-item a{
   padding: 0;
+}
+.outbox .playlistInfo{
+  text-overflow: normal;
+  overflow: none;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+.ant-spin{
+  display: block;
+  margin: 100px auto;
 }

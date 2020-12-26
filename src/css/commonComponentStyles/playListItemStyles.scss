@@ -1,0 +1,81 @@
+:global(li){
+  list-style: none;
+}
+.playItem{
+  position: relative;
+  width: 140px;
+  &:nth-child(4n){
+    margin-right: 0;
+  }
+}
+.playCount{
+  padding-top: 10px;
+  margin-top: 10px;
+  position: relative;
+  img{
+    width: 140px;
+    height: 140px;
+  }
+}
+.cloak {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 140px;
+  height: 140px;
+  background: url(../../images/coverall.png) no-repeat 0 0;
+}
+.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 27px;
+  color: #ccc;
+  background: url('../../images/coverall.png') no-repeat 0 -537px;
+  line-height: 27px;
+  span {
+    font-size: 12px;
+  }
+}
+.listenIcon {
+  float: left;
+  width: 20px;
+  height: 11px;
+  margin: 10px 0 0 7px;
+  background: url('../../images/iconall.png') no-repeat 0 -24px;
+}
+.playIcon {
+  float: right;
+  margin-top: 6px;
+  margin-right: 10px;
+  width: 16px;
+  height: 17px;
+  background: url('../../images/iconall.png') no-repeat 0 0;
+  cursor: pointer;
+  &:hover {
+    background-position: 0 -60px;
+  }
+}
+.link {
+  line-height: 20px;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.djprogram {
+  width: 35px;
+  height: 15px;
+  display: inline-block;
+  background: url('../../images/icon.png') no-repeat -31px -658px;
+  margin-right: 5px;
+  margin-top: -4px;
+  vertical-align: middle;
+}
+:global(.playlistInfo){
+  line-height: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

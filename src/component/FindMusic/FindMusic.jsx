@@ -43,9 +43,11 @@ export default class FindMusic extends React.Component{
   hashChange = () => {
     let hash = window.location.hash.substr(1);
     hash= hash.indexOf("?") != -1 ? hash.substr(0, hash.indexOf("?")) : hash;
+    console.log(hash);
     this.setState({
       active: hash
     })
+    console.log(this.state.active);
   }
 
   changeActive = (val) => {
