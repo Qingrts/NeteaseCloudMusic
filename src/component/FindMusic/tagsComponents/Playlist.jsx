@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Pagination } from "antd";
 
-import PlagelistCategoryStyles from "../../../css/findmusic/PlaylistCategory.scss";
+import playlistStyles from "../../../css/findmusic/playlist.scss";
 import format from "../../../utils/format.js";
 import recommendStyles from "../../../css/findmusic/recommend.scss";
 
@@ -56,10 +56,10 @@ export default class PlaylistCategory extends React.Component{
   }
 
   render() {
-    return <div className={PlagelistCategoryStyles.detail}>
-      <h3 className={PlagelistCategoryStyles.detailTitle}>全部<a href="#" className={PlagelistCategoryStyles.getRecommend}>热门</a></h3>
-      <div className={PlagelistCategoryStyles.allPlaylist}>
-        <ul className={PlagelistCategoryStyles.allList}>
+    return <div className={playlistStyles.detail}>
+      <h3 className={playlistStyles.detailTitle}>全部<a href="#" className={playlistStyles.getRecommend}>热门</a></h3>
+      <div className={playlistStyles.allPlaylist}>
+        <ul className={playlistStyles.allList}>
           {this.state.hotPlaylist.map((item) => {
             return <li key={item.id}>
                 <div style={{position: "relative"}}>
@@ -79,8 +79,8 @@ export default class PlaylistCategory extends React.Component{
                     <span className={recommendStyles.playIcon}></span>
                   </div>
                 </div>
-                <p className={PlagelistCategoryStyles.songTitle}><a href="#">{item.name}</a></p>
-                <p className={PlagelistCategoryStyles.nickname}>by&nbsp;
+                <p className={playlistStyles.songTitle}><a href="#">{item.name}</a></p>
+                <p className={playlistStyles.nickname}>by&nbsp;
                   <span style={{color: "#666"}}><a href="">{item.creator.nickname}</a></span>&nbsp;
                   {item.creator.avatarDetail && <img style={{wdith: 13, height: 13, position: "relative", top: -2}} src={item.creator.avatarDetail.identityIconUrl} alt=""/>}
                 </p>

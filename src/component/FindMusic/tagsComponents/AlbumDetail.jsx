@@ -1,6 +1,6 @@
 import React from 'react';
 
-import playlistStyles from "../../../css/findmusic/playlist.scss";
+import playlistStyles from "../../../css/findmusic/playlistdetail.scss";
 
 let defaultDetail = {
   creator: {

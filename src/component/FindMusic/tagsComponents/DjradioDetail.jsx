@@ -1,6 +1,6 @@
 import React from 'react';
 
-import playlistStyles from "../../../css/findmusic/playlist.scss";
+import playlistStyles from "../../../css/findmusic/playlistdetail.scss";
 
 let defaultDetail = {
   creator: {
@@ -20,9 +20,8 @@ let defaultDetail = {
 export default class DjradioDetail extends React.Component{
   constructor(props)　{
     super(props);
-    
-    if(this.props.location.state && this.props.location.state.id != sessionStorage.getItem("playlist_id")){
-      window.sessionStorage.setItem("playlist_id", this.props.location.state && this.props.location.state.id)
+    if(this.props.location.state && this.props.location.state.id != sessionStorage.getItem("djradio_id")){
+      window.sessionStorage.setItem("djradio_id", this.props.location.state && this.props.location.state.id)
     }
     
     this.state = {
@@ -31,26 +30,26 @@ export default class DjradioDetail extends React.Component{
       comments: [],
       commentTotal: 0,
       commentCurrentPage: 1,
-      playlist_id: sessionStorage.getItem("playlist_id"),
+      djradio_id: sessionStorage.getItem("djradio_id"),
       relatedPlaylist: []
     };
   }
 
   componentDidMount() {
     // 根据状态,确定是否需要发送请求
-    if(this.state.playlist_id){
-      this.getPlaylistDetail(this.state.playlist_id);
+    if(this.state.djradio_id){
+      this.getPlaylistDetail(this.state.djradio_id);
     }
   }
   // 获取歌单详情
   getPlaylistDetail = (id) => {
-    fetch("http://localhost:3000/album?id=" + id)
+    fetch("http://localhost:3000/dj/program/detail?id=" + id)
     .then(response => {
       return response.json();
     })
     .then(data => {
       this.setState({
-        detail: data.album
+        detail: data.program
       })
     })
     .catch(err => {
@@ -60,15 +59,23 @@ export default class DjradioDetail extends React.Component{
   
 
   render() {
-    return <div className={playlistStyles.container}>
-        <div className={playlistStyles.container_left}>
+    return <div style={{
+              width: 982, 
+              margin: "0 auto", 
+              border: "1px solid #d3d3d3", 
+              borderTop: "0", 
+              borderBottom: "0", 
+              display: "flex", 
+              backgroundColor: "white"}}>
+        <div style={{width: "709px",
+    padding: '42px 30px 40px 39px'}}>
           <div className={playlistStyles.playlistInfo}>
             <div className={playlistStyles.playlistCoverimg}>
-              <img src={this.state.detail.picUrl} alt=""/>
+              <img src={this.state.detail.blurCoverUrl} alt=""/>
             </div>
           </div>
         </div>
-        <div className={playlistStyles.container_right}>
+        <div style={{flex: 1,borderLeft: "1px solid #d3d3d3",padding: "20px 40px 40px 30px"}}>
           <h4 className={playlistStyles.subtitle}>更多节目</h4>
           <div className={playlistStyles.likePlaylist} style={{marginBottom: 30}}>
             

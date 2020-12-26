@@ -1,6 +1,6 @@
 import React from 'react';
 
-import playlistStyles from "../../../css/findmusic/playlist.scss";
+import playlistStyles from "../../../css/findmusic/playlistdetail.scss";
 
 import { Link } from "react-router-dom";
 import moment from "moment";
