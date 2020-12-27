@@ -8,12 +8,11 @@ import { Pagination } from "antd";
 export default class CommentsList extends React.Component{
   constructor(props)　{
     super(props);
-
     this.state = {
       comments: [],
       commentTotal: 0,
       commentCurrentPage: 1,
-      playlist_id: 5388470916
+      playlist_id: this.props.id
     }
   }
 
@@ -24,7 +23,7 @@ export default class CommentsList extends React.Component{
 
   // 获取评论列表
   getCommentList = (id, offset) => {
-    fetch("http://localhost:3000/comment/playlist?limit=20&id=" + id + "&offset=" + offset)
+    fetch(this.props.fetchUrl + id + "&offset=" + offset)
     .then(response => {
       return response.json();
     })
@@ -34,7 +33,7 @@ export default class CommentsList extends React.Component{
         comments: data.comments,
         commentTotal: data.total
       })
-      console.log(this.state.comments);
+      console.log(this.state.commentTotal);
     })
     .catch(err => {
       console.log(err);
@@ -54,7 +53,7 @@ export default class CommentsList extends React.Component{
     return <div className={CommentsListStyles.playList}>
       <div className={CommentsListStyles.title}>
         <h3>评论</h3>
-        <span>共{this.state.commentCount}条评论</span>
+        <span>共{this.state.commentTotal}条评论</span>
       </div>
       <div className={CommentsListStyles.postComment}>
         <img src={"http://s4.music.126.net/style/web2/img/default/default_avatar.jpg?param=50y50"} alt=""/>
@@ -74,8 +73,7 @@ export default class CommentsList extends React.Component{
         </div>
       </div>
       <div className={CommentsListStyles.commentList}>
-        <h4 className={CommentsListStyles.subtitle}>最新评论({this.state.commentCount})</h4>
-        {/* 渲染评论列表 */}
+        <h4 className={CommentsListStyles.subtitle}>最新评论({this.state.commentTotal})</h4>
         <ul>
           {this.state.comments.map((item, index) => {
             return <li key={index}>

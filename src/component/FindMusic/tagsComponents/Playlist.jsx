@@ -65,7 +65,7 @@ export default class PlaylistCategory extends React.Component{
         <div className={playlistStyles.allList}>
           {this.state.hotPlaylist.map((item) => {
             return <div key={item.id}>
-              <PlayListItem {...item} />
+              <Link to={{pathname: "/discover/playlistdetail", state: {id: item.id}}}><PlayListItem {...item} /></Link>
               <p className={playlistStyles.userInfo}>by &nbsp;
                 <a href="#">{item.creator.nickname}</a>&nbsp;
                 {

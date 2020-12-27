@@ -173,9 +173,16 @@ export default class Recommmend extends React.Component {
             {this.state.recommendList.length == 0 ? <Spin tip="加载中..."/> :
             <ul className={styles.recommendList}>
               {this.state.recommendList.map((item, index) => {
-                return <Link key={index} to={{pathname: "/discover/playlistdetail", state: {id: item.id}}}>
+                if(item.type == 0){
+                  return <Link key={index} to={{pathname: "/discover/playlistdetail", state: {id: item.id}}}>
                     <PlayListItem {...item} />
                   </Link>
+                }else{
+                  return <Link key={index} to={{pathname: "/discover/djradiodetail", state: {id: item.id}}}>
+                    <PlayListItem {...item} />
+                  </Link>
+                }
+                
                 })
               } 
             </ul>

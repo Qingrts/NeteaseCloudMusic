@@ -7,6 +7,8 @@ import moment from "moment";
 import { Pagination } from "antd";
 
 import ClientDown from "../../commonComponent/ClientDown.jsx";
+import CommentsList from "../../commonComponent/CommentsList.jsx";
+
 
 
 let defaultDetail = {
@@ -249,73 +251,8 @@ export default class Playlist extends React.Component{
               </div>
             </div>
           </div>
-          <div className={playlistStyles.playList}>
-            <div className={playlistStyles.title}>
-              <h3>评论</h3>
-              <span>共{this.state.detail.commentCount}条评论</span>
-            </div>
-            <div className={playlistStyles.postComment}>
-              <img src={"http://s4.music.126.net/style/web2/img/default/default_avatar.jpg?param=50y50"} alt=""/>
-              <div style={{flex: "1"}}>
-                <div style={{width: "100%", position: "relative"}}>
-                  <textarea placeholder="评论"></textarea>
-                  <span className={playlistStyles.trigon}></span>
-                </div>
-                <div className={playlistStyles.commentButton}>
-                  <i></i>
-                  <i></i>
-                  <div>
-                    <span>140</span>
-                    <a href="">评论</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={playlistStyles.commentList}>
-              <h4 className={playlistStyles.subtitle}>最新评论({this.state.detail.commentCount})</h4>
-              {/* 渲染评论列表 */}
-              <ul>
-                {this.state.comments.map((item, index) => {
-                  return <li key={index}>
-                    <div className={playlistStyles.commentItem} >
-                      <img src={item.user.avatarUrl} style={{width: 50, height: 50}} alt=""/>
-                      <div style={{flex: "1",paddingLeft: "10px"}}>
-                        <div className={playlistStyles.commentNickname}>
-                          <a href="#" className={playlistStyles.nickname}>{item.user.nickname}</a>&nbsp;
-                          {item.user.vipRights ? <img style={{width: 35, height: 12, position: "relative", top: -2}} src="//p6.music.126.net/obj/wo3DlcOGw6DClTvDisK1/4213922817/9124/a83c/7eb7/6d7d81b608bfb56d7fb286bd8eb72346.png"/> : ""}
-                          ：{item.content}
-                        </div>
-                        {item.beReplied.length > 0 && item.beReplied.map((replied, index) => {
-                            return <div className={playlistStyles.replied} key={index}>
-                              <a href="#" className={playlistStyles.nickname}>{replied.user.nickname}</a>&nbsp;&nbsp; :
-                              {replied.content}
-                            </div>
-                        })}
-                        <div className={playlistStyles.commentContent}>
-                          <span className={playlistStyles.commentDate}>{this.commentDateFormat(item.time)}</span>
-                          <div className={playlistStyles.commentLikeAndReply}>
-                            <a href="" className={playlistStyles.likeCount}><i></i>&nbsp;
-                              {item.likedCount && item.likedCount >= 0 ? "(" + item.likedCount + ")" : ""}
-                            </a>
-                            <a href="" className={playlistStyles.commentReply}>回复</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                })}
-              </ul>
-              {this.state.commentTotal > 20 
-              ? 
-              <Pagination 
-              style={{textAlign: "center"}} 
-              current={this.state.commentCurrentPage} 
-              onChange={this.onChange} 
-              showSizeChanger={false} 
-              total={(this.state.commentTotal + 1) * 10 / 20} /> : null}
-            </div>
+          <CommentsList id={this.state.playlist_id} fetchUrl={"http://localhost:3000/comment/playlist?litmit=20&id="}/>
           </div>
-        </div>
         <div className={playlistStyles.container_right}>
           <h4 className={playlistStyles.subtitle}>喜欢这个歌单的人</h4>
           {/* 渲染收藏歌单的人列表 */}
