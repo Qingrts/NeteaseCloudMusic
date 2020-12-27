@@ -1,6 +1,9 @@
 import React from 'react';
 
 import playlistStyles from "../../../css/findmusic/playlistdetail.scss";
+import albumDetailStyles from "../../../css/findmusic/albumDetailStyles.scss";
+import moment from "moment";
+import format from "../../../utils/format";
 
 let defaultDetail = {
   creator: {
@@ -14,7 +17,8 @@ let defaultDetail = {
   tags: [],
   description: "",
   tracks: [],
-  subscribers: []
+  subscribers: [],
+  artists: []
 };
 
 export default class Playlist extends React.Component{
@@ -62,9 +66,23 @@ export default class Playlist extends React.Component{
   render() {
     return <div className={playlistStyles.container}>
         <div className={playlistStyles.container_left}>
-          <div className={playlistStyles.playlistInfo}>
-            <div className={playlistStyles.playlistCoverimg}>
+          <div className={albumDetailStyles.playlistInfo}>
+            <div className={albumDetailStyles.playlistCoverimg}>
               <img src={this.state.detail.picUrl} alt=""/>
+              <span className={albumDetailStyles.cloak}></span>
+            </div>
+            <div className={albumDetailStyles.albumInfo}>
+              <h2><i className={albumDetailStyles.icon}></i>{this.state.detail.name}</h2>
+              <p className={albumDetailStyles.artists}>
+              歌手&nbsp;:&nbsp;
+              {
+                this.state.detail.artists.map((item, index) => {
+                  return this.state.detail.artists.length == index + 1 ? <a herf="" key={index}>{item.name}</a> : <span key={index}><a herf="">{item.name}</a>&nbsp;/&nbsp;</span>;
+                })
+              }
+              </p>
+              <p className={albumDetailStyles.publishTime}>发行时间: {moment(this.state.detail.publishTime).format("YYYY-MM-DD")}</p>
+              <p className={albumDetailStyles.company}>发行公司 : {this.state.detail.company}</p>
             </div>
           </div>
         </div>

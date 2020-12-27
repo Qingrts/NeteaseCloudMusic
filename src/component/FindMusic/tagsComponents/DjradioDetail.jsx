@@ -4,6 +4,8 @@ import playlistStyles from "../../../css/findmusic/playlistdetail.scss";
 import DjradioDetailStyles from "../../../css/findmusic/djradioDetailStyles.scss";
 
 import CommentsList from "../../commonComponent/CommentsList.jsx";
+import ClientDown from "../../commonComponent/ClientDown.jsx";
+import format from "../../../utils/format.js";
 import moment from "moment";
 
 import { Link } from "react-router-dom";
@@ -57,7 +59,6 @@ export default class DjradioDetail extends React.Component{
   }
   // 获取歌单详情
   getPlaylistDetail = (id) => {
-    console.log(id);
     fetch("http://localhost:3000/dj/program/detail?id=" + id)
     .then(response => {
       return response.json();
@@ -80,7 +81,6 @@ export default class DjradioDetail extends React.Component{
       this.setState({
         relatedPlaylist: data.programs
       })
-      console.log(this.state);
     })
     .catch(err => {
       console.log(err);
@@ -110,7 +110,7 @@ export default class DjradioDetail extends React.Component{
                 <a href="" className={DjradioDetailStyles.subscription}>
                   <i>
                     <em></em>
-                    订阅({(this.state.detail.radio.subCount / 10000).toFixed(1)}万)
+                    订阅({format.numberFormat(this.state.detail.radio.subCount)})
                   </i>
                 </a>
               </div>
@@ -119,11 +119,11 @@ export default class DjradioDetail extends React.Component{
           <div className={DjradioDetailStyles.djInfo}>
             <div className={DjradioDetailStyles.iconGroup}>
               <a href="" className={DjradioDetailStyles.playIcon}>
-                <i>播放 </i>
+                <i>播放 {format.durationFormat(this.state.detail.duration, "分", "秒")}</i>
               </a>
               <a href="" className={DjradioDetailStyles.likeCount}>
                 <i>
-                  <em></em>({this.state.detail.likedCount})
+                  <em></em>({format.numberFormat(this.state.detail.likedCount)})
                 </i>
               </a>
               <a href="" className={DjradioDetailStyles.comment}>
@@ -169,6 +169,7 @@ export default class DjradioDetail extends React.Component{
               })}
             </ul>
           </div>
+          <ClientDown/>
         </div>
       </div>
   }

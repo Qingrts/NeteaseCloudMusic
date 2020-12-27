@@ -37,7 +37,6 @@ export default class PlaylistCategory extends React.Component{
         hotPlaylist: data.playlists,
         playlistTotal: data.total
       })
-      console.log(playlistTotal);
     })
     .catch(err => {
       console.log(err);

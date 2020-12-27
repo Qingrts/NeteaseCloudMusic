@@ -1,13 +1,12 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import playlistStyles from "../../../css/findmusic/playlistdetail.scss";
 
-import { Link } from "react-router-dom";
 import moment from "moment";
-import { Pagination } from "antd";
-
 import ClientDown from "../../commonComponent/ClientDown.jsx";
 import CommentsList from "../../commonComponent/CommentsList.jsx";
+import format from "../../../utils/format.js";
 
 
 
@@ -101,48 +100,8 @@ export default class Playlist extends React.Component{
     })
   }
 
-  // 时长格式化
-  durationFormat = (duration) => {
-    if(isNaN(duration)){
-      return false;
-    }
-    let minute = (Math.floor(duration / 60000) % 60).toString().padStart(2, "0");
-    let second = (Math.floor(duration / 1000) % 60).toString().padStart(2, "0");
-    let millisecond=Math.floor(duration) % 1000;
-    return `${minute}:${second}`;
-  }
+  
 
-  // 评论时间格式化
-  commentDateFormat = (time) => {
-    let date = new Date(time);
-    let nowdate = new Date();
-    let y = date.getFullYear().toString().padStart(2, "0");
-    let m = (date.getMonth() + 1).toString().padStart(2, "0");
-    let d = date.getDate().toString().padStart(2, "0");
-    let hh = date.getHours().toString().padStart(2, "0");
-    let mm = date.getMinutes().toString().padStart(2, "0");
-    if(parseInt(y) != nowdate.getFullYear()){
-      return `${y}年${m}月${d}日 ${hh}:${mm}`;
-    }else if(parseInt(m) != nowdate.getMonth() + 1 || parseInt(d) < nowdate.getDate() - 1){
-      return `${m}月${d}日 ${hh}:${mm}`;
-    }else if(parseInt(d) == nowdate.getDate() - 1){
-      return `昨天${hh}:${mm}`;
-    }else if(parseInt((nowdate - date) /60000) < 60){
-      return `${parseInt((nowdate - date) /60000)}分钟前`;
-    }else{
-      return `${hh}:${mm}`;
-    }
-  }
-  
-  // 评论分页
-  onChange = page => {
-    this.getCommentList(this.state.playlist_id, (page - 1) * 20);
-    // this.getCommentList(this.props.location.state.id, (page - 1) * 20);
-    this.setState({
-      commentCurrentPage: page,
-    });
-  };
-  
 
   render() {
     return <div className={playlistStyles.container}>
@@ -231,7 +190,7 @@ export default class Playlist extends React.Component{
                       {item.mv != 0 && <span title="播放mv" className={playlistStyles.mv}></span>}
                     </td>
                     <td>
-                      <span className="duration">{this.durationFormat(item.dt)}</span>
+                      <span className="duration">{format.durationFormat(item.dt)}</span>
                       <div className={playlistStyles.songlistIcon + " " + "songlistIcon"}>
                         <span></span>
                         <span></span>
@@ -265,11 +224,22 @@ export default class Playlist extends React.Component{
           <div style={{marginBottom: 40}}>
             <ul>
               {this.state.relatedPlaylist.map((item, index) => {
-                return <li key={index}>
-                  <Link to={{pathname: "/discover/playlist"}} className={playlistStyles.relatedPlaylist} >
-                    <img src={item.coverImgUrl} title={item.creator.nickname} alt="" className={playlistStyles.coverImgUrl}/>
+                return <li key={index} className={playlistStyles.relatedPlaylist}>
+                    <img src={item.coverImgUrl} title={item.creator.nickname} alt="" 
+                    className={playlistStyles.coverImgUrl}
+                    onClick={
+                      () => {
+                        sessionStorage.setItem("playlist_id", item.id);
+                        window.location.reload();
+                      }  
+                    }/>
                     <div className={playlistStyles.relatedInfo}>
-                      <h3 className={playlistStyles.relatedTitle}>
+                      <h3 className={playlistStyles.relatedTitle} onClick={
+                        () => {
+                          sessionStorage.setItem("playlist_id", item.id);
+                          window.location.reload();
+                        }  
+                      }>
                         <span className={playlistStyles.nickname} style={{fontSize: 14, color: "#000"}}>{item.name}</span>
                       </h3>
                       <p className={playlistStyles.userInfo}>
@@ -277,20 +247,11 @@ export default class Playlist extends React.Component{
                         <span style={{color: "#666"}} className={playlistStyles.nickname}>{item.creator.nickname}</span>
                       </p>
                     </div>
-                  </Link>
                 </li>
               })}
             </ul>
           </div>
-          <h4 className={playlistStyles.subtitle}>网易云音乐多端下载</h4>
-          <div className={playlistStyles.moreClientDownload}>
-            <ul>
-              <li><a href="#">iphone</a></li>
-              <li><a href="#">window</a></li>
-              <li><a href="#">android</a></li>
-            </ul>
-            <p>同步歌单，随时畅听320k好音乐</p>
-          </div>
+          <ClientDown/>
         </div>
       </div>
   }

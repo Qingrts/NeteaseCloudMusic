@@ -35,7 +35,7 @@
     }
     .subscription{
       display: inline-block;
-      width: 110px;
+      max-width: 110px;
       min-width: 85px;
       height: 28px;
       line-height: 28px;
@@ -88,7 +88,7 @@
       }
     }
     .playIcon{
-      width: 126px;
+      max-width: 126px;
       height: 31px;
       background-position: right -676px;
       i{
@@ -105,9 +105,10 @@
       }
     }
     .likeCount{
-      width: 71px;
+      max-width: 71px;
       height: 31px;
       background-position: right -182px;
+      padding-right: 5px;
       &:hover{
         background-position: right -182px;
         i{
@@ -116,7 +117,6 @@
       }
       i{
         display: block;
-        margin-right: 3px;
         height: 31px;
         background-position: 0 -59px;
         em{
@@ -132,7 +132,7 @@
       }
     }
     .comment{
-      width: 58px;
+      max-width: 58px;
       height: 31px;
       background-position: right -1020px;
       i{
@@ -148,7 +148,7 @@
       }
     }
     .share{
-      width: 58px;
+      max-width: 58px;
       height: 31px;
       background-position: right -1020px;
       i{

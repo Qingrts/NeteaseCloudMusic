@@ -28,3 +28,14 @@ exports.commentDateFormat = (time) => {
     return `${hh}:${mm}`;
   }
 }
+
+
+exports.durationFormat = (duration, separator=":", lastSeparator="") => {
+  if(isNaN(duration)){
+    return false;
+  }
+  let minute = (Math.floor(duration / 60000) % 60).toString().padStart(2, "0");
+  let second = (Math.floor(duration / 1000) % 60).toString().padStart(2, "0");
+  let millisecond=Math.floor(duration) % 1000;
+  return `${minute}${separator}${second}${lastSeparator}`;
+}

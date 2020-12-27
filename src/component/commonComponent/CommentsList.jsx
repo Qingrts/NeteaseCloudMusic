@@ -28,12 +28,10 @@ export default class CommentsList extends React.Component{
       return response.json();
     })
     .then(data => {
-      console.log(data);
       this.setState({
         comments: data.comments,
         commentTotal: data.total
       })
-      console.log(this.state.commentTotal);
     })
     .catch(err => {
       console.log(err);
@@ -43,7 +41,6 @@ export default class CommentsList extends React.Component{
   // 评论分页
   onChange = page => {
     this.getCommentList(this.state.playlist_id, (page - 1) * 20);
-    // this.getCommentList(this.props.location.state.id, (page - 1) * 20);
     this.setState({
       commentCurrentPage: page,
     });

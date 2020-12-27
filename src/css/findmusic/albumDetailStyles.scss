@@ -1,0 +1,53 @@
+.playlistInfo{
+  display: flex;
+  .playlistCoverimg{
+    width: 217px;
+    overflow: hidden;
+    position: relative;
+    img{
+      width: 177px;
+      height: 177px;
+    }
+    background: url(../../images/coverall.png) no-repeat 0 -986px;
+    .cloak {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 209px;
+      height: 177px;
+      background: url(../../images/coverall.png) no-repeat 0 -986px;
+    }
+  }
+  .albumInfo{
+    font-size: 12px;
+    flex: 1;
+    margin-left: 10px;
+    p{
+      color: #666;
+    }
+    .icon{
+      display: inline-block;
+      width: 54px;
+      height: 24px;
+      background: url(../../images/icon.png) no-repeat 0 -186px;
+      vertical-align: middle;
+      margin-right: 10px;
+      position: relative;
+      top: -2px;
+    }
+    .artists{
+      margin-top: 10px;
+      font-size: 12px;
+      a{
+        color: #0c73c2;
+      }
+    }
+    .publishTime{
+      margin-top: 6px;
+    }
+    .company{
+      margin-top: 6px;
+    }
+  }
+}

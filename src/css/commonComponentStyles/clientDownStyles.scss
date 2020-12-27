@@ -3,7 +3,7 @@
   ul{
     width: 100%;
   height: 65px;
-  background: url(../../images/sprite.png) no-repeat 31px -383px;
+  background: url(../../images/sprite.png) no-repeat 0 -383px;
   display: flex;
   padding-top: 9px;
     li{
@@ -17,17 +17,17 @@
       }
       &:nth-child(1){
         &:hover{
-          background: url(../../images/sprite.png) no-repeat 31px -472px;
+          background: url(../../images/sprite.png) no-repeat 0 -472px;
         }
       }
       &:nth-child(2){
         &:hover{
-          background: url(../../images/sprite.png) no-repeat -59px -472px;
+          background: url(../../images/sprite.png) no-repeat -66.5px -472px;
         }
       }
       &:nth-child(3){
         &:hover{
-          background: url(../../images/sprite.png) no-repeat -149px -472px;
+          background: url(../../images/sprite.png) no-repeat -133.5px -472px;
         }
       }
     }
