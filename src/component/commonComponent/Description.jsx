@@ -9,7 +9,8 @@ export default class Description extends React.Component{
     console.log(this.props);
     this.state = {
       descriptionToggle: false,
-      description: this.props.desc
+      description: this.props.desc,
+      startStr: this.props.startStr || ""
     };
   }
 
@@ -19,10 +20,10 @@ export default class Description extends React.Component{
         {
         (this.state.descriptionToggle == false && this.state.description.length >= 150)
         ? 
-        <div className={descriptionSyles.description} style={{fontSize: 12, lineHeight: 2.4, color: "#666", textIndent: "2em"}} dangerouslySetInnerHTML={{__html: "介绍 : " + this.state.description.replace(/\n+/g, "<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").substr(0, 150) + "..."}}>
+        <div className={descriptionSyles.description} style={{fontSize: 12, lineHeight: 2.4, color: "#666", paddingLeft: 25}} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n+/g, "<br />").substr(0, 150) + "..."}}>
         </div>
         :
-        <div className={descriptionSyles.description} style={{fontSize: 12, lineHeight: 2.4, color: "#666", textIndent: "2em"}} dangerouslySetInnerHTML={{__html: "介绍 : " + this.state.description.replace(/\n+/g, "<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")}}></div>
+        <div className={descriptionSyles.description} style={{fontSize: 12, lineHeight: 2.4, color: "#666", paddingLeft: 25}} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n+/g, "<br />")}}></div>
         }
         {
         this.state.description.length > 150 
@@ -37,21 +38,15 @@ export default class Description extends React.Component{
         null}
       </div>
         
-
-
-
-      return <div style={{fontSize: 12, lineHeight: 2.4, color: "#666", textIndent: "2em"}} dangerouslySetInnerHTML={{
-        __html: this.state.description.replace(/\n+/g, "<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-      }}></div>
     }
-    return <div>
+    return <div style={{position: "relative"}}>
       {
       (this.state.descriptionToggle == false && this.state.description.length >= 150)
       ? 
-      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: "介绍 : " + this.state.description.replace(/\n/g, "<br />").substr(0, 150) + "..."}}>
+      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n+/g, "<br />").substr(0, 150) + "..."}}>
       </div>
       :
-      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: "介绍 : " + this.state.description.replace(/\n/g, "<br />")}}></div>
+      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n+/g, "<br />")}}></div>
       }
       {
       this.state.description.length > 150 

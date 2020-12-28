@@ -1,17 +1,26 @@
 .coverInfoTitle{
+  flex: 1;
   padding: 15px 0 0 20px;
+  .title{
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
   .coverImg{
     vertical-align: middle;
-    display: inline-block;
     width: 73px;
     height: 24px;
     background: url(../../images/icon2.png) no-repeat 0 -75px;
     margin-right: 8px;
+    float: left;
   }
   h2{
+    width: 80%;
     height: 24px;
     line-height: 24px;
+    float: left;
+    margin-top: -4px;
     > span{
+      width: 50%;
       position: relative;
       top: 2px;
     }

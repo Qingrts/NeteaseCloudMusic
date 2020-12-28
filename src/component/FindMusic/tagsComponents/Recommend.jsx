@@ -233,7 +233,7 @@ export default class Recommmend extends React.Component {
                   { this.state.topList[index]["songs"] !== undefined ? this.state.topList[index]['songs'].map((s, i) => {
                     return <dd key={i} className="musicItem">
                       <span>{i + 1}</span>
-                      <a className={styles.musicName + " " + "musicName"} href="#">{s.name}</a>
+                      <Link to={{pathname: "/discover/songdetail", state: {id: s.id}}} className={styles.musicName + " " + "musicName"}>{s.name}</Link>
                       <div className={styles.iconGroup + " " + "iconGroup"}>
                         <a href="#" className={styles.playMusic} title="播放"></a>
                         <a href="#" className={styles.addToList} title="添加到播放列表"></a>

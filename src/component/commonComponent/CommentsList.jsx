@@ -13,7 +13,8 @@ export default class CommentsList extends React.Component{
       commentTotal: 0,
       commentCurrentPage: 1,
       playlist_id: this.props.id,
-      hotComments: []
+      hotComments: [],
+      loading: false
     }
   }
 
@@ -32,7 +33,8 @@ export default class CommentsList extends React.Component{
       this.setState({
         comments: data.comments,
         commentTotal: data.total,
-        hotComments: data.hotComments
+        hotComments: data.hotComments,
+        loading: true
       })
     })
     .catch(err => {
@@ -110,7 +112,7 @@ export default class CommentsList extends React.Component{
         </ul>
       </div>
       : null}
-      {this.state.comments.length == 0 ? <Spin tip="加载中..."/> : 
+      {this.state.comments && this.state.comments.length == 0 ? <Spin tip="加载中..."/> : 
       <div className={CommentsListStyles.commentList}>
         <h4 className={CommentsListStyles.subtitle}>最新评论({this.state.commentTotal})</h4>
         <ul>

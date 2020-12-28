@@ -107,7 +107,9 @@ export default class DjradioDetail extends React.Component{
               <img src={this.state.detail.coverUrl} style={{width: 140, height:140}} alt=""/>
             </div>
             <div className={DjradioDetailStyles.coverInfoTitle}>
-              <h2><i className={DjradioDetailStyles.coverImg}></i><span>{this.state.detail.name}</span></h2>
+              <div className={DjradioDetailStyles.title}>
+              <i className={DjradioDetailStyles.coverImg}></i><h2><span>{this.state.detail.name}</span></h2>
+              </div>
               <div className={DjradioDetailStyles.radioName}>
                 <i></i>&nbsp;&nbsp;<a href="" className={DjradioDetailStyles.nickname}>{this.state.detail.dj.brand}</a>
                 <a href="" className={DjradioDetailStyles.subscription}>
@@ -158,18 +160,30 @@ export default class DjradioDetail extends React.Component{
             <div style={{marginBottom: 40}}>
             <ul>
               {this.state.relatedPlaylist.map((item, index) => {
-                return <li key={index}>
-                  <Link to={{pathname: "/discover/playlist"}} className={playlistStyles.relatedPlaylist} >
-                    <img src={item.coverUrl} alt="" className={playlistStyles.coverImgUrl}/>
+                return <li key={index} className={playlistStyles.relatedPlaylist}>
+                    <Link onClick={
+                      () => {
+                        window.sessionStorage.setItem("djradio_id", item.id);
+                        window.location.reload();
+                      }
+                    } to={{pathname: "/discover/djradiodetail", state: this.state.djradio_id}}>
+                      <img src={item.coverUrl} alt="" className={playlistStyles.coverImgUrl}/>
+                    </Link>
                     <div className={playlistStyles.relatedInfo}>
+                      <Link onClick={
+                        () => {
+                          window.sessionStorage.setItem("djradio_id", item.id);
+                          window.location.reload();
+                        }
+                      } to={{pathname: "/discover/djradiodetail", state: this.state.djradio_id}}>
                       <h3 className={playlistStyles.relatedTitle}>
                         <span className={playlistStyles.nickname} style={{fontSize: 14, color: "#000"}}>{item.name}</span>
                       </h3>
+                      </Link>
                       <p className={playlistStyles.userInfo}>
                         <span style={{color: "#999", marginRight: 6}}>Vol. {item.serialNum}</span>
                       </p>
                     </div>
-                  </Link>
                 </li>
               })}
             </ul>
