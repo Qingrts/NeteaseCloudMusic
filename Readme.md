@@ -16,6 +16,7 @@ npm run dev
 npm run pub
 ```
 
+
 # 项目介绍
 仿网易云音乐官网,基于React,使用git进行版本控制
 
@@ -47,15 +48,15 @@ npm run pub
   	+ Download
     	+ Download.jsx
   	+ FindMusic				主页发现音乐部分, 路由配置以及结构搭建
-			- tagsComponents			标签对应的组件
-				* Album.jsx
-				* Artist.jsx
-				* Djradio.jsx
-				* Playlist.jsx
-				* PlaylistCategory.jsx
-				* Recommend.jsx
-				* Toplist.jsx
-    	- FindMusic.jsx
+			+ tagsComponents			标签对应的组件
+				+ Album.jsx
+				+ Artist.jsx
+				+ Djradio.jsx
+				+ Playlist.jsx
+				+ PlaylistCategory.jsx
+				+ Recommend.jsx
+				+ Toplist.jsx
+    	+ FindMusic.jsx
   	+ Friend
     	+ Friend.jsx
 		+ Musicperson
@@ -125,6 +126,14 @@ npm run pub
 		+ 查看榜单全部歌曲(查看更多)
 		+ 更多(榜单)
 + 用户详情
++ 歌曲详情
++ 电台分类
++ 搜索
++ 歌单分类
++ 排行榜
++ 主播电台
++ 歌手列表
++ 新碟上架
 
 + css优化
 + js优化
