@@ -3,7 +3,7 @@ import React from 'react';
 import CommentsListStyles from "../../css/commonComponentStyles/commentsListStyles.scss";
 import format from "../../utils/format.js";
 
-import { Pagination } from "antd";
+import { Pagination, Spin } from "antd";
 
 export default class CommentsList extends React.Component{
   constructor(props)　{
@@ -12,7 +12,8 @@ export default class CommentsList extends React.Component{
       comments: [],
       commentTotal: 0,
       commentCurrentPage: 1,
-      playlist_id: this.props.id
+      playlist_id: this.props.id,
+      hotComments: []
     }
   }
 
@@ -30,7 +31,8 @@ export default class CommentsList extends React.Component{
     .then(data => {
       this.setState({
         comments: data.comments,
-        commentTotal: data.total
+        commentTotal: data.total,
+        hotComments: data.hotComments
       })
     })
     .catch(err => {
@@ -40,6 +42,9 @@ export default class CommentsList extends React.Component{
 
   // 评论分页
   onChange = page => {
+    this.setState({
+      comments: []
+    })
     this.getCommentList(this.state.playlist_id, (page - 1) * 20);
     this.setState({
       commentCurrentPage: page,
@@ -69,6 +74,43 @@ export default class CommentsList extends React.Component{
           </div>
         </div>
       </div>
+      {this.state.hotComments && this.state.hotComments.length != 0 ?
+      <div className={CommentsListStyles.commentList}>
+        <h4 className={CommentsListStyles.subtitle}>精彩评论</h4>
+        <ul>
+          {this.state.hotComments.map((item, index) => {
+            return <li key={index}>
+              <div className={CommentsListStyles.commentItem} >
+                <img src={item.user.avatarUrl} style={{width: 50, height: 50}} alt=""/>
+                <div style={{flex: "1",paddingLeft: "10px"}}>
+                  <div className={CommentsListStyles.commentNickname}>
+                    <a href="#" className={CommentsListStyles.nickname}>{item.user.nickname}</a>&nbsp;
+                    {item.user.vipRights ? <img style={{width: 35, height: 12, position: "relative", top: -2}} src="//p6.music.126.net/obj/wo3DlcOGw6DClTvDisK1/4213922817/9124/a83c/7eb7/6d7d81b608bfb56d7fb286bd8eb72346.png"/> : ""}
+                    ：{item.content}
+                  </div>
+                  {item.beReplied.length > 0 && item.beReplied.map((replied, index) => {
+                      return <div className={CommentsListStyles.replied} key={index}>
+                        <a href="#" className={CommentsListStyles.nickname}>{replied.user.nickname}</a>&nbsp;&nbsp; :
+                        {replied.content}
+                      </div>
+                  })}
+                  <div className={CommentsListStyles.commentContent}>
+                    <span className={CommentsListStyles.commentDate}>{format.commentDateFormat(item.time)}</span>
+                    <div className={CommentsListStyles.commentLikeAndReply}>
+                      <a href="" className={CommentsListStyles.likeCount}><i></i>&nbsp;
+                        {item.likedCount && item.likedCount >= 0 ? "(" + item.likedCount + ")" : ""}
+                      </a>
+                      <a href="" className={CommentsListStyles.commentReply}>回复</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          })}
+        </ul>
+      </div>
+      : null}
+      {this.state.comments.length == 0 ? <Spin tip="加载中..."/> : 
       <div className={CommentsListStyles.commentList}>
         <h4 className={CommentsListStyles.subtitle}>最新评论({this.state.commentTotal})</h4>
         <ul>
@@ -111,6 +153,7 @@ export default class CommentsList extends React.Component{
         showSizeChanger={false} 
         total={(this.state.commentTotal + 1) * 10 / 20} /> : null}
       </div>
+      }
     </div>
   }
 }

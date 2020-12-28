@@ -64,10 +64,11 @@ export default class DjradioDetail extends React.Component{
       return response.json();
     })
     .then(data => {
+      console.log(data);
       this.setState({
         detail: data.program
       })
-      this.getUserRadio(this.state.detail.radio.id);
+      this.getUserRadio(data.program.radio.id);
     })
     .catch(err => {
       console.log(err);
@@ -75,11 +76,13 @@ export default class DjradioDetail extends React.Component{
   }
 
   getUserRadio = (id) => {
-    fetch("http://localhost:3000/dj/program?rid=" + id + "&limit=5")
+    fetch("http://localhost:3000/dj/program?rid=" + id)
     .then(response => response.json())
     .then(data => {
+      let programs = data.programs.length >= 6 ? data.programs.slice(1, 6) : data.programs;
+      console.log(programs);
       this.setState({
-        relatedPlaylist: data.programs
+        relatedPlaylist: programs
       })
     })
     .catch(err => {
@@ -106,7 +109,7 @@ export default class DjradioDetail extends React.Component{
             <div className={DjradioDetailStyles.coverInfoTitle}>
               <h2><i className={DjradioDetailStyles.coverImg}></i><span>{this.state.detail.name}</span></h2>
               <div className={DjradioDetailStyles.radioName}>
-                <i></i>&nbsp;&nbsp;<a href="">{this.state.detail["dj"]["brand"]}</a>
+                <i></i>&nbsp;&nbsp;<a href="" className={DjradioDetailStyles.nickname}>{this.state.detail.dj.brand}</a>
                 <a href="" className={DjradioDetailStyles.subscription}>
                   <i>
                     <em></em>
@@ -149,8 +152,10 @@ export default class DjradioDetail extends React.Component{
           </div>
         </div>
         <div style={{flex: 1,borderLeft: "1px solid #d3d3d3",padding: "20px 40px 40px 30px"}}>
-          <h4 className={playlistStyles.subtitle}>更多节目 <a href="#" style={{float: "right", color: "#666", fontWeight: "400"}}>全部&gt;</a></h4>
-          <div style={{marginBottom: 40}}>
+          {this.state.relatedPlaylist.length == 1 ? null :
+          <div>
+            <h4 className={playlistStyles.subtitle}>更多节目 <a href="#" style={{float: "right", color: "#666", fontWeight: "400"}}>全部&gt;</a></h4>
+            <div style={{marginBottom: 40}}>
             <ul>
               {this.state.relatedPlaylist.map((item, index) => {
                 return <li key={index}>
@@ -169,6 +174,8 @@ export default class DjradioDetail extends React.Component{
               })}
             </ul>
           </div>
+          </div>
+          }
           <ClientDown/>
         </div>
       </div>

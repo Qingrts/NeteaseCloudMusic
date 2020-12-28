@@ -178,3 +178,10 @@ input:focus, button:focus{
   display: block;
   margin: 100px auto;
 }
+
+.subtitle{
+  font-size: 12px;
+  padding-bottom: 4px;
+  font-weight: bolder;
+  border-bottom: 1px solid #cfcfcf;
+}

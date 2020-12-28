@@ -1,0 +1,25 @@
+.description{
+  font-size: 12px;
+  line-height: 16px;
+  color: #777;
+  position: relative;
+}
+.toggle{
+  width: 35px;
+  height: 16px;
+  position: absolute;
+  bottom: -20px;
+  right: 10px;
+  color: #0c73c2;
+  font-size: 12px;
+  &:hover{
+    text-decoration: underline;
+  }
+  i{
+    width: 11px;
+    height: 8px;
+    float: right;
+    margin-top: 5px;
+    background: url(../../images/icon.png) no-repeat -65px -520px;
+  }
+}

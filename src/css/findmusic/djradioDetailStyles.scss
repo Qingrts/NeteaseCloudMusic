@@ -18,6 +18,15 @@
     margin-bottom: 25px;
   }
   .radioName{
+    .nickname{
+      display: inline-block;
+      max-width: 55%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+      top: 4px;
+    }
     > i{
       width: 16px;
       height: 17px;
@@ -32,11 +41,11 @@
       line-height: 17px;
       color: #666;
       margin-right: 17px;
+      padding-right: 8px;
     }
     .subscription{
       display: inline-block;
       max-width: 110px;
-      min-width: 85px;
       height: 28px;
       line-height: 28px;
       background: url(../../images/button2.png) no-repeat right -2400px;
@@ -213,6 +222,14 @@
     > strong{
       font-size: 14px;
       margin-right: 20px;
+      max-width: 270px;
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      top: -2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     > span{
       color: #999;

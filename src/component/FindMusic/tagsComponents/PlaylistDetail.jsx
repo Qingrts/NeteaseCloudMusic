@@ -8,6 +8,8 @@ import ClientDown from "../../commonComponent/ClientDown.jsx";
 import CommentsList from "../../commonComponent/CommentsList.jsx";
 import format from "../../../utils/format.js";
 
+import Description from "../../../component/commonComponent/Description.jsx";
+
 
 
 let defaultDetail = {
@@ -35,7 +37,6 @@ export default class Playlist extends React.Component{
     
     this.state = {
       detail: JSON.parse(JSON.stringify(defaultDetail)),
-      descriptionToggle: false,
       comments: [],
       commentTotal: 0,
       commentCurrentPage: 1,
@@ -136,25 +137,7 @@ export default class Playlist extends React.Component{
                   return <a href="" key={index}>{item}</a>
                 })}
               </div>
-              {
-              (this.state.descriptionToggle == false && this.state.detail.description.length >= 150)
-              ? 
-              <div className={playlistStyles.description} dangerouslySetInnerHTML={{__html: "介绍 : " + this.state.detail.description.replace(/\n/g, "<br />").substr(0, 150) + "..."}}>
-              </div>
-              :
-              <div className={playlistStyles.description} dangerouslySetInnerHTML={{__html: "介绍 : " + this.state.detail.description.replace(/\n/g, "<br />")}}></div>
-              }
-              {
-              this.state.detail.description.length > 150 
-              ? 
-              <a href="#" onClick={(e) => {
-                e.preventDefault();
-                this.setState({
-                  descriptionToggle: !this.state.descriptionToggle
-                })
-              }} className={playlistStyles.toggle}>{this.state.descriptionToggle == false ? "展开" : "收起"} <i></i></a> 
-              : 
-              null}
+              {this.state.detail.description.length == 0 ? null :<Description desc={this.state.detail.description}/>}
             </div>
           </div>
           <div className={playlistStyles.playList}>
@@ -204,10 +187,10 @@ export default class Playlist extends React.Component{
                 })}
                 </tbody>
               </table>
-              <div className={playlistStyles.clientDownload}>
+              {this.state.detail.tracks.length <= 10 ? <div className={playlistStyles.clientDownload}>
                 <p>查看更多内容,请下载客户端</p>
                 <a href="#">立即下载</a>
-              </div>
+              </div> : null}
             </div>
           </div>
           <CommentsList id={this.state.playlist_id} fetchUrl={"http://localhost:3000/comment/playlist?litmit=20&id="}/>

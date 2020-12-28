@@ -118,16 +118,13 @@
   .replied{
     margin-top: 10px;
     width: 580px;
-    height: 38px;
     background-color: #f4f4f4;
     border: 1px solid #dedede;
-    line-height: 38px;
+    padding: 10px 0;
     font-size: 12px;
     padding-left: 19px;
     color: #666;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    padding-right: 20px;
   }
   .commentContent{
     margin-top: 12px;
@@ -186,4 +183,7 @@
   padding-bottom: 4px;
   font-weight: bolder;
   border-bottom: 1px solid #cfcfcf;
+}
+.nickname{
+  color: #0c73c2;
 }
