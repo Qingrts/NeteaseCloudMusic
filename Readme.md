@@ -1,10 +1,17 @@
 # 运行需要使用Binaryify提供的接口,请到此处下载[Binaryify](https://github.com/Binaryify/NeteaseCloudMusicApi)
-<!-- 运行 -->
+安装依赖(推荐cnpm)
+```
+npm install
+或者
+cnpm install
+```
+
+运行
 ```
 npm run dev
 ```
 
-<!-- 上线 压缩 -->
+上线 压缩
 ```
 npm run pub
 ```
