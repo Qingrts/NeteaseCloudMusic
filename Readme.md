@@ -40,15 +40,15 @@ npm run pub
   	+ Download
     	+ Download.jsx
   	+ FindMusic				主页发现音乐部分, 路由配置以及结构搭建
-			+ tagsComponents			标签对应的组件
-				+ Album.jsx
-				+ Artist.jsx
-				+ Djradio.jsx
-				+ Playlist.jsx
-				+ PlaylistCategory.jsx
-				+ Recommend.jsx
-				+ Toplist.jsx
-    	+ FindMusic.jsx
+			- tagsComponents			标签对应的组件
+				* Album.jsx
+				* Artist.jsx
+				* Djradio.jsx
+				* Playlist.jsx
+				* PlaylistCategory.jsx
+				* Recommend.jsx
+				* Toplist.jsx
+    	- FindMusic.jsx
   	+ Friend
     	+ Friend.jsx
 		+ Musicperson
