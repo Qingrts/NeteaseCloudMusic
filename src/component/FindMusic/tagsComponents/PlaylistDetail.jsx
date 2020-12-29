@@ -168,7 +168,7 @@ export default class Playlist extends React.Component{
                       <i></i>
                     </td>
                     <td>
-                      <a href="#">{item.name}</a>&nbsp;
+                      <Link to={{pathname: "/discover/songdetail",state: {id: item.id}}}>{item.name}</Link>&nbsp;
                       {item.alia.length != 0 && <span className={playlistStyles.alia}>{"-(" + item.alia[0] + ")"}</span>}
                       {item.mv != 0 && <span title="播放mv" className={playlistStyles.mv}></span>}
                     </td>

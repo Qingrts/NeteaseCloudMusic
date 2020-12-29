@@ -171,7 +171,7 @@ export default class Recommmend extends React.Component {
               }>更多</Link>
             </div>
             {this.state.recommendList.length == 0 ? <Spin tip="加载中..."/> :
-            <ul className={styles.recommendList}>
+            <ul className={styles.recommendList + " playitemStyle"}>
               {this.state.recommendList.map((item, index) => {
                 if(item.type == 0){
                   return <Link key={index} to={{pathname: "/discover/playlistdetail", state: {id: item.id}}}>

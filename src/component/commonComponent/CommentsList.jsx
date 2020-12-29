@@ -17,10 +17,21 @@ export default class CommentsList extends React.Component{
       loading: false
     }
   }
-
+  
+  componentWillReceiveProps(next) {
+    console.log(this.state.playlist_id, next.id);
+    if(this.state.playlist_id !== next.id && next.id !== undefined){
+      this.getCommentList(next.id, 0);
+      this.setState({
+        playlist_id: next.id
+      })
+    }
+  }
   componentDidMount() {
     this.getCommentList(this.state.playlist_id, 0);
   }
+
+
 
 
   // 获取评论列表

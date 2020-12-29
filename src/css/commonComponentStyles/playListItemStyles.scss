@@ -67,16 +67,15 @@
 .djprogram {
   width: 35px;
   height: 15px;
-  display: inline-block;
   background: url('../../images/icon.png') no-repeat -31px -658px;
-  margin-right: 5px;
-  margin-top: -4px;
-  vertical-align: middle;
+  display: inline-block;
+  margin-right: 4px;
 }
 :global(.playlistInfo){
+  position: relative;
   line-height: 2;
-  display: -webkit-box;    
-  -webkit-box-orient: vertical;    
-  -webkit-line-clamp: 3;    
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }

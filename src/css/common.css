@@ -167,12 +167,6 @@ input:focus, button:focus{
 .ant-pagination-item a{
   padding: 0;
 }
-.outbox .playlistInfo{
-  text-overflow: normal;
-  overflow: none;
-  white-space: normal;
-  line-height: 1.5;
-}
 
 .ant-spin{
   display: block;
@@ -184,4 +178,17 @@ input:focus, button:focus{
   padding-bottom: 4px;
   font-weight: bolder;
   border-bottom: 1px solid #cfcfcf;
+}
+
+.current{
+  background-color: #e6e6e6;
+}
+.playitemStyle .playlistInfo{
+  padding-top: 5px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  white-space: normal;
 }

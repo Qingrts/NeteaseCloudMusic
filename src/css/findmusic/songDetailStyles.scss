@@ -21,10 +21,18 @@
 }
 .simpleSonglist{
   ul li{
+    max-width: 200px;
     display: flex;
     margin: 5px 0;
     div{
       flex: 1;
+      max-width: 80%;
+      p{
+        max-width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
     .songTitle{
       font-size: 12px;
@@ -41,6 +49,11 @@
       margin-top: 13px;
       background: url(../../images/icon2.png) no-repeat -69px -455px;
       margin-right: 10px;
+      cursor: pointer;
+      opacity: 0.9;
+      &:hover{
+        opacity: 1;
+      }
     }
     i{
       background: url(../../images/icon2.png) no-repeat -87px -454px;
