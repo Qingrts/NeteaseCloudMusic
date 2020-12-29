@@ -47,7 +47,10 @@ export default class CommentsList extends React.Component{
     this.setState({
       comments: []
     })
+    setTimeout(() => {
     this.getCommentList(this.state.playlist_id, (page - 1) * 20);
+      
+    }, 2000);
     this.setState({
       commentCurrentPage: page,
     });
@@ -112,8 +115,7 @@ export default class CommentsList extends React.Component{
         </ul>
       </div>
       : null}
-      {this.state.comments && this.state.comments.length == 0 ? <Spin tip="加载中..."/> : 
-      <div className={CommentsListStyles.commentList}>
+      {this.state.loading == false || this.state.comments.length == 0  ? <Spin tip="加载中..."/> : <div className={CommentsListStyles.commentList}>
         <h4 className={CommentsListStyles.subtitle}>最新评论({this.state.commentTotal})</h4>
         <ul>
           {this.state.comments.map((item, index) => {

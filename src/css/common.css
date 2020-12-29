@@ -121,10 +121,10 @@ input:focus, button:focus{
 /* 分页 样式优化 */
 .ant-pagination-item, .ant-pagination-prev, .ant-pagination-next, .ant-pagination-jump-prev, .ant-pagination-jump-next{
   min-width: 24px;
-  width: 24px;
-  height: 24px;
+  max-height: 24px;
   line-height: 22px;
   font-size: 12px;
+  padding: 0 2px;
 }
 .ant-pagination-item-active{
   background-color: #A2161B;

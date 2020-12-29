@@ -126,8 +126,8 @@ export default class Playlist extends React.Component{
                   </i>
                 </a>
                 <a href="" className={playlistStyles.addPlaylist}></a>
-                <a href="" className={playlistStyles.collect}><i>({this.state.detail.subscribedCount})</i></a>
-                <a href="" className={playlistStyles.transmit}><i>({this.state.detail.shareCount})</i></a>
+                <a href="" className={playlistStyles.collect}><i>({format.numberFormat(this.state.detail.subscribedCount)})</i></a>
+                <a href="" className={playlistStyles.transmit}><i>({format.numberFormat(this.state.detail.shareCount)})</i></a>
                 <a href="" className={playlistStyles.download}><i>下载</i></a>
                 <a href="" className={playlistStyles.comment}><i>({this.state.detail.commentCount})</i></a>
               </div>

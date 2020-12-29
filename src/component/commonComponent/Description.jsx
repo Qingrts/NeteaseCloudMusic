@@ -6,7 +6,6 @@ export default class Description extends React.Component{
   constructor(props)　{
     super(props);
 
-    console.log(this.props);
     this.state = {
       descriptionToggle: false,
       description: this.props.desc,
@@ -20,10 +19,10 @@ export default class Description extends React.Component{
         {
         (this.state.descriptionToggle == false && this.state.description.length >= 150)
         ? 
-        <div className={descriptionSyles.description} style={{fontSize: 12, lineHeight: 2.4, color: "#666", paddingLeft: 25}} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n+/g, "<br />").substr(0, 150) + "..."}}>
+        <div className={descriptionSyles.description} style={{fontSize: 12, lineHeight: 2.4, color: "#666", paddingLeft: 25}} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n/g, "<br />").substr(0, 150) + "..."}}>
         </div>
         :
-        <div className={descriptionSyles.description} style={{fontSize: 12, lineHeight: 2.4, color: "#666", paddingLeft: 25}} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n+/g, "<br />")}}></div>
+        <div className={descriptionSyles.description} style={{fontSize: 12, lineHeight: 2.4, color: "#666", paddingLeft: 25}} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n/g, "<br />")}}></div>
         }
         {
         this.state.description.length > 150 
@@ -39,14 +38,14 @@ export default class Description extends React.Component{
       </div>
         
     }
-    return <div style={{position: "relative"}}>
+    return <div style={{position: "relative"}} className="desc">
       {
       (this.state.descriptionToggle == false && this.state.description.length >= 150)
       ? 
-      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n+/g, "<br />").substr(0, 150) + "..."}}>
+      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n/g, "<br />").substr(0, 150) + "..."}}>
       </div>
       :
-      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n+/g, "<br />")}}></div>
+      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n/g, "<br />")}}></div>
       }
       {
       this.state.description.length > 150 
@@ -56,7 +55,7 @@ export default class Description extends React.Component{
         this.setState({
           descriptionToggle: !this.state.descriptionToggle
         })
-      }} className={descriptionSyles.toggle}>{this.state.descriptionToggle == false ? "展开" : "收起"} <i></i></a> 
+      }} className={descriptionSyles.toggle + " toggle"}>{this.state.descriptionToggle == false ? <span>展开<i></i></span>  : <span>收起<i style={{transform: "rotate(180deg)"}}></i></span> } </a> 
       : 
       null}
     </div>

@@ -66,7 +66,7 @@
       overflow: hidden;
       margin-top: 20px;
       .play{
-        width: 66px;
+        min-width: 66px;
         height: 31px;
         float: left;
         i{
@@ -99,7 +99,7 @@
       }
       .addPlaylist{
         float: left;
-        width: 31px;
+        min-width: 31px;
         height: 31px;
         background: url(../../images/button2.png) no-repeat 0 -1588px;
         &:hover{
@@ -132,7 +132,7 @@
         }
       }
       .transmit{
-        width: 60px;
+        min-width: 60px;
         i{
           background-position: 0 -1225px;
         }
@@ -154,7 +154,7 @@
         }
       }
       .comment{
-        width: 60px;
+        min-width: 60px;
         i{
           background-position: 0 -1465px;
         }
