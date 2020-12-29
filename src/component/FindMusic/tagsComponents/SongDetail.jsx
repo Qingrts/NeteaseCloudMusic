@@ -212,7 +212,13 @@ export default class SongDetail extends React.Component{
               {this.state.simpleSonglist.map(item => {
                 return <li key={item.id}>
                   <div>
-                    <p className={songDetailStyles.songTitle}>{item.name}</p>
+                    <p className={songDetailStyles.songTitle}>
+                      <Link 
+                        to={{pathname: "/discover/songdetail", state: {id: item.id}}}
+                        onClick={() => {
+                          window.sessionStorage.setItem("song_id", item.id);
+                          window.location.reload();
+                        }}>{item.name}</Link></p>
                     <p className={songDetailStyles.songAuthor}>{item.artists.map(item => item.name)}</p>
                   </div>
                   <span></span>

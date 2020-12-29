@@ -34,7 +34,9 @@ module.exports = {
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: { // 配置压缩选项
-        warnings: false // 移除警告
+        warnings: false, // 移除警告
+        drop_console: true,
+        pure_funcs: ['console.log']
       }
     }),
     new webpack.optimize.DedupePlugin({ // 设置为产品上线环境，进一步压缩JS代码

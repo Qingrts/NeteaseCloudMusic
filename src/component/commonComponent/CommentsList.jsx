@@ -18,8 +18,7 @@ export default class CommentsList extends React.Component{
     }
   }
   
-  componentWillReceiveProps(next) {
-    console.log(this.state.playlist_id, next.id);
+  componentDidUpdate(next) {
     if(this.state.playlist_id !== next.id && next.id !== undefined){
       this.getCommentList(next.id, 0);
       this.setState({
