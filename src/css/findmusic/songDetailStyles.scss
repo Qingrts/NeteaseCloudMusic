@@ -160,6 +160,7 @@
         height: 9px;
         background: url(../../images/statbar.png) no-repeat left -66px;
         margin-right: 10px;
+        z-index: 2;
         span{
           width: 22px;
           height: 24px;
@@ -169,6 +170,18 @@
           border-radius: 100%;
           background: url(../../images/iconall.png) no-repeat 0 -250px;
         }
+        
+      }
+      .buffered{
+        width: 0%;
+        max-width: 100%;
+        position: absolute;
+        height: 9px;
+        top: 0;
+        left: 0;
+        background: url(../../images/statbar.png) no-repeat right -30px;
+        border-radius: 10px;
+        z-index: 0;
       }
       .currentTime{
         position: absolute;

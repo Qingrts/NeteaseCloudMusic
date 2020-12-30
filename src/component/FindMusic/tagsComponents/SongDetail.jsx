@@ -258,12 +258,21 @@ export default class SongDetail extends React.Component{
                 duration: event.target.duration
               })
             }} onTimeUpdate={() => {
-              if(event.target.currentTime == event.target.duration){
+              let timeBuffer = event.target.buffered;
+              let duration = event.target.duration;
+              if(timeBuffer.length != 0){
+                if(timeBuffer.end(timeBuffer.length - 1) != duration){
+                  this.refs.buffered.style.width = timeBuffer.end(timeBuffer.length - 1) / duration * 100 + "%";
+                }else{
+                  this.refs.buffered.style.width = "100%";
+                }
+              }
+              if(event.target.currentTime == duration){
                 this.setState({
                   play: false
                 })
               }
-              this.cur.style.width = (event.target.currentTime / event.target.duration) * 100 + "%";
+              this.cur.style.width = (event.target.currentTime / duration) * 100 + "%";
               this.setState({
                 currentTime: event.target.currentTime
               })
@@ -302,6 +311,7 @@ export default class SongDetail extends React.Component{
                       <i></i>
                     </span>
                   </div>
+                  <div className={songDetailStyles.buffered} ref="buffered"></div>
                   <div className={songDetailStyles.currentTime}>
                     <span>{format.durationFormat(this.state.currentTime*1000)}</span>&nbsp;/&nbsp;
                     <span>{format.durationFormat(this.state.duration*1000)}</span>
