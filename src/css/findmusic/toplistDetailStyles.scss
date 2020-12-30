@@ -36,6 +36,9 @@
 .iconGroup{
   overflow: hidden;
   margin-top: 20px;
+  a:hover{
+    text-decoration: none;
+  }
   .play{
     min-width: 66px;
     height: 31px;
@@ -314,6 +317,20 @@
         }
       }
     }
+    tbody tr:nth-child(-n+3){
+      height: 70px;
+      line-height: 70px;
+      td i{
+        margin-top: 25px;
+      }
+      td span.mv{
+        margin-top: 25px;
+      }
+      td .songlistIcon{
+        margin-top: 18px;
+
+      }
+    }
   }
   
   .clientDownload{
@@ -340,7 +357,6 @@
 }
 :global(.songLine:hover .songlistIcon){
   display: block;
-  
 }
 :global(.songLine:hover .duration){
   display: none;

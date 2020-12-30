@@ -79,7 +79,7 @@ export default class DjradioDetail extends React.Component{
     fetch("http://localhost:3000/dj/program?rid=" + id)
     .then(response => response.json())
     .then(data => {
-      let programs = data.programs.length >= 6 ? data.programs.slice(1, 6) : data.programs;
+      let programs = data.programs.slice(0, (data.programs.length >= 5 ? 5 : data.programs.length));
       console.log(programs);
       this.setState({
         relatedPlaylist: programs

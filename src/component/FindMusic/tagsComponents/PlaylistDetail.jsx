@@ -137,7 +137,7 @@ export default class Playlist extends React.Component{
                   return <a href="" key={index}>{item}</a>
                 })}
               </div>
-              {this.state.detail.description.length == 0 ? null :<Description startStr={" 介绍 :"} desc={this.state.detail.description}/>}
+              {this.state.detail.description && this.state.detail.description.length == 0 ? null :<Description startStr={" 介绍 :"} desc={this.state.detail.description}/>}
             </div>
           </div>
           <div className={playlistStyles.playList}>

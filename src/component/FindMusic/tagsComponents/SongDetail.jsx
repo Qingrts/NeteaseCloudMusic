@@ -49,7 +49,11 @@ export default class SongDetail extends React.Component{
       total: 0,
       lyric: "",
       includeThisSongList: [],
-      simpleSonglist: []
+      simpleSonglist: [],
+      audioUrl: "",
+      play: false,
+      currentTime: 0,
+      duration: 0
     };
   }
 
@@ -61,9 +65,10 @@ export default class SongDetail extends React.Component{
       this.getLyric(this.state.song_id);
       this.getIncludeThisSongList(this.state.song_id);
       this.getSimpleSong(this.state.song_id);
+      this.getSongURL(this.state.song_id);
     }
   }
-  // 获取专辑详情
+  // 获取歌曲详情
   getPlaylistDetail = (id) => {
     fetch("http://localhost:3000/song/detail?ids=" + id)
     .then(response => {
@@ -104,6 +109,7 @@ export default class SongDetail extends React.Component{
     })
   }
 
+  // 获取包含这首歌的歌单
   getIncludeThisSongList = (id) => {
     fetch("http://localhost:3000/simi/playlist?id=" + id)
     .then(res => res.json())
@@ -117,12 +123,11 @@ export default class SongDetail extends React.Component{
     })
   }
 
-
+  // 获取相似歌曲
   getSimpleSong = (id) => {
     fetch("http://localhost:3000/simi/song?id=" + id)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       this.setState({
         simpleSonglist: data.songs
       })
@@ -130,6 +135,18 @@ export default class SongDetail extends React.Component{
     .catch(err => {
       console.log(err);
     })
+  }
+  // 获取MP3url
+  getSongURL = (id) => {
+    fetch("http://localhost:3000/song/url?id=" + id)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      this.setState({
+        audioUrl: data.data[0].url
+      })
+    })
+    .catch(err => err);
   }
   
 
@@ -142,7 +159,7 @@ export default class SongDetail extends React.Component{
               <span className={albumDetailStyles.cloak} style={{width: 205, height: 205,backgroundPosition: "-140px -580px"}}></span>
             </div>
             <div className={albumDetailStyles.albumInfo + " songDetaildesc"}>
-              <h2 style={{fontSize: 22}}><i className={albumDetailStyles.icon} style={{backgroundPosition: "0 -463px"}}></i>{this.state.songdetail.al.name}</h2>
+              <h2 style={{fontSize: 22}}><i className={albumDetailStyles.icon} style={{backgroundPosition: "0 -463px"}}></i>{this.state.songdetail.name}</h2>
               <p className={albumDetailStyles.artists}>
              歌手&nbsp;:&nbsp;
              {
@@ -228,6 +245,56 @@ export default class SongDetail extends React.Component{
             </ul>
           </div>
           <ClientDown/>
+        </div>
+        <div className={songDetailStyles.audio}>
+          <div style={{width: 980, margin: "0 auto"}}>
+            <audio src={this.state.audioUrl} ref="audio" onLoadedMetadata={() => {
+              this.setState({
+                duration: event.target.duration
+              })
+            }} onTimeUpdate={() => {
+              this.cur.style.width = (event.target.currentTime / event.target.duration) * 100 + "%";
+              this.setState({
+                currentTime: event.target.currentTime
+              })
+            }}/>
+            <a href="" className={songDetailStyles.prevSong}></a>
+            <a href="" onClick={(e) => {
+              e.preventDefault();
+              this.setState({
+                play: !this.state.play
+              });
+              !this.state.play ? this.refs.audio.play() : this.refs.audio.pause();
+            }} 
+            className={songDetailStyles.pause + " " + (this.state.play == true && songDetailStyles.play)}></a>
+            <a href="" className={songDetailStyles.nextSong}></a>
+            <div  className={songDetailStyles.coverImg}>
+              <img src={this.state.songdetail.al.picUrl} alt=""/>
+              <span></span>
+            </div>
+            <div className={songDetailStyles.duration}>
+              <p>
+                <span>{this.state.songdetail.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                {this.state.songdetail.ar.map((item, index) => {
+                    return this.state.songdetail.ar.length == index + 1 
+                      ? <a href="" key={index}>{item.name}</a>
+                      : <span key={index}><a href="">{item.name}</a>&nbsp;/&nbsp;</span>;
+                    })
+                  }
+              </p>
+              <div className={songDetailStyles.process}>
+                  <div className={songDetailStyles.cur} ref={cur => {this.cur = cur}}>
+                    <span>
+                      <i></i>
+                    </span>
+                  </div>
+                  <div className={songDetailStyles.currentTime}>
+                    <span>{format.durationFormat(this.state.currentTime*1000)}</span>&nbsp;/&nbsp;
+                    <span>{format.durationFormat(this.state.duration*1000)}</span>
+                  </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
   }

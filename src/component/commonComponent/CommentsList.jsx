@@ -125,7 +125,8 @@ export default class CommentsList extends React.Component{
         </ul>
       </div>
       : null}
-      {this.state.loading == false || this.state.comments.length == 0  ? <Spin tip="加载中..."/> : <div className={CommentsListStyles.commentList}>
+      
+      {this.state.loading == false && this.state.comments.length == 0  ? <Spin tip="加载中..."/> : (this.state.loading == true && this.state.comments.length == 0  ? null : <div className={CommentsListStyles.commentList}>
         <h4 className={CommentsListStyles.subtitle}>最新评论({this.state.commentTotal})</h4>
         <ul>
           {this.state.comments.map((item, index) => {
@@ -141,7 +142,7 @@ export default class CommentsList extends React.Component{
                   {item.beReplied.length > 0 && item.beReplied.map((replied, index) => {
                       return <div className={CommentsListStyles.replied} key={index}>
                         <a href="#" className={CommentsListStyles.nickname}>{replied.user.nickname}</a>&nbsp;&nbsp; :
-                        {replied.content}
+                        {replied.content || "该评论已删除"}
                       </div>
                   })}
                   <div className={CommentsListStyles.commentContent}>
@@ -167,6 +168,7 @@ export default class CommentsList extends React.Component{
         showSizeChanger={false} 
         total={(this.state.commentTotal + 1) * 10 / 20} /> : null}
       </div>
+      )
       }
     </div>
   }

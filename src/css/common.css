@@ -192,3 +192,6 @@ input:focus, button:focus{
   overflow: hidden;
   white-space: normal;
 }
+audio:focus{
+  outline: none;
+}
