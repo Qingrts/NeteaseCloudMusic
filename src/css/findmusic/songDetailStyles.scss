@@ -67,7 +67,15 @@
   left: 0;
   height: 53px;
   zoom: 1;
-  background: url(../../images/playbar.png) 0 0;
+  .bg{
+    width: 100%;
+    height: 53px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(../../images/playbar.png) repeat-x 0 0;
+    z-index: -1;
+  }
   .pause,.play{
     width: 36px;
     height: 36px;
@@ -126,7 +134,7 @@
   }
   .duration{
     float: left;
-    width: 608px;
+    width: 590px;
     height: 37px;
     margin-left: 15px;
     margin-top: 12px;
@@ -164,7 +172,7 @@
       }
       .currentTime{
         position: absolute;
-        right: -80px;
+        right: -90px;
         top: 0;
         width: 70px;
         height: 14px;
@@ -178,6 +186,101 @@
       }
     }
     
+  }
+  .audioControls{
+    float: left;
+    .collectSong,.shareSong{
+      float: left;
+      width: 25px;
+      height: 25px;
+      margin-top: 17px;
+      background: url(../../images/playbar.png) no-repeat 9999px 9999px;
+      cursor: pointer;
+    }
+    .collectSong{
+      background-position: -88px -163px;
+      &:hover{
+        background-position: -88px -189px;
+      }
+    }
+    .shareSong{
+      background-position: -114px -163px;
+      &:hover{
+        background-position: -114px -189px;
+      }
+    }
+  }
+  .controls{
+    float: left;
+    max-width: 139px;
+    height: 36px;
+    background: url(../../images/playbar.png) no-repeat -147px -238px;
+    margin-top: 8px;
+    .volume,.loop{
+      float: left;
+      width: 25px;
+      height: 25px;
+      margin-top: 10px;
+      margin-left: 10px;
+      cursor: pointer;
+      background: url(../../images/playbar.png) no-repeat;
+    }
+    .volume{
+      background-position: -2px -248px;
+      &:hover{
+        background-position: -31px -248px;
+      }
+    }
+    .loop{
+      margin-left: 4px;
+      background-position: -3px -344px;
+      &:hover{
+        background-position: -33px -344px;
+      }
+    }
+    .playSonglist{
+      float: right;
+      width: 59px;
+      height: 28px;
+      margin-top: 9px;
+      background: url(../../images/playbar.png) no-repeat -42px -68px;
+      position: relative;
+      cursor: pointer;
+      &:hover{
+        background-position: -42px -98px;
+      }
+      span{
+        position: absolute;
+        left: 50%;
+        top: 4px;
+        color: #666;
+        text-shadow: 0 1px 0 #080707;
+        font-size: 10px;
+      }
+    }
+    
+  }
+  .lock{
+    width: 52px;
+    height: 23px;
+    position: absolute;
+    top: -14px;
+    right: 15px;
+    background: url(../../images/playbar.png) no-repeat 0 -380px;
+    z-index: 6;
+    :global(.nolock){
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      margin-left: -9px;
+      background: url(../../images/playbar.png) no-repeat -80px -380px;
+      cursor: pointer;
+      &:hover{
+        background-position: -80px -400px;
+      }
+    }
   }
 }
 

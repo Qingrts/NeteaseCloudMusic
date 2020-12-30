@@ -60,12 +60,12 @@ export default class SongDetail extends React.Component{
   componentDidMount() {
     // 根据状态,确定是否需要发送请求
     if(this.state.song_id){
+      this.getSongURL(this.state.song_id);
       this.getPlaylistDetail(this.state.song_id);
       this.getCommentsTotal(this.state.song_id);
       this.getLyric(this.state.song_id);
       this.getIncludeThisSongList(this.state.song_id);
       this.getSimpleSong(this.state.song_id);
-      this.getSongURL(this.state.song_id);
     }
   }
   // 获取歌曲详情
@@ -141,7 +141,6 @@ export default class SongDetail extends React.Component{
     fetch("http://localhost:3000/song/url?id=" + id)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       this.setState({
         audioUrl: data.data[0].url
       })
@@ -172,7 +171,13 @@ export default class SongDetail extends React.Component{
               </p>
               <p className={albumDetailStyles.publishTime}>所属专辑: <a href="" style={{color: "#0c73c2"}}>{this.state.songdetail.al.name}</a></p>
               <div className={albumDetailStyles.iconGroup} style={{marginBottom: 40}}>
-                <a href="" className={albumDetailStyles.play}>
+                <a href="" className={albumDetailStyles.play} onClick={(e) => {
+                  e.preventDefault();
+                  this.refs.audio.play();
+                  this.setState({
+                    play: true
+                  })
+                }}>
                   <i>
                     <em></em>播放
                   </i>
@@ -253,6 +258,11 @@ export default class SongDetail extends React.Component{
                 duration: event.target.duration
               })
             }} onTimeUpdate={() => {
+              if(event.target.currentTime == event.target.duration){
+                this.setState({
+                  play: false
+                })
+              }
               this.cur.style.width = (event.target.currentTime / event.target.duration) * 100 + "%";
               this.setState({
                 currentTime: event.target.currentTime
@@ -282,7 +292,11 @@ export default class SongDetail extends React.Component{
                     })
                   }
               </p>
-              <div className={songDetailStyles.process}>
+              <div className={songDetailStyles.process} ref="process" onClick={() => {
+                let currentTime = ((event.clientX - this.refs.process.offsetLeft) / this.refs.process.offsetWidth).toFixed(2);
+                this.cur.style.width = currentTime * 100 + "%";
+                this.refs.audio.currentTime = currentTime * this.refs.audio.duration;
+              }}>
                   <div className={songDetailStyles.cur} ref={cur => {this.cur = cur}}>
                     <span>
                       <i></i>
@@ -293,8 +307,24 @@ export default class SongDetail extends React.Component{
                     <span>{format.durationFormat(this.state.duration*1000)}</span>
                   </div>
               </div>
+              
+            </div>
+            <div className={songDetailStyles.audioControls}>
+              <span className={songDetailStyles.collectSong}></span>
+              <span className={songDetailStyles.shareSong}></span>
+            </div>
+            <div className={songDetailStyles.controls}>
+              <span className={songDetailStyles.volume}></span>
+              <span className={songDetailStyles.loop}></span>
+              <span className={songDetailStyles.playSonglist}>
+                <span>11</span>
+              </span>
             </div>
           </div>
+          <div className={songDetailStyles.lock}>
+            <span className="nolock"></span>
+          </div>
+          <div className={songDetailStyles.bg}></div>
         </div>
       </div>
   }

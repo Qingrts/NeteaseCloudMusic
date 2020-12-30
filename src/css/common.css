@@ -195,3 +195,7 @@ input:focus, button:focus{
 audio:focus{
   outline: none;
 }
+
+.unable{
+  color: #bbb;
+}

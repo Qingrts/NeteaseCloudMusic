@@ -60,8 +60,17 @@ export default class Playlist extends React.Component{
       return response.json();
     })
     .then(data => {
-      this.setState({
-        detail: data.playlist
+      data.playlist.tracks && data.playlist.tracks.forEach((item, index) => {
+        fetch("http://localhost:3000/check/music?id=" + item.id)
+        .then(res => res.json())
+        .then(data1 => {
+          data.playlist.tracks[index]["unable"] = data1.success;
+          if(index == data.playlist.tracks.length - 1){
+            this.setState({
+              detail: data.playlist
+            });
+          }
+        })
       })
     })
     .catch(err => {
@@ -168,7 +177,7 @@ export default class Playlist extends React.Component{
                       <i></i>
                     </td>
                     <td>
-                      <Link to={{pathname: "/discover/songdetail",state: {id: item.id}}}>{item.name}</Link>&nbsp;
+                      <Link className={item.unable && item.unable == true ? null : "unable"} to={{pathname: "/discover/songdetail",state: {id: item.id}}}>{item.name}</Link>&nbsp;
                       {item.alia.length != 0 && <span className={playlistStyles.alia}>{"-(" + item.alia[0] + ")"}</span>}
                       {item.mv != 0 && <span title="播放mv" className={playlistStyles.mv}></span>}
                     </td>

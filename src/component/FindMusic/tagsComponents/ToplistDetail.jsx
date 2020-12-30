@@ -75,10 +75,9 @@ export default class ToplistDetail extends React.Component{
       <div className={toplistDetailStyles.playList}>
         <div className={toplistDetailStyles.title}>
           <h3>歌曲列表</h3>
-          {/* <span>{this.state.detail.trackCount}首歌</span> */}
-          <div className={toplistDetailStyles.moreWayPlay}>
-            <a href=""><i></i>生成外链播放器</a>
-            {/* <span>播放 : <strong>{this.state.detail.playCount}</strong>次</span> */}
+          <span>{this.state.toplistDetail.trackCount}首歌</span>
+          <div className={toplistDetailStyles.moreWayPlay} style={{flex: "1"}}>
+            <span style={{float: "right"}}>播放 : <strong>{this.state.toplistDetail.playCount}</strong>次</span>
           </div>
         </div>
         <div className={toplistDetailStyles.songlist}>
