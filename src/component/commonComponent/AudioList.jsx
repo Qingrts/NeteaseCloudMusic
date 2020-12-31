@@ -57,6 +57,9 @@ export default class AudioList extends React.Component{
     .catch(err => err);
   }
 
+  volumeMoveChange = () => {
+    console.log(event.target.clientX);
+  }
 
   render() {
     return <div className={audioListStyles.audio}>
@@ -116,8 +119,19 @@ export default class AudioList extends React.Component{
             this.refs.audio.currentTime = currentTime * this.refs.audio.duration;
           }}>
               <div className={audioListStyles.cur} ref={cur => {this.cur = cur}}>
-                <span>
-                  <i></i>
+                <span onMouseDown={() => {
+                  let startX = this.cur.getBoundingClientRect().left;
+                  document.onmousemove= () => {
+                    if(event.clientX - startX > this.refs.process.offsetWidth){
+                      return false;
+                    }
+                    let movePercent = (event.clientX - startX) / this.refs.process.offsetWidth;
+                    this.cur.style.width = movePercent * 100 + "%";
+                  }
+                  event.target.onmouseup = () => {
+                    document.onmousemove = null;
+                  }
+                }}>
                 </span>
               </div>
               <div className={audioListStyles.buffered} ref="buffered"></div>
@@ -133,20 +147,37 @@ export default class AudioList extends React.Component{
           <span className={audioListStyles.shareSong}></span>
         </div>
         <div className={audioListStyles.controls}>
-          <div className={audioListStyles.volumeChange} style={{display: "none"}} ref={volumeSize => {this.volumeSize = volumeSize}} onClick={() => {
-            console.log(this.refs.audio.volume);
-            console.log(this.currentVolume.style.height = this.refs.audio.volume + "00%");
-            console.log((document.body.clientHeight - event.clientY) / this.volumeSize.offsetHeight);
-          }}>
-            <div className={audioListStyles.volumeProcess} ref="volumeProcess">
+          <div className={audioListStyles.volumeChange} style={{display: "none"}} ref={volumeBox => {this.volumeBox = volumeBox}}>
+            <div className={audioListStyles.volumeProcess} ref={
+              volumeSize => {this.volumeSize = volumeSize}} 
+              onClick={() => {
+                let currentPosition = (this.volumeSize.getBoundingClientRect().top + this.volumeSize.offsetHeight - event.clientY) / this.volumeSize.offsetHeight;
+                currentPosition = currentPosition > 1 ? 1 : currentPosition;
+                this.refs.audio.volume = currentPosition;
+                this.currentVolume.style.height = currentPosition * 100 + "%";
+              }}>
               <div className={audioListStyles.currentVolume} ref={currentVolume => {this.currentVolume = currentVolume}}>
-                <i className={audioListStyles.volumeAlpha}></i>
+                <i className={audioListStyles.volumeAlpha} 
+                onMouseDown={() => {
+                  let startY = event.clientY;
+                  document.onmousemove= () => {
+                    let currentPosition = (this.volumeSize.getBoundingClientRect().top + this.volumeSize.offsetHeight - event.clientY) / this.volumeSize.offsetHeight;
+                    if(currentPosition > 1 || currentPosition < 0){
+                      return false;
+                    }
+                    this.currentVolume.style.height = currentPosition * 100 + "%";
+                    this.refs.audio.volume = currentPosition;
+                  }
+                  document.onmouseup = () => {
+                    document.onmousemove = null;
+                  }
+                }}></i>
               </div>
             </div>
           </div>
           <span className={audioListStyles.volume} onClick={() => {
-            let show = this.volumeSize.style.display;
-            this.volumeSize.style.display = show == "none" ? "block" : "none";
+            let show = this.volumeBox.style.display;
+            this.volumeBox.style.display = show == "none" ? "block" : "none";
           }}>
           </span>
           <span className={audioListStyles.loop}></span>
