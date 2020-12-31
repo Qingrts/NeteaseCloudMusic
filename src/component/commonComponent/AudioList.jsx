@@ -26,10 +26,10 @@ export default class AudioList extends React.Component{
     }
   }
   componentWillReceiveProps(nextProps) {
-    if(nextProps.id != this.state.song_id && window.sessionStorage.getItem("song_id")){
-      if(nextProps.id != null){
-        console.log(nextProps);
-      }
+    console.log(this.state.song_id);
+    if(nextProps.id != null){
+      this.getSongURL(nextProps.id);
+      this.getPlaylistDetail(nextProps.id);
     }
   }
 

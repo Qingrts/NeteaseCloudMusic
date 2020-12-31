@@ -12,7 +12,6 @@ import PlaylistDetail from "./tagsComponents/PlaylistDetail.jsx";
 import AlbumDetail from "./tagsComponents/AlbumDetail.jsx";
 import DjradioDetail from "./tagsComponents/DjradioDetail.jsx";
 import SongDetail from "./tagsComponents/SongDetail.jsx";
-import AudioList from "../commonComponent/AudioList.jsx";
 
 import styles from "../../css/findmusic.scss";
 
@@ -78,7 +77,7 @@ export default class FindMusic extends React.Component{
         <Route exact path="/discover/djradiodetail" component={DjradioDetail}></Route>
         <Route exact path="/discover/songdetail" component={SongDetail}></Route>
       </Switch>
-      <AudioList id={window.sessionStorage.getItem("song_id")}/>
+      
     </div>
   }
 }
