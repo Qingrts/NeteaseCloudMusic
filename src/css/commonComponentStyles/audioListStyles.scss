@@ -1,0 +1,289 @@
+.audio{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  height: 53px;
+  zoom: 1;
+  .bg{
+    width: 100%;
+    height: 53px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(../../images/playbar.png) repeat-x 0 0;
+    z-index: -1;
+  }
+  .pause,.play{
+    width: 36px;
+    height: 36px;
+    margin-top: 12px;
+    float: left;
+    margin-left: 10px;
+    background: url(../../images/playbar.png) no-repeat 0 -204px;
+    &:hover{
+      background-position: -40px -204px;
+    }
+  }
+  .play{
+    background-position: 0 -165px;
+    &:hover{
+      background-position: -40px -165px;
+    }
+  }
+  .prevSong,.nextSong{
+    float: left;
+    width: 28px;
+    height: 28px;
+    background: url(../../images/playbar.png) no-repeat 0 -130px;
+    margin-top: 15px;
+    &:hover{
+      background-position: -30px -130px;
+    }
+  }
+  .nextSong{
+    background-position: -80px -129px;
+    margin-left: 10px;
+    &:hover{
+      background-position: -110px -129px;
+    }
+  }
+  .coverImg{
+    float: left;
+    width: 34px;
+    height: 35px;
+    margin-top: 12px;
+    margin-left: 40px;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+    span{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: url(../../images/playbar.png) no-repeat 0 -80px;
+    }
+  }
+  .duration{
+    float: left;
+    width: 590px;
+    height: 37px;
+    margin-left: 15px;
+    margin-top: 12px;
+    p{
+      font-size: 12px;
+      color: white;
+      a{
+        color: #9b9b9b;
+      }
+    }
+    .process{
+      margin-top: 4px;
+      width: 493px;
+      height: 9px;
+      border-radius: 10px;
+      background: url(../../images/statbar.png) no-repeat right 0;
+      position: relative;
+      .cur{
+        width: 0%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 9px;
+        background: url(../../images/statbar.png) no-repeat left -66px;
+        margin-right: 10px;
+        z-index: 2;
+        span{
+          width: 22px;
+          height: 24px;
+          position: absolute;
+          right: -13px;
+          top: -7px;
+          border-radius: 100%;
+          background: url(../../images/iconall.png) no-repeat 0 -250px;
+        }
+        
+      }
+      .buffered{
+        width: 0%;
+        max-width: 100%;
+        position: absolute;
+        height: 9px;
+        top: 0;
+        left: 0;
+        background: url(../../images/statbar.png) no-repeat right -30px;
+        border-radius: 10px;
+        z-index: 0;
+      }
+      .currentTime{
+        position: absolute;
+        right: -90px;
+        top: 0;
+        width: 70px;
+        height: 14px;
+        line-height: 14px;
+        font-size: 12px;
+        margin-top: -4px;
+        color: #797979;
+        span:first-child {
+          color: #a1a1a1;
+        }
+      }
+    }
+    
+  }
+  .audioControls{
+    float: left;
+    .collectSong,.shareSong{
+      float: left;
+      width: 25px;
+      height: 25px;
+      margin-top: 17px;
+      background: url(../../images/playbar.png) no-repeat 9999px 9999px;
+      cursor: pointer;
+    }
+    .collectSong{
+      background-position: -88px -163px;
+      &:hover{
+        background-position: -88px -189px;
+      }
+    }
+    .shareSong{
+      background-position: -114px -163px;
+      &:hover{
+        background-position: -114px -189px;
+      }
+    }
+  }
+  .controls{
+    float: left;
+    max-width: 139px;
+    height: 36px;
+    background: url(../../images/playbar.png) no-repeat -147px -238px;
+    margin-top: 8px;
+    position: relative;
+    .volume,.loop{
+      float: left;
+      width: 25px;
+      height: 25px;
+      margin-top: 10px;
+      margin-left: 10px;
+      cursor: pointer;
+      background: url(../../images/playbar.png) no-repeat;
+    }
+    .volume{
+      background-position: -2px -248px;
+      &:hover{
+        background-position: -31px -248px;
+      }
+      
+    }
+    .loop{
+      margin-left: 4px;
+      background-position: -3px -344px;
+      &:hover{
+        background-position: -33px -344px;
+      }
+    }
+    .playSonglist{
+      float: right;
+      width: 59px;
+      height: 28px;
+      margin-top: 9px;
+      background: url(../../images/playbar.png) no-repeat -42px -68px;
+      position: relative;
+      cursor: pointer;
+      &:hover{
+        background-position: -42px -98px;
+      }
+      span{
+        position: absolute;
+        left: 50%;
+        top: 4px;
+        color: #666;
+        text-shadow: 0 1px 0 #080707;
+        font-size: 10px;
+        width: 22px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+      }
+    }
+    .volumeChange{
+      display: none;
+      position: absolute;
+      top: -115px;
+      left: 4px;
+      width: 32px;
+      height: 113px;
+      background: url(../../images/playbar.png) no-repeat 0 -503px;
+      .volumeProcess{
+        position: absolute;
+        top: 16px;
+        left: 14px;
+        width: 4px;
+        height: 93px;
+        background-color: transparent;
+        border-radius: 10px;
+        .currentVolume{
+          width: 4px;
+          height: 0%;
+          max-height: 100%;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: url(../../images/playbar.png) no-repeat -40px bottom;
+          .volumeAlpha{
+            position: absolute;
+            top: -16px;
+            left: -7px;
+            width: 18px;
+            height: 20px;
+            border-radius: 100%;
+            background: url(../../images/iconall.png) no-repeat -40px -250px;
+          }
+        }
+      }
+    }
+  }
+  .lock{
+    width: 52px;
+    height: 23px;
+    position: absolute;
+    top: -14px;
+    right: 15px;
+    background: url(../../images/playbar.png) no-repeat 0 -380px;
+    z-index: 6;
+    :global(.nolock){
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      margin-left: -9px;
+      background: url(../../images/playbar.png) no-repeat -80px -380px;
+      cursor: pointer;
+      &:hover{
+        background-position: -80px -400px;
+      }
+    }
+    :global(.lock){
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      margin-left: -9px;
+      background: url(../../images/playbar.png) no-repeat -100px -380px;
+      &:hover{
+        background-position: -100px -400px;
+      }
+    }
+  }
+}

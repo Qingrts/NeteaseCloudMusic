@@ -50,17 +50,12 @@ export default class SongDetail extends React.Component{
       lyric: "",
       includeThisSongList: [],
       simpleSonglist: [],
-      audioUrl: "",
-      play: false,
-      currentTime: 0,
-      duration: 0
     };
   }
 
   componentDidMount() {
     // 根据状态,确定是否需要发送请求
     if(this.state.song_id){
-      this.getSongURL(this.state.song_id);
       this.getPlaylistDetail(this.state.song_id);
       this.getCommentsTotal(this.state.song_id);
       this.getLyric(this.state.song_id);
@@ -136,17 +131,6 @@ export default class SongDetail extends React.Component{
       console.log(err);
     })
   }
-  // 获取MP3url
-  getSongURL = (id) => {
-    fetch("http://localhost:3000/song/url?id=" + id)
-    .then(res => res.json())
-    .then(data => {
-      this.setState({
-        audioUrl: data.data[0].url
-      })
-    })
-    .catch(err => err);
-  }
   
 
   render() {
@@ -171,13 +155,7 @@ export default class SongDetail extends React.Component{
               </p>
               <p className={albumDetailStyles.publishTime}>所属专辑: <a href="" style={{color: "#0c73c2"}}>{this.state.songdetail.al.name}</a></p>
               <div className={albumDetailStyles.iconGroup} style={{marginBottom: 40}}>
-                <a href="" className={albumDetailStyles.play} onClick={(e) => {
-                  e.preventDefault();
-                  this.refs.audio.play();
-                  this.setState({
-                    play: true
-                  })
-                }}>
+                <a href="" className={albumDetailStyles.play}>
                   <i>
                     <em></em>播放
                   </i>
@@ -250,91 +228,6 @@ export default class SongDetail extends React.Component{
             </ul>
           </div>
           <ClientDown/>
-        </div>
-        <div className={songDetailStyles.audio}>
-          <div style={{width: 980, margin: "0 auto"}}>
-            <audio src={this.state.audioUrl} ref="audio" onLoadedMetadata={() => {
-              this.setState({
-                duration: event.target.duration
-              })
-            }} onTimeUpdate={() => {
-              let timeBuffer = event.target.buffered;
-              let duration = event.target.duration;
-              if(timeBuffer.length != 0){
-                if(timeBuffer.end(timeBuffer.length - 1) != duration){
-                  this.refs.buffered.style.width = timeBuffer.end(timeBuffer.length - 1) / duration * 100 + "%";
-                }else{
-                  this.refs.buffered.style.width = "100%";
-                }
-              }
-              if(event.target.currentTime == duration){
-                this.setState({
-                  play: false
-                })
-              }
-              this.cur.style.width = (event.target.currentTime / duration) * 100 + "%";
-              this.setState({
-                currentTime: event.target.currentTime
-              })
-            }}/>
-            <a href="" className={songDetailStyles.prevSong}></a>
-            <a href="" onClick={(e) => {
-              e.preventDefault();
-              this.setState({
-                play: !this.state.play
-              });
-              !this.state.play ? this.refs.audio.play() : this.refs.audio.pause();
-            }} 
-            className={songDetailStyles.pause + " " + (this.state.play == true && songDetailStyles.play)}></a>
-            <a href="" className={songDetailStyles.nextSong}></a>
-            <div  className={songDetailStyles.coverImg}>
-              <img src={this.state.songdetail.al.picUrl} alt=""/>
-              <span></span>
-            </div>
-            <div className={songDetailStyles.duration}>
-              <p>
-                <span>{this.state.songdetail.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                {this.state.songdetail.ar.map((item, index) => {
-                    return this.state.songdetail.ar.length == index + 1 
-                      ? <a href="" key={index}>{item.name}</a>
-                      : <span key={index}><a href="">{item.name}</a>&nbsp;/&nbsp;</span>;
-                    })
-                  }
-              </p>
-              <div className={songDetailStyles.process} ref="process" onClick={() => {
-                let currentTime = ((event.clientX - this.refs.process.offsetLeft) / this.refs.process.offsetWidth).toFixed(2);
-                this.cur.style.width = currentTime * 100 + "%";
-                this.refs.audio.currentTime = currentTime * this.refs.audio.duration;
-              }}>
-                  <div className={songDetailStyles.cur} ref={cur => {this.cur = cur}}>
-                    <span>
-                      <i></i>
-                    </span>
-                  </div>
-                  <div className={songDetailStyles.buffered} ref="buffered"></div>
-                  <div className={songDetailStyles.currentTime}>
-                    <span>{format.durationFormat(this.state.currentTime*1000)}</span>&nbsp;/&nbsp;
-                    <span>{format.durationFormat(this.state.duration*1000)}</span>
-                  </div>
-              </div>
-              
-            </div>
-            <div className={songDetailStyles.audioControls}>
-              <span className={songDetailStyles.collectSong}></span>
-              <span className={songDetailStyles.shareSong}></span>
-            </div>
-            <div className={songDetailStyles.controls}>
-              <span className={songDetailStyles.volume}></span>
-              <span className={songDetailStyles.loop}></span>
-              <span className={songDetailStyles.playSonglist}>
-                <span>11</span>
-              </span>
-            </div>
-          </div>
-          <div className={songDetailStyles.lock}>
-            <span className="nolock"></span>
-          </div>
-          <div className={songDetailStyles.bg}></div>
         </div>
       </div>
   }
