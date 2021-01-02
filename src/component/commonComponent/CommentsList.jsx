@@ -55,7 +55,8 @@ export default class CommentsList extends React.Component{
   // 评论分页
   onChange = page => {
     this.setState({
-      comments: []
+      comments: [],
+      loading: false
     })
     setTimeout(() => {
     this.getCommentList(this.state.playlist_id, (page - 1) * 20);
@@ -159,7 +160,8 @@ export default class CommentsList extends React.Component{
             </li>
           })}
         </ul>
-        {this.state.commentTotal > 20 
+      </div>)}
+      {this.state.commentTotal > 20 
         ? 
         <Pagination 
         style={{textAlign: "center"}} 
@@ -167,9 +169,6 @@ export default class CommentsList extends React.Component{
         onChange={this.onChange} 
         showSizeChanger={false} 
         total={(this.state.commentTotal + 1) * 10 / 20} /> : null}
-      </div>
-      )
-      }
     </div>
   }
 }

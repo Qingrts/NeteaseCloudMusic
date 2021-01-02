@@ -196,9 +196,9 @@ export default class Recommmend extends React.Component {
               <span className={
                 styles.tags
               }></span>
-              <span className={
+              <Link to={{pathname: "/discover/album"}} className={
                 styles.more
-              }>更多</span>
+              }>更多</Link>
             </div>
             {this.state.recommendList.length == 0 ? <Spin tip="加载中..."/> : <NewAlbumList /> }
           </div>
@@ -210,9 +210,9 @@ export default class Recommmend extends React.Component {
               <span className={
                 styles.tags
               }></span>
-              <span className={
+              <Link to={{pathname: "/discover/toplist"}} className={
                 styles.more
-              }>更多</span>
+              }>更多</Link>
             </div>
             {this.state.topList.length == 0 ? <Spin tip="加载中..."/> : 
             <div className={
@@ -242,7 +242,7 @@ export default class Recommmend extends React.Component {
                     </dd>;
                   }) : null}
                   <dd className="musicItem">
-                    <a style={{float: "right", textAlign: "right"}} className={styles.musicName} href="#">查看全部&gt;</a>
+                    <Link to={{pathname: "/discover/toplist", state: {index: index}}} style={{float: "right", textAlign: "right"}} className={styles.musicName} href="#">查看全部&gt;</Link>
                   </dd>
                 </dl>
               })}

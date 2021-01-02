@@ -18,18 +18,22 @@ export default class Toplist extends React.Component{
   }
 
   componentDidMount() {
-    this.getToplist();
+    if(this.props.location.state && this.props.location.state.index){
+      this.getToplist(this.props.location.state.index);
+    }else{
+      this.getToplist(0);
+    }
   }
 
   // 获取榜单信息
-  getToplist = () => {
+  getToplist = (index) => {
     fetch("http://localhost:3000/toplist")
     .then(res => res.json())
     .then(data => {
       this.setState({
         detaultList: data.list,
-        current: data.list[0].id
-      })      
+        current: data.list[index].id
+      })
     })
     .catch(err => err);
   }

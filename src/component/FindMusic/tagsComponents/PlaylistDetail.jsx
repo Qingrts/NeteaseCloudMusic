@@ -61,6 +61,7 @@ export default class Playlist extends React.Component{
     })
     .then(data => {
       data.playlist.tracks && data.playlist.tracks.forEach((item, index) => {
+        // 查看歌曲是否可用
         fetch("http://localhost:3000/check/music?id=" + item.id)
         .then(res => res.json())
         .then(data1 => {

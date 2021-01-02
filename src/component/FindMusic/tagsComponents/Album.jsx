@@ -62,11 +62,13 @@ export default class Album extends React.Component{
   render() {
     return <div className={albumStyles.albumContainer}>
       <h2>热门新碟</h2>
+      {this.state.hotAlbums.length == 0 ? <Spin tip="加载中..."/> : 
       <div className={albumStyles.hotAlbumList}>
         {this.state.hotAlbums.map((item, index) => {
           return <AlbumItem key={index} {...item}/>
         })}
       </div>
+      }
       <h2 style={{marginTop: 30}}>全部新碟</h2>
       {this.state.categoryList.length == 0 ? <Spin tip="加载中..."/> : 
       <div className={albumStyles.hotAlbumList}>

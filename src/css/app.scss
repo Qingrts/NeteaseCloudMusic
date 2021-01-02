@@ -68,6 +68,8 @@
   ul{
     margin-top: 15px;
     overflow: hidden;
+    position: relative;
+    z-index: 0;
     li{
       float: left;
       font-size: 12px;

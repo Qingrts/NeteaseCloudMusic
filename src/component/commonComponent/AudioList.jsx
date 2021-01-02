@@ -66,7 +66,7 @@ export default class AudioList extends React.Component{
 
   render() {
     return <div className={audioListStyles.audio}>
-      <div style={{width: 980, margin: "0 auto"}}>
+      <div style={{width: 980, margin: "0 auto", position: "relative", zIndex: 5}}>
         <audio src={this.state.audioUrl} ref="audio" onLoadedMetadata={() => {
           this.setState({
             duration: event.target.duration
