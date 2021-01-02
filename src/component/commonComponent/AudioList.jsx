@@ -24,9 +24,12 @@ export default class AudioList extends React.Component{
       this.getSongURL(this.state.song_id);
       this.getPlaylistDetail(this.state.song_id);
     }
+
+    // 将自己的方法传递给父组件
+    this.props.onRef(this);
   }
+
   componentWillReceiveProps(nextProps) {
-    console.log(this.state.song_id);
     if(nextProps.id != null){
       this.getSongURL(nextProps.id);
       this.getPlaylistDetail(nextProps.id);

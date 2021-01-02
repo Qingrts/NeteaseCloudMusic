@@ -10,6 +10,7 @@ import format from "../../../utils/format";
 import CommentsList from "../../commonComponent/CommentsList.jsx";
 import ClientDown from "../../commonComponent/ClientDown.jsx";
 import Description from "../../commonComponent/Description.jsx";
+import AudioList from "../../commonComponent/AudioList.jsx";
 
 
 let defaultDetail = {
@@ -34,7 +35,7 @@ export default class SongDetail extends React.Component{
     super(props);
     
     if(this.props.location.state && this.props.location.state.id != sessionStorage.getItem("song_id")){
-      window.sessionStorage.setItem("song_id", this.props.location.state && this.props.location.state.id)
+      window.sessionStorage.setItem("song_id", this.props.location.state.id);
     }
     
     this.state = {
@@ -93,13 +94,18 @@ export default class SongDetail extends React.Component{
     })
   }
 
-  getLyric = (id) => {
     // 获取歌词
+    getLyric = (id) => {
     fetch("http://localhost:3000/lyric?id=" + id)
     .then(res => res.json())
     .then(data => {
       this.setState({
         lyric: data.lrc.lyric
+      })
+    })
+    .catch(err => {
+      this.setState({
+        lyric: "暂无歌词"
       })
     })
   }
@@ -132,6 +138,9 @@ export default class SongDetail extends React.Component{
     })
   }
   
+  onRef = (ref) => {
+    this.child = ref;
+  }
 
   render() {
     return <div className={playlistStyles.container}>
@@ -155,7 +164,13 @@ export default class SongDetail extends React.Component{
               </p>
               <p className={albumDetailStyles.publishTime}>所属专辑: <a href="" style={{color: "#0c73c2"}}>{this.state.songdetail.al.name}</a></p>
               <div className={albumDetailStyles.iconGroup} style={{marginBottom: 40}}>
-                <a href="" className={albumDetailStyles.play}>
+                <a href="" className={albumDetailStyles.play} onClick={(e) => {
+                  e.preventDefault();
+                  this.child.setState({
+                    play: true
+                  })
+                  this.child.refs.audio.play();
+                }}>
                   <i>
                     <em></em>播放
                   </i>
@@ -229,6 +244,7 @@ export default class SongDetail extends React.Component{
           </div>
           <ClientDown/>
         </div>
+        <AudioList onRef={this.onRef} id={window.sessionStorage.getItem("song_id")}/>
       </div>
   }
 }

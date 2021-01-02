@@ -17,7 +17,6 @@ import Friend from "./component/Friend/Friend.jsx";
 import Store from "./component/Store/Store.jsx";
 import Musicperson from "./component/Musicperson/Musicperson.jsx";
 import Download from "./component/Download/Download.jsx";
-import AudioList from "./component/commonComponent/AudioList.jsx";
 
 
 import styles from "./css/app.scss";
@@ -41,6 +40,7 @@ export default class App extends React.Component {
   }
   componentDidMount() {
   }
+
 
   render() {
     return <HashRouter>
@@ -115,7 +115,6 @@ export default class App extends React.Component {
             </div>
           </div>
         </Footer>
-        <AudioList id={window.sessionStorage.getItem("song_id") || ""}/>
       </Layout>
     </HashRouter>;
   }

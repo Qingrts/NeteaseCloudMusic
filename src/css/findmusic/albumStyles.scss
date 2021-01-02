@@ -1,0 +1,47 @@
+.albumContainer{
+  width: 982px;
+  margin: 0 auto;
+  border-left: 1px solid #d3d3d3;
+  border-right: 1px solid #d3d3d3;
+  background-color: white;
+  padding: 40px;
+  h2{
+    border-bottom: 2px solid #c20c0c;
+    font-size: 24px;
+    padding-bottom: 5px;
+  }
+  .hotAlbumList{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    > div{
+      width: 153px;
+      height: 175px;
+      margin-right: 33px;
+      &:nth-child(5n){
+        margin-right: 0;
+      }
+      a{
+        display: block;
+      }
+      a img{
+        width: 130px;
+        height: 130px;
+      }
+      a>span{
+        display: block;
+        width: 153px;
+        height: 130px;
+        background-position: 0 -845px;
+      }
+      a > p{
+        font-size: 14px !important;
+        margin-top: 4px;
+      }
+      > p{
+        font-size: 12px !important;
+        margin-top: 4px;
+      }
+    }
+  }
+}

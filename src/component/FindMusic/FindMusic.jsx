@@ -5,7 +5,7 @@ import Recommend from "./tagsComponents/Recommend.jsx";
 import Toplist from "./tagsComponents/Toplist.jsx";
 import Playlist from "./tagsComponents/Playlist.jsx";
 import Djradio from "./tagsComponents/Djradio.jsx";
-import Artist from "./tagsComponents/Toplist.jsx";
+import Artist from "./tagsComponents/Artist.jsx";
 import Album from "./tagsComponents/Album.jsx";
 
 import PlaylistDetail from "./tagsComponents/PlaylistDetail.jsx";

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Carousel } from "antd";
 import { Link } from "react-router-dom";
+import AlbumItem from "./AlbumItem.jsx";
 
 import newAlbumListStyles from "../../css/commonComponentStyles/newAlbumListStyles.scss";
 
@@ -60,13 +61,7 @@ export default class NewAlbumList extends React.Component{
         }>
           {
           this.state.albumList.map((item, index) => {
-            return <div key={index} className={newAlbumListStyles.albumItem}>
-              <Link to={{pathname: "/discover/albumdetail", state: {id: item.id}}}>
-                <p className={newAlbumListStyles.picUrl}><img src={item.picUrl}alt=""/></p>
-                <p className={newAlbumListStyles.albumName}>{item.name}</p>
-              </Link>
-              <p className={newAlbumListStyles.albumArtists}>{item.artists.map(item => item.name).join(" / ")}</p>
-            </div>
+            return <AlbumItem key={index} {...item}/>
         })
         } </Carousel>
       </div>
