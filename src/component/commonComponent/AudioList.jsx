@@ -16,7 +16,9 @@ export default class AudioList extends React.Component{
           picUrl: ""
         },
         ar: []
-      }
+      },
+      currentTime: 0,
+      duration: 0
     };
   }
   componentDidMount() {
@@ -117,7 +119,8 @@ export default class AudioList extends React.Component{
               }
           </p>
           <div className={audioListStyles.process} ref="process" onClick={() => {
-            let currentTime = ((event.clientX - this.refs.process.offsetLeft) / this.refs.process.offsetWidth).toFixed(2);
+            let offsetLeft = this.refs.process.getBoundingClientRect().left;
+            let currentTime = (event.clientX - offsetLeft) / this.refs.process.offsetWidth;
             this.cur.style.width = currentTime * 100 + "%";
             this.refs.audio.currentTime = currentTime * this.refs.audio.duration;
           }}>
@@ -130,6 +133,9 @@ export default class AudioList extends React.Component{
                     }
                     let movePercent = (event.clientX - startX) / this.refs.process.offsetWidth;
                     this.cur.style.width = movePercent * 100 + "%";
+                    this.setState({
+                      currentTime: this.state.duration * movePercent
+                    })
                   }
                   event.target.onmouseup = () => {
                     document.onmousemove = null;
