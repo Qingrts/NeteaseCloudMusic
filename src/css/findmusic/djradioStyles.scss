@@ -1,0 +1,48 @@
+.djradioContainer{
+  width: 982px;
+  padding: 40px;
+  margin:  0 auto;
+  background-color: #fff;
+  border-left: 1px solid #d3d3d3;
+  border-right: 1px solid #d3d3d3;
+  .categoryList{
+    overflow: hidden;
+    margin-left: -33px;
+  }
+  .categoryList li {
+    float: left;
+    margin-left: 33px;
+    margin-bottom: 25px;
+  }
+  .categoryList li a{
+    display: block;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    i{
+      width: 48px;
+      height: 48px;
+      display: block;
+      margin: 0 auto;
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    span{
+      font-size: 12px;
+      color: #888;
+    }
+    &:hover{
+      text-decoration: none;
+      background-color: #fff;
+      background: url(../../images/radio_bg.png) no-repeat 0 0;
+    }
+  }
+  .categoryList .active{
+    background: url(../../images/radio_bg.png) no-repeat right 0;
+    a:hover{
+      background: none;
+    }
+  }
+  
+}

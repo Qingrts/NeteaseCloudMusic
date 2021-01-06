@@ -64,7 +64,6 @@ export default class DjradioDetail extends React.Component{
       return response.json();
     })
     .then(data => {
-      console.log(data);
       this.setState({
         detail: data.program
       })
@@ -80,7 +79,6 @@ export default class DjradioDetail extends React.Component{
     .then(response => response.json())
     .then(data => {
       let programs = data.programs.slice(0, (data.programs.length >= 5 ? 5 : data.programs.length));
-      console.log(programs);
       this.setState({
         relatedPlaylist: programs
       })
