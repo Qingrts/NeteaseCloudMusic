@@ -5,13 +5,16 @@ import djradioStyles from "../../../css/findmusic/djradioStyles.scss";
 
 import DjradioDefault from "../../commonComponent/DjradioDefault.jsx";
 
+import DjradioCategoryInfo from "../../commonComponent/DjradioCategoryInfo.jsx";
+
 export default class Djradio extends React.Component{
   constructor(props)　{
     super(props);
 
     this.state = {
       categories: [],
-      active: null
+      active: null,
+      cateId: null
     };
   }
 
@@ -35,10 +38,13 @@ export default class Djradio extends React.Component{
 
   
 
-  changeActive = (name) => {
+  
+
+  changeActive = (name, id) => {
     event.preventDefault();
     this.setState({
-      active: name
+      active: name,
+      cateId: id
     })
   }
 
@@ -47,9 +53,9 @@ export default class Djradio extends React.Component{
       <ul className={djradioStyles.categoryList}>
         {this.state.categories.map(item => {
           return <li key={item.id} className={this.state.active == item.name ? djradioStyles.active: null}>
-            <a href="#" onClick={this.changeActive.bind(this, item.name)}>
+            <a href="#" onClick={this.changeActive.bind(this, item.name, item.id)}>
               <i style={this.state.active == item.name ? {backgroundImage: "url(" + item.pic56x56Url + ")"} : {backgroundImage: "url(" + item.picWebUrl + ")"}}></i>
-              <span>{item.name}</span>
+              <span style={this.state.active == item.name ? {color: "#d35757"} : null}>{item.name}</span>
             </a>
           </li>
         })}
@@ -67,7 +73,7 @@ export default class Djradio extends React.Component{
         </li>
       </ul>
 
-      <Route exact path="/discover/djradio" component={DjradioDefault}/>
+      {this.state.active == null ? <DjradioDefault/> : <DjradioCategoryInfo cateId={this.state.cateId}/>}
     </div>
   }
 }

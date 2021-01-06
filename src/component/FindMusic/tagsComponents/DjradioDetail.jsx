@@ -30,7 +30,8 @@ let defaultDetail = {
     subCount: "",
     category: "",
     id: ""
-  }
+  },
+  coverUrl: ""
 };
 
 export default class DjradioDetail extends React.Component{

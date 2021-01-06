@@ -29,7 +29,11 @@ export default class FindMusic extends React.Component{
           component: Playlist, 
           className: styles.copyright
         },
-        {value: "主播电台", to: "/discover/djradio", component: Djradio},
+        {
+          value: "主播电台",
+          to: "/discover/djradio", 
+          component: Djradio
+        },
         {value: "歌手", to: "/discover/artist", component: Artist},
         {value: "新碟上架", to: "/discover/album", component: Album}
       ],
@@ -50,6 +54,10 @@ export default class FindMusic extends React.Component{
   }
 
   changeActive = (val) => {
+    if(val == "/discover/djradio" && this.state.active == "/discover/djradio"){
+      window.location.reload();
+      return;
+    }
     this.setState({
       active: val
     })
