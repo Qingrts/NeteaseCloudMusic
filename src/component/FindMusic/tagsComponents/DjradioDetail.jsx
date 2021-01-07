@@ -1,194 +1,205 @@
 import React from 'react';
-
-import playlistStyles from "../../../css/findmusic/playlistdetail.scss";
-import DjradioDetailStyles from "../../../css/findmusic/djradioDetailStyles.scss";
-
-import CommentsList from "../../commonComponent/CommentsList.jsx";
-import ClientDown from "../../commonComponent/ClientDown.jsx";
-import format from "../../../utils/format.js";
-import moment from "moment";
-
 import { Link } from "react-router-dom";
 
+import playlistStyles from "../../../css/findmusic/playlistdetail.scss";
+
+import moment from "moment";
+import ClientDown from "../../commonComponent/ClientDown.jsx";
+import format from "../../../utils/format.js";
+
+import Description from "../../../component/commonComponent/Description.jsx";
+
+import { Spin } from "antd";
+
+
+
 let defaultDetail = {
-  creator: {
-    nickname: "",
+  dj: {
     avatarUrl: "",
-    avatarDetail: {
-      identityIconUrl: ""
-    }
+    nickname: "",
+    avatarDetail: ""
   },
-  coverImgUrl: "",
-  tags: [],
-  description: "",
-  tracks: [],
-  subscribers: [],
-  dj:{
-    brand: ""
-  },
-  radio: {
-    subCount: "",
-    category: "",
-    id: ""
-  },
-  coverUrl: ""
+  desc: ""
 };
 
 export default class DjradioDetail extends React.Component{
   constructor(props)　{
     super(props);
+
     if(this.props.location.state && this.props.location.state.id != sessionStorage.getItem("djradio_id")){
       window.sessionStorage.setItem("djradio_id", this.props.location.state && this.props.location.state.id)
     }
     
+    
     this.state = {
       detail: JSON.parse(JSON.stringify(defaultDetail)),
-      descriptionToggle: false,
-      comments: [],
-      commentTotal: 0,
-      commentCurrentPage: 1,
+      relatDjradio: [],
+      djProgramlist: [],
       djradio_id: sessionStorage.getItem("djradio_id"),
-      relatedPlaylist: []
     };
   }
 
   componentDidMount() {
     // 根据状态,确定是否需要发送请求
     if(this.state.djradio_id){
-      this.getPlaylistDetail(this.state.djradio_id);
+      this.getDjradioDetail(this.state.djradio_id);
     }
   }
-  // 获取歌单详情
-  getPlaylistDetail = (id) => {
-    fetch("http://localhost:3000/dj/program/detail?id=" + id)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      this.setState({
-        detail: data.program
-      })
-      this.getUserRadio(data.program.radio.id);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
-
-  getUserRadio = (id) => {
-    fetch("http://localhost:3000/dj/program?rid=" + id)
-    .then(response => response.json())
-    .then(data => {
-      let programs = data.programs.slice(0, (data.programs.length >= 5 ? 5 : data.programs.length));
-      this.setState({
-        relatedPlaylist: programs
-      })
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
   
+  getDjradioDetail = (id) => {
+    // 获取电台详情
+    fetch("http://localhost:3000/dj/detail?rid=" + id)
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        detail: data.data
+      })
+
+      // 获取热门推荐
+      fetch("http://localhost:3000/dj/radio/hot?limit=5&cateId=" + data.data.categoryId)
+      .then(res => res.json())
+      .then(relat => {
+        this.setState({
+          relatDjradio: relat.djRadios.slice(0, 5)
+        })
+      })
+      .catch(err => err);
+
+      // 获取节目列表
+      fetch("http://localhost:3000/dj/program?asc=true&rid=" + data.data.id)
+      .then(res => res.json())
+      .then(djprogramdata => {
+        this.setState({
+          djProgramlist: djprogramdata.programs
+        })
+      })
+      .catch(err => err);
+    })
+    .catch(err => err);
+  }
 
   render() {
-    return <div style={{
-              width: 982, 
-              margin: "0 auto", 
-              border: "1px solid #d3d3d3", 
-              borderTop: "0", 
-              borderBottom: "0", 
-              display: "flex", 
-              backgroundColor: "white"}}>
-        <div style={{width: "709px",
-    padding: '42px 30px 40px 39px'}}>
-          <div className={playlistStyles.playlistInfo} style={{marginBottom: 25}}>
-            <div className={playlistStyles.playlistCoverimg} style={{width: 148, height: 148}}>
-              <img src={this.state.detail.coverUrl} style={{width: 140, height:140}} alt=""/>
+    return <div className={playlistStyles.container}>
+        <div className={playlistStyles.container_left}>
+          <div className={playlistStyles.playlistInfo}>
+            <div className={playlistStyles.playlistCoverimg}>
+              <img src={this.state.detail.picUrl} alt=""/>
             </div>
-            <div className={DjradioDetailStyles.coverInfoTitle}>
-              <div className={DjradioDetailStyles.title}>
-              <i className={DjradioDetailStyles.coverImg}></i><h2><span>{this.state.detail.name}</span></h2>
+            <div className={playlistStyles.playlistInfo_content}>
+              <div className={playlistStyles.playlistTitle}>
+                <i style={
+                  {
+                    background: "url(/src/images/icon.png) no-repeat 0 -1014px" 
+                  }
+                }></i>
+                {this.state.detail.name}
               </div>
-              <div className={DjradioDetailStyles.radioName}>
-                <i></i>&nbsp;&nbsp;<a href="" className={DjradioDetailStyles.nickname}>{this.state.detail.dj.brand}</a>
-                <a href="" className={DjradioDetailStyles.subscription}>
+              <div>
+                <img src={this.state.detail.dj.avatarUrl} style={{width: 35, height: 35}} alt=""/>
+                <a href="" style={{marginLeft: 15}} className={playlistStyles.nickname} >{this.state.detail.dj.nickname}</a>
+                {this.state.detail.dj.avatarDetail ? <img style={{width: 13, height: 13, display: "inline-block", marginLeft: 5}} src={this.state.detail.dj.avatarDetail.identityIconUrl} alt=""/> : null}
+                <span style={{fontSize: 12,marginLeft: "15px", color: "#999"}}>{moment(this.state.detail.createTime).format("YYYY-MM-DD")} 创建</span>
+              </div>
+              <div className={playlistStyles.iconGroup}>
+                <a href="" className={playlistStyles.play}>
                   <i>
-                    <em></em>
-                    订阅({format.numberFormat(this.state.detail.radio.subCount)})
+                    <em></em>播放
                   </i>
                 </a>
+                <a href="" className={playlistStyles.addPlaylist}></a>
+                <a href="" className={playlistStyles.collect}><i>({format.numberFormat(this.state.detail.subscribedCount)})</i></a>
+                <a href="" className={playlistStyles.transmit}><i>({format.numberFormat(this.state.detail.shareCount)})</i></a>
+                <a href="" className={playlistStyles.download}><i>下载</i></a>
+                <a href="" className={playlistStyles.comment}><i>({this.state.detail.commentCount})</i></a>
               </div>
+              <div className={playlistStyles.tags}>
+                <span style={{padding: "1px 4px", marginTop: 4,color: "#cc0000",border: "1px solid #cc0000", fontSize: 12}}>{this.state.detail.category}</span>
+              </div>
+              {this.state.detail.desc.length == 0 ? null :<Description startStr={" 介绍 :"} desc={this.state.detail.desc}/>}
             </div>
           </div>
-          <div className={DjradioDetailStyles.djInfo}>
-            <div className={DjradioDetailStyles.iconGroup}>
-              <a href="" className={DjradioDetailStyles.playIcon}>
-                <i>播放 {format.durationFormat(this.state.detail.duration, "分", "秒")}</i>
-              </a>
-              <a href="" className={DjradioDetailStyles.likeCount}>
-                <i>
-                  <em></em>({format.numberFormat(this.state.detail.likedCount)})
-                </i>
-              </a>
-              <a href="" className={DjradioDetailStyles.comment}>
-                <i>({this.state.detail.commentCount})</i>
-              </a>
-              <a href="" className={DjradioDetailStyles.share}>
-                <i>({this.state.detail.shareCount})</i>
-              </a>
-              <a href="" className={DjradioDetailStyles.download}>
-                <i>下载</i>
-              </a>
-              <a href="" className={DjradioDetailStyles.morePlay}><i></i>生成外链播放器</a>
-            </div>
-            <div className={DjradioDetailStyles.sub}>
-              <a href="#">{this.state.detail.radio.category}</a>
-              <strong>{this.state.detail.radio.name} 第{this.state.detail.serialNum}期</strong>
-              <span>{moment(this.state.detail.createTime).format("YYYY-MM-DD")} 创建</span>
-              <span>播放 :<strong>{this.state.detail.listenerCount}</strong>次</span>
-              <div style={{margin: "20px 0 50px"}} dangerouslySetInnerHTML={{__html: "介绍 : " + this.state.detail.description.replace(/\n/g, "<br />")}}>
+          <div className={playlistStyles.playList}>
+            <div className={playlistStyles.title}>
+              <h3>节目列表</h3>
+              <span>共{this.state.detail.programCount}期</span>
+              <div className={playlistStyles.moreWayPlay}>
+                <a href=""><i></i>生成外链播放器</a>
               </div>
-              <CommentsList id={this.state.djradio_id} fetchUrl={"http://localhost:3000/comment/dj?limit=20&id="}/>
+            </div>
+            <div className={playlistStyles.songlist}>
+              {this.state.djProgramlist.length == 0 ? <Spin tip="加载中..."/> :
+              <table>
+               <tbody>
+                {this.state.djProgramlist.map(item => {
+                  return <tr key={item.id} style={{height: 55, lineHeight: "55px", color: "#666"}} className="songLine">
+                    <td>
+                      {item.serialNum}
+                      <i style={{marginTop: 20}}></i>
+                    </td>
+                    <td style={{maxWidth: 135}}>
+                      <Link to={{pathname: "/discover/djradioprogram", state: {id: item.id}}} style={{color: "#333"}}>{item.name}</Link>
+                    </td>
+                    <td>
+                      <div style={{marginTop: 14}} className={playlistStyles.songlistIcon + " " + "songlistIcon"}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </td>
+                    <td style={{width: 80}}>
+                      播放{format.numberFormat(item.listenerCount)}
+                    </td>
+                    <td style={{width: 90}}>
+                      赞{format.numberFormat(item.likedCount)}
+                    </td>
+                    <td style={{width: 85}}>
+                      {moment(item.createTime).format("YYYY-MM-DD")}
+                    </td>
+                    <td style={{width: 60}}>
+                      {format.durationFormat(item.duration)}
+                    </td>
+                  </tr>
+                })}
+               </tbody>
+              </table>
+              }
             </div>
           </div>
         </div>
-        <div style={{flex: 1,borderLeft: "1px solid #d3d3d3",padding: "20px 40px 40px 30px"}}>
-          {this.state.relatedPlaylist.length == 1 ? null :
-          <div>
-            <h4 className={playlistStyles.subtitle}>更多节目 <a href="#" style={{float: "right", color: "#666", fontWeight: "400"}}>全部&gt;</a></h4>
-            <div style={{marginBottom: 40}}>
+        <div className={playlistStyles.container_right}>
+          <h4 className={playlistStyles.subtitle}>你可能也喜欢</h4>
+          <div style={{marginBottom: 40}}>
             <ul>
-              {this.state.relatedPlaylist.map((item, index) => {
+              {this.state.relatDjradio.length == 0 ? <Spin tip="加载中..."/> : this.state.relatDjradio.map((item, index) => {
                 return <li key={index} className={playlistStyles.relatedPlaylist}>
-                    <Link onClick={
+                    <img src={item.picUrl} title={item.name} alt="" 
+                    className={playlistStyles.coverImgUrl}
+                    onClick={
                       () => {
-                        window.sessionStorage.setItem("djradio_id", item.id);
+                        sessionStorage.setItem("djradio_id", item.id);
                         window.location.reload();
-                      }
-                    } to={{pathname: "/discover/djradiodetail", state: this.state.djradio_id}}>
-                      <img src={item.coverUrl} alt="" className={playlistStyles.coverImgUrl}/>
-                    </Link>
+                      }  
+                    }/>
                     <div className={playlistStyles.relatedInfo}>
-                      <Link onClick={
+                      <h3 className={playlistStyles.relatedTitle} onClick={
                         () => {
-                          window.sessionStorage.setItem("djradio_id", item.id);
+                          sessionStorage.setItem("djradio_id", item.id);
                           window.location.reload();
-                        }
-                      } to={{pathname: "/discover/djradiodetail", state: this.state.djradio_id}}>
-                      <h3 className={playlistStyles.relatedTitle}>
+                        }  
+                      }>
                         <span className={playlistStyles.nickname} style={{fontSize: 14, color: "#000"}}>{item.name}</span>
                       </h3>
-                      </Link>
                       <p className={playlistStyles.userInfo}>
-                        <span style={{color: "#999", marginRight: 6}}>Vol. {item.serialNum}</span>
+                        <span style={{color: "#999", marginRight: 6}}>by</span>
+                        <span style={{color: "#666"}} className={playlistStyles.nickname}>{item.dj.nickname}</span>
+                        {item.dj.avatarDetail && <img style={{width: 13, height: 13, display: "inline-block", marginLeft: 5}} src={item.dj.avatarDetail.identityIconUrl} alt=""/>}
                       </p>
                     </div>
                 </li>
               })}
             </ul>
           </div>
-          </div>
-          }
           <ClientDown/>
         </div>
       </div>

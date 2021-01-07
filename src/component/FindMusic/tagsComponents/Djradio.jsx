@@ -1,11 +1,12 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 
 import djradioStyles from "../../../css/findmusic/djradioStyles.scss";
 
 import DjradioDefault from "../../commonComponent/DjradioDefault.jsx";
 
 import DjradioCategoryInfo from "../../commonComponent/DjradioCategoryInfo.jsx";
+
+import { Spin } from "antd";
 
 export default class Djradio extends React.Component{
   constructor(props)　{
@@ -50,6 +51,7 @@ export default class Djradio extends React.Component{
 
   render() {
     return <div className={djradioStyles.djradioContainer}>
+      {this.state.categories.length == 0 ? <Spin tip="加载中..."/> : 
       <ul className={djradioStyles.categoryList}>
         {this.state.categories.map(item => {
           return <li key={item.id} className={this.state.active == item.name ? djradioStyles.active: null}>
@@ -72,7 +74,7 @@ export default class Djradio extends React.Component{
             </a>
         </li>
       </ul>
-
+      }
       {this.state.active == null ? <DjradioDefault/> : <DjradioCategoryInfo cateId={this.state.cateId}/>}
     </div>
   }

@@ -178,7 +178,7 @@ export default class Recommmend extends React.Component {
                     <PlayListItem {...item} />
                   </Link>
                 }else{
-                  return <Link key={index} to={{pathname: "/discover/djradiodetail", state: {id: item.id}}}>
+                  return <Link key={index} to={{pathname: "/discover/djradioprogram", state: {id: item.id}}}>
                     <PlayListItem {...item} />
                   </Link>
                 }

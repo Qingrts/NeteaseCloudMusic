@@ -4,6 +4,7 @@ import djraioDefaultStyles from "../../css/findmusic/djraioDefaultStyles.scss";
 
 import { Link } from "react-router-dom";
 
+import { Spin } from "antd";
 
 export default class DjradioDefault extends React.Component{
   constructor(props)　{
@@ -79,11 +80,11 @@ export default class DjradioDefault extends React.Component{
       <div className={djraioDefaultStyles.recommendList}>
         <h2>推荐节目<a href="#">更多&gt;</a></h2>
         <ul>
-          {this.state.recommendList.map(item => {
+          {this.state.recommendList.length == 0 ? <Spin tip="加载中..."/> : this.state.recommendList.map(item => {
             return <li key={item.id}>
-              <a href="#" className={djraioDefaultStyles.coverUrl}><img src={item.coverUrl} alt=""/></a>
+              <Link to={{pathname: "/discover/djradioprogram", state: {id: item.id}}} className={djraioDefaultStyles.coverUrl}><img src={item.coverUrl} alt=""/></Link>
               <div className={djraioDefaultStyles.programsInfo}>
-                <h3><Link to={{pathname: "/discover/djradiodetail", state: {id: item.id}}}>{item.name}</Link></h3>
+                <h3><Link to={{pathname: "/discover/djradioprogram", state: {id: item.id}}}>{item.name}</Link></h3>
                 <p><a href="">{item.radio.name}</a></p>
               </div>
               <a href="" className={djraioDefaultStyles.programsTag}>{item.radio.category}</a>
@@ -94,7 +95,7 @@ export default class DjradioDefault extends React.Component{
       <div className={djraioDefaultStyles.toplist}>
         <h2>节目排行榜<a href="#">更多&gt;</a></h2>
         <ul>
-          {this.state.djtoplist.map((item) => {
+          {this.state.djtoplist.length == 0 ? <Spin tip="加载中..."/>  : this.state.djtoplist.map((item) => {
             return <li key={item.program.id}>
               <div className={djraioDefaultStyles.rank}>
                 <em>{item.rank.toString().padStart(2, "0")}</em>
@@ -104,9 +105,9 @@ export default class DjradioDefault extends React.Component{
                   : <i className={djraioDefaultStyles.new}/>}
                 </p>
               </div>
-              <a href="#" className={djraioDefaultStyles.coverUrl}><img src={item.program.coverUrl} alt=""/></a>
+              <Link to={{pathname: "/discover/djradioprogram", state: {id: item.program.id}}} className={djraioDefaultStyles.coverUrl}><img src={item.program.coverUrl} alt=""/></Link>
               <div className={djraioDefaultStyles.programsInfo}>
-                <h3><Link to={{pathname: "/discover/djradiodetail", state: {id: item.program.id}}}>{item.program.name}</Link></h3>
+                <h3><Link to={{pathname: "/discover/djradioprogram", state: {id: item.program.id}}}>{item.program.name}</Link></h3>
                 <p><a href="">{item.program.radio.name}</a></p>
               </div>
               <span className={djraioDefaultStyles.process}>
@@ -118,12 +119,19 @@ export default class DjradioDefault extends React.Component{
       </div>
 
       {this.state.getCateGoriesDesc.map((item ,index) => {
+        if(item.list.length == 0){
+          return <div key={index} className={djraioDefaultStyles.djradio_item}>
+            <h2><a href="#">{item.radioname}</a><b> · </b>电台<a href="#" className={djraioDefaultStyles.more}>更多&gt;</a></h2>
+            <Spin tip="加载中..."/>
+          </div>
+        }
+
         return <div key={index} className={djraioDefaultStyles.djradio_item}>
           <h2><a href="#">{item.radioname}</a><b> · </b>电台<a href="#" className={djraioDefaultStyles.more}>更多&gt;</a></h2>
           <ul>
             {item.list.map(programItem => {
               return <li key={programItem.id}>
-                <a href="" className={djraioDefaultStyles.programCoverimg}><img src={programItem.picUrl} alt=""/></a>
+                <Link to={{pathname: "/discover/djradiodetail", state: {id: programItem.id}}} className={djraioDefaultStyles.programCoverimg}><img src={programItem.picUrl} alt=""/></Link>
                 <div className={djraioDefaultStyles.programItemInfo}>
                   <h3 className={djraioDefaultStyles.programName}><a href="">{programItem.name}</a></h3>
                   <p className={djraioDefaultStyles.programDesc}>{programItem.rcmdtext}</p>

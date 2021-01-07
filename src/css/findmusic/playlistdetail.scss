@@ -302,11 +302,14 @@
       td:nth-child(4){
         width: 89px;
       }
-      td:nth-child(5){
+      td:last-child{
         width: 127px;
-        border-right: 1px solid #d9d9d9;
         padding-right: 10px;
       }
+    }
+    tbody{
+      border-right: 1px solid #d9d9d9;
+
     }
     tbody tr{
       td{

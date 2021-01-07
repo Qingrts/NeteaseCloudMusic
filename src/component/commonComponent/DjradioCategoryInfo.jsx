@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import djradioCategofyInfoStyles from "../../css/commonComponentStyles/djradioCategofyInfoStyles.scss";
 
@@ -28,6 +29,8 @@ export default class DjradioCategoryInfo extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
+    this.state.toplist = [];
+    this.state.cateList = [];
     if(nextProps.cateId != this.state.cateId){
       this.setState({
         cateId: nextProps.cateId
@@ -52,7 +55,6 @@ export default class DjradioCategoryInfo extends React.Component{
     fetch("http://localhost:3000/dj/radio/hot?limit=20&offset=" + offset + "&cateId=" + cateId)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       this.setState({
         toplist: data.djRadios,
         playlistTotal: data.count
@@ -73,9 +75,9 @@ export default class DjradioCategoryInfo extends React.Component{
     return <div className={djradioCategofyInfoStyles.container}>
       <h2>优秀新电台</h2>
       <ul className={djradioCategofyInfoStyles.excellentRadio}>
-        {this.state.cateList.map((item, index) => {
+        {this.state.cateList.length == 0 ? <Spin tip="加载中..."/> : this.state.cateList.map((item, index) => {
           return <li key={index}>
-            <a className={djradioCategofyInfoStyles.picUrl} href=""><img src={item.picUrl} alt=""/></a>
+            <Link to={{pathname: "/discover/djradiodetail", state: {id: item.id}}} className={djradioCategofyInfoStyles.picUrl} href=""><img src={item.picUrl} alt=""/></Link>
             <p className={djradioCategofyInfoStyles.name}><a href="">{item.name}</a></p>
             <p className={djradioCategofyInfoStyles.rcmdtext}>{item.rcmdtext}</p>
           </li>
@@ -85,9 +87,9 @@ export default class DjradioCategoryInfo extends React.Component{
       <ul className={djradioCategofyInfoStyles.toplist}>
         {this.state.toplist.length == 0 ? <Spin tip="加载中..."/> : this.state.toplist.map(item => {
           return <li key={item.id} className={djradioCategofyInfoStyles.programItem}>
-            <a href="" className={djradioCategofyInfoStyles.toplistItemCover}>
+            <Link to={{pathname: "/discover/djradiodetail"}} className={djradioCategofyInfoStyles.toplistItemCover}>
               <img src={item.picUrl} alt=""/>
-            </a>
+            </Link>
             <div className={djradioCategofyInfoStyles.programItemInfo}>
               <h3>{item.name}</h3>
               <p className={djradioCategofyInfoStyles.userIcon}><i></i>{item.dj.nickname}</p>

@@ -10,6 +10,7 @@ import Album from "./tagsComponents/Album.jsx";
 
 import PlaylistDetail from "./tagsComponents/PlaylistDetail.jsx";
 import AlbumDetail from "./tagsComponents/AlbumDetail.jsx";
+import DjradioProgramDetail from "./tagsComponents/DjradioProgramDetail.jsx";
 import DjradioDetail from "./tagsComponents/DjradioDetail.jsx";
 import SongDetail from "./tagsComponents/SongDetail.jsx";
 
@@ -82,6 +83,7 @@ export default class FindMusic extends React.Component{
 
         <Route exact path="/discover/playlistdetail" component={PlaylistDetail}></Route>
         <Route exact path="/discover/albumdetail" component={AlbumDetail}></Route>
+        <Route exact path="/discover/djradioprogram" component={DjradioProgramDetail}></Route>
         <Route exact path="/discover/djradiodetail" component={DjradioDetail}></Route>
         <Route exact path="/discover/songdetail" component={SongDetail}></Route>
       </Switch>
