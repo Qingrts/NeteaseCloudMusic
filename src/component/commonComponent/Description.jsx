@@ -13,6 +13,7 @@ export default class Description extends React.Component{
     };
   }
 
+
   render() {
     if(this.props.type == "album"){
       return <div style={{position: "relative", marginBottom: 50}} >
@@ -39,13 +40,14 @@ export default class Description extends React.Component{
         
     }
     return <div style={{position: "relative"}} className="desc">
+      {console.log(2)}
       {
       (this.state.descriptionToggle == false && this.state.description.length >= 150)
       ? 
       <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n/g, "<br />").substr(0, 150) + "..."}}>
       </div>
       :
-      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: this.state.startStr + this.state.description.replace(/\n/g, "<br />")}}></div>
+      <div className={descriptionSyles.description} dangerouslySetInnerHTML={{__html: this.state.startStr + this.props.desc.replace(/\n/g, "<br />")}}></div>
       }
       {
       this.state.description.length > 150 

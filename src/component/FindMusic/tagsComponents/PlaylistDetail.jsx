@@ -60,6 +60,8 @@ export default class Playlist extends React.Component{
       return response.json();
     })
     .then(data => {
+      this.state.detail.description = data.playlist.description;
+      console.log(this.state.detail.description);
       data.playlist.tracks && data.playlist.tracks.forEach((item, index) => {
         // 查看歌曲是否可用
         fetch("http://localhost:3000/check/music?id=" + item.id)
@@ -147,7 +149,7 @@ export default class Playlist extends React.Component{
                   return <a href="" key={index}>{item}</a>
                 })}
               </div>
-              {this.state.detail.description && this.state.detail.description.length == 0 ? null :<Description startStr={" 介绍 :"} desc={this.state.detail.description}/>}
+              {this.state.detail.description.length && this.state.detail.description.length == 0 ? null :<Description startStr={" 介绍 :"} desc={this.state.detail.description}/>}
             </div>
           </div>
           <div className={playlistStyles.playList}>

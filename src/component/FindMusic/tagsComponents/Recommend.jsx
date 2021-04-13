@@ -157,7 +157,7 @@ export default class Recommmend extends React.Component {
                 {this.state.tags.map((item, index) => {
                   return <li key={index}>
                     <Link to={
-                      {pathname: "/discover/playlistdetail",query: {cat: item.name}}
+                      {pathname: "/discover/playlistdetail",state: {category: item.category}}
                     }>
                       {
                       item.name

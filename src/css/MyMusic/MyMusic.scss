@@ -1,0 +1,28 @@
+.container{
+  width: 982px;
+  margin: 0 auto;
+  display: flex;
+  background: url(../../images/wrap3.png) repeat-y 0 0;
+}
+.containerLeft {
+  width: 240px;
+  border-left: 1px solid #d3d3d3;
+  padding: 40px 10px;
+}
+.containerRight{
+  flex: 1;
+  border-right: 1px solid #d3d3d3;
+}
+.floatBox{
+  width: 100%;
+  height: 5px;
+  background-color: #C20C0C;
+}
+.copyRight{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 2px;
+  background-size: cover;
+  background: url(../../images/black-r-icon@3x.png) no-repeat 0px -1px;
+}
