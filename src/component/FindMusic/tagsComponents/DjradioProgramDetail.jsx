@@ -68,6 +68,7 @@ export default class DjradioProgram extends React.Component{
       this.setState({
         detail: data.program
       })
+      console.log(this.state.detail);
       this.getUserRadio(data.program.radio.id);
     })
     .catch(err => {
@@ -155,7 +156,7 @@ export default class DjradioProgram extends React.Component{
         <div style={{flex: 1,borderLeft: "1px solid #d3d3d3",padding: "20px 40px 40px 30px"}}>
           {this.state.relatedPlaylist.length == 1 ? null :
           <div>
-            <h4 className={playlistStyles.subtitle}>更多节目 <a href="#" style={{float: "right", color: "#666", fontWeight: "400"}}>全部&gt;</a></h4>
+            <h4 className={playlistStyles.subtitle}>更多节目 <Link to={{pathname: "/discover/djradiodetail", state: {id: this.state.detail.radio.id}}} style={{float: "right", color: "#666", fontWeight: "400"}}>全部&gt;</Link></h4>
             <div style={{marginBottom: 40}}>
             <ul>
               {this.state.relatedPlaylist.map((item, index) => {
