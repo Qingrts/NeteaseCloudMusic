@@ -22,6 +22,9 @@ import Download from "./component/Download/Download.jsx";
 import styles from "./css/app.scss";
 import "./css/common.css";
 
+window.baseUrl = "http://localhost:3000";
+// window.baseUrl = "https://login1.cn1.utools.club";
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);

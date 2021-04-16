@@ -7,7 +7,7 @@ import Banners from "../../commonComponent/Banners.jsx";
 import PlayListItem from "../../commonComponent/PlayListItem.jsx";
 import NewAlbumList from "../../commonComponent/NewAlbumList.jsx";
 
-import { Spin } from "antd";
+import { Spin, Modal } from "antd";
 
 export default class Recommmend extends React.Component {
   constructor(props) {
@@ -24,9 +24,11 @@ export default class Recommmend extends React.Component {
       // 最新专辑列表
       albumList: [],
       // 榜单列表(多个)
-      topList: [{songs: []},{songs: []},{songs: []}]
+      topList: [{songs: []},{songs: []},{songs: []}],
+      isModalVisible: false
     };
   }
+  
 
   componentDidMount() {
     this.getTags();           // 获取热门歌曲标签
@@ -38,7 +40,7 @@ export default class Recommmend extends React.Component {
 
   // 获取热门歌曲标签
   getTags = () => {
-    fetch("http://localhost:3000/playlist/hot").then((response) => {
+    fetch(window.baseUrl + "/playlist/hot").then((response) => {
       return response.json();
     }).then(data => {
       this.setState({
@@ -50,14 +52,14 @@ export default class Recommmend extends React.Component {
   }
 
   getRecommendList = () => { // 获取热门推荐歌曲
-    fetch("http://localhost:3000/personalized?limit=8").then((response) => {
+    fetch(window.baseUrl + "/personalized?limit=8").then((response) => {
       return response.json();
     }).then(data => {
       // 请求成功之后获取5首歌曲,再请求 获取3个热门推荐电台
       let recommendList = data.result.slice(0, 4)
       recommendList = recommendList.concat(data.result.slice(7))
       // 获取热门推荐电台
-      fetch("http://localhost:3000/personalized/djprogram").then((response) => {
+      fetch(window.baseUrl + "/personalized/djprogram").then((response) => {
         return response.json();
       }).then(data => {
         this.setState({
@@ -73,7 +75,7 @@ export default class Recommmend extends React.Component {
 
   // 获取歌手列表 (数据是错误的,接口未找到) 待修改
   getSingerlist = () => {
-    fetch("http://localhost:3000/artist/list?type=-1&area=-1&limit=6").then((response) => {
+    fetch(window.baseUrl + "/artist/list?type=-1&area=-1&limit=6").then((response) => {
       return response.json();
     }).then(data => {
       this.setState({singerList: data.artists})
@@ -84,7 +86,7 @@ export default class Recommmend extends React.Component {
 
   // 获取主播电台列表 (数据是错误的,接口未找到) 待修改
   getanchorList = () => {
-    fetch("http://localhost:3000/dj/toplist/popular?limit=6").then((response) => {
+    fetch(window.baseUrl + "/dj/toplist/popular?limit=6").then((response) => {
       return response.json();
     }).then(data => {
       this.setState({anchorList: data.data.list})
@@ -104,7 +106,7 @@ export default class Recommmend extends React.Component {
 
   // 获取榜单
   getToplist = () => {
-    fetch("http://localhost:3000/toplist").then(response => {
+    fetch(window.baseUrl + "/toplist").then(response => {
       return response.json();
     }).then(data => {
       let toplist = data.list.splice(0, 3);
@@ -118,13 +120,13 @@ export default class Recommmend extends React.Component {
 
   // 封装获取每个榜单前10首歌的方法
   getData = (toplist, index) => {
-    fetch("http://localhost:3000/playlist/detail?id=" + toplist[index].id)
+    fetch(window.baseUrl + "/playlist/detail?id=" + toplist[index].id)
     .then(response => {
       return response.json();
     })
     .then((data) => {
       let ids = data.playlist.trackIds.splice(0, 10).map(item => item.id).join(",");
-      fetch("http://localhost:3000/song/detail?ids=" + ids).then(res => {
+      fetch(window.baseUrl + "/song/detail?ids=" + ids).then(res => {
         return res.json();
       }).then(songs => {
         toplist[index].songs = songs.songs
@@ -137,6 +139,38 @@ export default class Recommmend extends React.Component {
     })
     .catch((err) => {
       console.log(err);
+    })
+  }
+
+
+  // 点击登录时,模态窗口显示
+  showModal = () => {
+    this.setState({
+      isModalVisible: true
+    })
+  };
+  // 点击登录,验证信息
+  login = () => {
+    
+  }
+
+
+  enter = () => {
+    this.setState({
+      email: event.target.value
+    })
+  }
+  enterPassword = () => {
+    this.setState({
+      password: event.target.value
+    })
+  }
+
+  login = () => {
+    fetch(window.baseUrl + "/login?email=xxx@163.com&password=yyy")
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
     })
   }
 
@@ -257,7 +291,12 @@ export default class Recommmend extends React.Component {
             styles.login
           }>
             <p>登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</p>
-            <button>用户登录</button>
+            <button onClick={this.showModal}>用户登录</button>
+            <Modal title="邮箱登录" visible={this.state.isModalVisible} onOk={this.login}>
+              邮箱:<input style={{border: "1px solid #f00"}} onChange={this.enterEmail} type="text" name="email" id=""/>
+              <br /><br />
+              密码:<input style={{border: "1px solid #f00"}} onChange={this.enterPassword} type="password" name="password" id=""/>
+            </Modal>
           </div>
           <div className={
             styles.singer

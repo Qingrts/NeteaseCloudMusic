@@ -60,7 +60,7 @@ export default class DjradioProgram extends React.Component{
   }
   // 获取歌单详情
   getPlaylistDetail = (id) => {
-    fetch("http://localhost:3000/dj/program/detail?id=" + id)
+    fetch(window.baseUrl + "/dj/program/detail?id=" + id)
     .then(response => {
       return response.json();
     })
@@ -77,7 +77,7 @@ export default class DjradioProgram extends React.Component{
   }
 
   getUserRadio = (id) => {
-    fetch("http://localhost:3000/dj/program?rid=" + id)
+    fetch(window.baseUrl + "/dj/program?rid=" + id)
     .then(response => response.json())
     .then(data => {
       let programs = data.programs.slice(0, (data.programs.length >= 5 ? 5 : data.programs.length));
@@ -149,7 +149,7 @@ export default class DjradioProgram extends React.Component{
               <span>播放 :<strong>{this.state.detail.listenerCount}</strong>次</span>
               <div style={{margin: "20px 0 50px"}} dangerouslySetInnerHTML={{__html: "介绍 : " + this.state.detail.description.replace(/\n/g, "<br />")}}>
               </div>
-              <CommentsList id={this.state.djradioprogram_id} fetchUrl={"http://localhost:3000/comment/dj?limit=20&id="}/>
+              <CommentsList id={this.state.djradioprogram_id} fetchUrl={window.baseUrl + "/comment/dj?limit=20&id="}/>
             </div>
           </div>
         </div>

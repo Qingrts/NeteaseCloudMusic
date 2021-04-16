@@ -41,7 +41,7 @@ export default class DjradioCategoryInfo extends React.Component{
   }
 
   getCateData = (cateId) => {
-    fetch("http://localhost:3000/dj/recommend/type?type=" + cateId)
+    fetch(window.baseUrl + "/dj/recommend/type?type=" + cateId)
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -52,7 +52,7 @@ export default class DjradioCategoryInfo extends React.Component{
   }
 
   getToplistData = (cateId, offset) => {
-    fetch("http://localhost:3000/dj/radio/hot?limit=20&offset=" + offset + "&cateId=" + cateId)
+    fetch(window.baseUrl + "/dj/radio/hot?limit=20&offset=" + offset + "&cateId=" + cateId)
     .then(res => res.json())
     .then(data => {
       this.setState({

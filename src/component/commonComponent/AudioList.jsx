@@ -40,7 +40,7 @@ export default class AudioList extends React.Component{
 
 
   getPlaylistDetail = (id) => {
-    fetch("http://localhost:3000/song/detail?ids=" + id)
+    fetch(window.baseUrl + "/song/detail?ids=" + id)
     .then(response => response.json())
     .then(data => {
       this.setState({
@@ -52,7 +52,7 @@ export default class AudioList extends React.Component{
     })
   }
   getSongURL = (id) => {
-    fetch("http://localhost:3000/song/url?id=" + id)
+    fetch(window.baseUrl + "/song/url?id=" + id)
     .then(res => res.json())
     .then(data => {
       this.setState({

@@ -36,7 +36,7 @@ export default class ToplistDetail extends React.Component{
   }
 
   getToplistDetail = (id) => {
-    fetch("http://localhost:3000/playlist/detail?id=" + id)
+    fetch(window.baseUrl + "/playlist/detail?id=" + id)
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -118,7 +118,7 @@ export default class ToplistDetail extends React.Component{
           </table>
         </div>
       </div>
-      <CommentsList id={this.state.toplist_id || 19723756} fetchUrl={"http://localhost:3000/comment/playlist?litmit=20&id="}/>
+      <CommentsList id={this.state.toplist_id || 19723756} fetchUrl={window.baseUrl + "/comment/playlist?litmit=20&id="}/>
     </div>
   }
 }

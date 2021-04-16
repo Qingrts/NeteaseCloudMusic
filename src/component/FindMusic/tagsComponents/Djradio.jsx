@@ -25,7 +25,7 @@ export default class Djradio extends React.Component{
 
   // 获取电台分类列表
   getDjradioCatelist = () => {
-    fetch("http://localhost:3000/dj/catelist")
+    fetch(window.baseUrl + "/dj/catelist")
     .then(res => res.json())
     .then(data => {
       this.setState({

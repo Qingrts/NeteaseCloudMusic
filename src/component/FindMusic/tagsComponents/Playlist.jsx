@@ -6,6 +6,7 @@ import { Pagination, Spin } from "antd";
 import playlistStyles from "../../../css/findmusic/playlist.scss";
 import PlayListItem from "../../commonComponent/PlayListItem.jsx";
 
+
 export default class PlaylistCategory extends React.Component{
   constructor(props)　{
     super(props);
@@ -30,7 +31,7 @@ export default class PlaylistCategory extends React.Component{
       arr.push(key + "=" + obj[key])
     }
     arr = arr.join("&")
-    fetch("http://localhost:3000/top/playlist?" + arr)
+    fetch(window.baseUrl + "/top/playlist?" + arr)
     .then(response => response.json())
     .then(data => {
       this.setState({

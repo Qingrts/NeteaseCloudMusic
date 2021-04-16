@@ -43,7 +43,7 @@ export default class ArtistDetail extends React.Component{
   }
 
   getHotArtistList = () => {
-    fetch("http://localhost:3000/top/artists?limit=100")
+    fetch(window.baseUrl + "/top/artists?limit=100")
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -70,7 +70,7 @@ export default class ArtistDetail extends React.Component{
         arr.push(`${key}=${obj[key]}`)
       }
     }
-    fetch(`http://localhost:3000/artist/list?${arr.join("&")}`)
+    fetch(`${window.baseUrl}/artist/list?${arr.join("&")}`)
     .then(res => res.json())
     .then(data => {
       this.setState({

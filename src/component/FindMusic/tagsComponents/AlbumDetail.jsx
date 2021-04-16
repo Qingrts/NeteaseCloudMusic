@@ -59,7 +59,7 @@ export default class Playlist extends React.Component{
   }
   // 获取专辑详情
   getPlaylistDetail = (id) => {
-    fetch("http://localhost:3000/album?id=" + id)
+    fetch(window.baseUrl + "/album?id=" + id)
     .then(response => {
       return response.json();
     })
@@ -75,7 +75,7 @@ export default class Playlist extends React.Component{
   }
 
   getDynamic = (id) => {
-    fetch("http://localhost:3000/album/detail/dynamic?id=" + id)
+    fetch(window.baseUrl + "/album/detail/dynamic?id=" + id)
     .then(response => response.json())
     .then(data => {
       this.setState({
@@ -171,7 +171,7 @@ export default class Playlist extends React.Component{
               </table>
             </div>
           </div>
-          <CommentsList fetchUrl={"http://localhost:3000/comment/album?id="} id={this.state.playlist_id}/>
+          <CommentsList fetchUrl={window.baseUrl + "/comment/album?id="} id={this.state.playlist_id}/>
         </div>
         <div className={playlistStyles.container_right}>
           <h4 className={playlistStyles.subtitle}>喜欢这个专辑的人</h4>

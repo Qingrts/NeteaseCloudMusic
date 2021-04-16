@@ -27,7 +27,7 @@ export default class Toplist extends React.Component{
 
   // 获取榜单信息
   getToplist = (index) => {
-    fetch("http://localhost:3000/toplist")
+    fetch(window.baseUrl + "/toplist")
     .then(res => res.json())
     .then(data => {
       this.setState({

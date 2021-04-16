@@ -10,7 +10,7 @@ export default class Banners extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/banner?type=2").then(response => response.json()).then((data) => {
+    fetch(window.baseUrl + "/banner?type=2").then(response => response.json()).then((data) => {
       this.setState({banners: data.banners})
       this.refs.bg_img.style = "background: url(" + this.state.banners[0].pic + ") no-repeat center center;background-size: 6000px";
     }).catch((err) => {

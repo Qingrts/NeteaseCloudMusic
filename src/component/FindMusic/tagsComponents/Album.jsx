@@ -25,7 +25,7 @@ export default class Album extends React.Component{
 
   // 获取热门新碟
   getHotAlbum = () => {
-    fetch("http://localhost:3000/album/newest")
+    fetch(window.baseUrl + "/album/newest")
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -38,7 +38,7 @@ export default class Album extends React.Component{
   }
 
   getAllNewAlbum = (offset) => {
-    fetch("http://localhost:3000/album/new?area=ALL&limit=35&offset=" + offset)
+    fetch(window.baseUrl + "/album/new?area=ALL&limit=35&offset=" + offset)
     .then(res => res.json())
     .then(data => {
       this.setState({

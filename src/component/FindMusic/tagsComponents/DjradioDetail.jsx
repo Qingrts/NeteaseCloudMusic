@@ -48,7 +48,7 @@ export default class DjradioDetail extends React.Component{
   
   getDjradioDetail = (id) => {
     // 获取电台详情
-    fetch("http://localhost:3000/dj/detail?rid=" + id)
+    fetch(window.baseUrl + "/dj/detail?rid=" + id)
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -56,7 +56,7 @@ export default class DjradioDetail extends React.Component{
       })
 
       // 获取热门推荐
-      fetch("http://localhost:3000/dj/radio/hot?limit=5&cateId=" + data.data.categoryId)
+      fetch(window.baseUrl + "/dj/radio/hot?limit=5&cateId=" + data.data.categoryId)
       .then(res => res.json())
       .then(relat => {
         this.setState({
@@ -66,7 +66,7 @@ export default class DjradioDetail extends React.Component{
       .catch(err => err);
 
       // 获取节目列表
-      fetch("http://localhost:3000/dj/program?asc=true&rid=" + data.data.id)
+      fetch(window.baseUrl + "/dj/program?asc=true&rid=" + data.data.id)
       .then(res => res.json())
       .then(djprogramdata => {
         this.setState({

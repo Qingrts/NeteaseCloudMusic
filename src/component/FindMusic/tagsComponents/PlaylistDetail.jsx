@@ -55,7 +55,7 @@ export default class Playlist extends React.Component{
   }
   // 获取歌单详情
   getPlaylistDetail = (id) => {
-    fetch("http://localhost:3000/playlist/detail?id=" + id)
+    fetch(window.baseUrl + "/playlist/detail?id=" + id)
     .then(response => {
       return response.json();
     })
@@ -64,7 +64,7 @@ export default class Playlist extends React.Component{
       console.log(this.state.detail.description);
       data.playlist.tracks && data.playlist.tracks.forEach((item, index) => {
         // 查看歌曲是否可用
-        fetch("http://localhost:3000/check/music?id=" + item.id)
+        fetch(window.baseUrl + "/check/music?id=" + item.id)
         .then(res => res.json())
         .then(data1 => {
           data.playlist.tracks[index]["unable"] = data1.success;
@@ -82,7 +82,7 @@ export default class Playlist extends React.Component{
   }
   // 获取评论列表
   getCommentList = (id, offset) => {
-    fetch("http://localhost:3000/comment/playlist?limit=20&id=" + id + "&offset=" + offset)
+    fetch(window.baseUrl + "/comment/playlist?limit=20&id=" + id + "&offset=" + offset)
     .then(response => {
       return response.json();
     })
@@ -99,7 +99,7 @@ export default class Playlist extends React.Component{
 
   // 获取相关推荐
   getRelated = (id) => {
-    fetch("http://localhost:3000/related/playlist?id=" + id)
+    fetch(window.baseUrl + "/related/playlist?id=" + id)
     .then(response => {
       return response.json();
     })
@@ -205,7 +205,7 @@ export default class Playlist extends React.Component{
               </div> : null}
             </div>
           </div>
-          <CommentsList id={this.state.playlist_id} fetchUrl={"http://localhost:3000/comment/playlist?litmit=20&id="}/>
+          <CommentsList id={this.state.playlist_id} fetchUrl={window.baseUrl + "/comment/playlist?litmit=20&id="}/>
           </div>
         <div className={playlistStyles.container_right}>
           <h4 className={playlistStyles.subtitle}>喜欢这个歌单的人</h4>

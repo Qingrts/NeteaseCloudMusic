@@ -39,7 +39,7 @@ export default class DjradioDefault extends React.Component{
 
   // 获取电台主页,推荐节目列表
   getDjradioRecommentList = () => {
-    fetch("http://localhost:3000/program/recommend")
+    fetch(window.baseUrl + "/program/recommend")
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -50,7 +50,7 @@ export default class DjradioDefault extends React.Component{
   }
   // 获取电台排行榜
   getDjradioToplist = () => {
-    fetch("http://localhost:3000/dj/program/toplist?limit=10")
+    fetch(window.baseUrl + "/dj/program/toplist?limit=10")
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -62,7 +62,7 @@ export default class DjradioDefault extends React.Component{
 
   getCateRecomment = (obj, index) => {
     return new Promise(() => {
-      fetch("http://localhost:3000/dj/recommend/type?type=" + obj.type)
+      fetch(window.baseUrl + "/dj/recommend/type?type=" + obj.type)
       .then(res => res.json())
       .then(data => {
         let newObj = JSON.parse(JSON.stringify(this.state.getCateGoriesDesc));

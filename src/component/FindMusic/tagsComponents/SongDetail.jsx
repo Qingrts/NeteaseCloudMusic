@@ -66,7 +66,7 @@ export default class SongDetail extends React.Component{
   }
   // 获取歌曲详情
   getPlaylistDetail = (id) => {
-    fetch("http://localhost:3000/song/detail?ids=" + id)
+    fetch(window.baseUrl + "/song/detail?ids=" + id)
     .then(response => {
       return response.json();
     })
@@ -82,7 +82,7 @@ export default class SongDetail extends React.Component{
 
   // 获取评论数量
   getCommentsTotal = (id) => {
-    fetch("http://localhost:3000/comment/music?id=" + id + "&limit=1")
+    fetch(window.baseUrl + "/comment/music?id=" + id + "&limit=1")
     .then(res => res.json())
     .then(total => {
       this.setState({
@@ -96,7 +96,7 @@ export default class SongDetail extends React.Component{
 
     // 获取歌词
     getLyric = (id) => {
-    fetch("http://localhost:3000/lyric?id=" + id)
+    fetch(window.baseUrl + "/lyric?id=" + id)
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -112,7 +112,7 @@ export default class SongDetail extends React.Component{
 
   // 获取包含这首歌的歌单
   getIncludeThisSongList = (id) => {
-    fetch("http://localhost:3000/simi/playlist?id=" + id)
+    fetch(window.baseUrl + "/simi/playlist?id=" + id)
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -126,7 +126,7 @@ export default class SongDetail extends React.Component{
 
   // 获取相似歌曲
   getSimpleSong = (id) => {
-    fetch("http://localhost:3000/simi/song?id=" + id)
+    fetch(window.baseUrl + "/simi/song?id=" + id)
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -188,7 +188,7 @@ export default class SongDetail extends React.Component{
               </p>
             </div>
           </div>
-          <CommentsList fetchUrl={"http://localhost:3000/comment/music?id="} id={this.state.song_id}/>
+          <CommentsList fetchUrl={window.baseUrl + "/comment/music?id="} id={this.state.song_id}/>
         </div>
         <div className={playlistStyles.container_right}>
           {this.state.includeThisSongList.length == 0 ? null : 

@@ -26,7 +26,7 @@ export default class NewAlbumList extends React.Component{
   }
 
   getAlbumlist = () => {
-    fetch("http://localhost:3000/album/newest").then(response => {
+    fetch(window.baseUrl + "/album/newest").then(response => {
       return response.json();
     }).then(data => {
       this.setState({
