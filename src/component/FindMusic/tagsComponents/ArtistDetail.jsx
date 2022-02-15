@@ -105,7 +105,7 @@ export default class ArtistDetail extends React.Component{
         <ul className={artistDetailStyles.artistListDesc}>
           {this.state.hotArtistList.slice(10, 100).map((item, index) => {
             return <li key={index}>
-              <p><span>{item.name}</span><i></i></p>
+              <p><span style={{maxWidth: "80%",overflow: "hidden",textOverflow:"ellipsis", whiteSpace: "nowrap"}}>{item.name}</span><i></i></p>
             </li>
           })}
         </ul>

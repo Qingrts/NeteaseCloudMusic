@@ -104,7 +104,7 @@ export default class DjradioCategoryInfo extends React.Component{
         current={this.state.currentPage}
         onChange={this.pageChange}
         showSizeChanger={false} 
-        total={(this.state.playlistTotal + 1) * 10 / 35} />
+        total={parseInt((this.state.playlistTotal + 1) * 10 / 35)} />
     </div>
   }
 }

@@ -44,7 +44,7 @@ export default class PlaylistCategory extends React.Component{
     })
   }
 
-  pageChange = (page) => {
+  pageChange = (page, pageSize) => {
     this.state.hotPlaylist = [];
     this.getHotPlaylist({
       order: "hot",
@@ -82,9 +82,9 @@ export default class PlaylistCategory extends React.Component{
         <Pagination 
         style={{textAlign: "center", marginTop: "60px"}} 
         current={this.state.currentPage}
-        onChange={this.pageChange}
+        onChange={this.pageChange }
         showSizeChanger={false} 
-        total={(this.state.playlistTotal + 1) * 10 / 35} />
+        total={parseInt((this.state.playlistTotal + 1) * 10 / 35)} />
       </div>
       }
     </div>

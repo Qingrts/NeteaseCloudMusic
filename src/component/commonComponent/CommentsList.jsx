@@ -58,10 +58,7 @@ export default class CommentsList extends React.Component{
       comments: [],
       loading: false
     })
-    setTimeout(() => {
     this.getCommentList(this.state.playlist_id, (page - 1) * 20);
-      
-    }, 2000);
     this.setState({
       commentCurrentPage: page,
     });
@@ -168,7 +165,7 @@ export default class CommentsList extends React.Component{
         current={this.state.commentCurrentPage} 
         onChange={this.onChange} 
         showSizeChanger={false} 
-        total={(this.state.commentTotal + 1) * 10 / 20} /> : null}
+        total={parseInt((this.state.commentTotal + 1) * 10 / 20)} /> : null}
     </div>
   }
 }
